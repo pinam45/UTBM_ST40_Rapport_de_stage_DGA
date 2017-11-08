@@ -1,0 +1,317 @@
+\documentclass{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	%---------------------------------
+	% Zones and sub
+	\pgfmathsetmacro\titleheight{20}%
+
+	\pgfmathsetmacro\subwidth{100}%
+	\pgfmathsetmacro\subaheight{150}%
+	\pgfmathsetmacro\subbheight{150}%
+	\pgfmathsetmacro\subcheight{50}%
+	\pgfmathsetmacro\subxsep{10}%
+	\pgfmathsetmacro\subyshift{10}%
+
+	\pgfmathsetmacro\zonewidth{5*\subwidth+6*\subxsep+10*\pgfkeysvalueof{/pgf/inner xsep}}%
+	\pgfmathsetmacro\zoneaheight{\titleheight+\subbheight+2*\subyshift}%
+	\pgfmathsetmacro\zonebheight{\subbheight+2*\subyshift}%
+	\pgfmathsetmacro\zonecheight{\subcheight+2*\subyshift}%
+	\pgfmathsetmacro\zonedheight{150}%
+	\pgfmathsetmacro\zonesep{30}%
+	\pgfmathsetmacro\zoneyextra{30}%
+
+	%---------------------------------
+	% Tree
+	\pgfmathsetmacro\tblockheight{50}%
+	\pgfmathsetmacro\tblockwidth{110}%
+	\pgfmathsetmacro\tblocksep{30}%
+
+	\pgfmathsetmacro\tlevelaprelinelength{50}%
+	\pgfmathsetmacro\tlevelaxshift{30}%
+	\pgfmathsetmacro\tlevelayshift{40}%
+
+	\pgfmathsetmacro\tlevelprelinelength{30}%
+	\pgfmathsetmacro\tlevellinelength{30}%
+
+	\pgfmathsetmacro\tlevelbxshift{70}%
+	\pgfmathsetmacro\tlevelcxshift{200}%
+
+	%---------------------------------
+	% Colors
+	\colorlet{zoneacolor}{black!60}%
+	\colorlet{zonebcolor}{black!40}%
+	\colorlet{zoneccolor}{black!20}%
+	\colorlet{zonedcolor}{black!0}%
+
+	\colorlet{ministerecolor}{blue!60}%
+	\colorlet{subminarmcolor}{blue!60}%
+	\colorlet{subdgacolor}{blue!60}%
+	\colorlet{tblockcolor}{blue!40}%
+	\colorlet{tblockselectedcolor}{green!45}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt]
+		\tikzset{ministere/.style={
+			rectangle,
+			minimum width=\subwidth,
+			minimum height=\subaheight,
+			fill=ministerecolor,
+			anchor=north west,
+			text width=\subwidth,
+			text centered,
+			xshift=\subxsep,
+		}}
+		\tikzset{subminarm/.style={
+			rectangle,
+			minimum width=\subwidth,
+			minimum height=\subbheight,
+			fill=subminarmcolor,
+			anchor=north west,
+			text width=\subwidth,
+			text centered,
+			xshift=\subxsep,
+		}}
+		\tikzset{subdga/.style={
+			rectangle,
+			minimum width=\subwidth,
+			minimum height=\subcheight,
+			fill=subdgacolor,
+			anchor=north west,
+			text width=\subwidth,
+			text centered,
+			xshift=\subxsep,
+		}}
+		\tikzset{firsttblock/.style={
+			rectangle,
+			minimum height=\tblockheight,
+			minimum width=\tblockwidth,
+			fill=tblockcolor,
+			text width=100,
+			anchor=north west,
+			text centered,
+		}}
+		\tikzset{tblock/.style={
+			firsttblock,
+			xshift=\tblocksep,
+		}}
+
+		%---------------------------------
+		% Zone A: Ministères français
+		\node[
+			%draw,
+			rectangle,
+			anchor=north west,
+			fill=zoneacolor,
+			minimum width=\zonewidth,
+			minimum height=\zoneaheight+\zoneyextra,
+		] (minfr) at (0,0) {};
+		\node[
+			anchor=north,
+			outer sep=3,
+		] (minfrtxt) at (minfr.north) {\bfseries\huge Ministères français};
+
+		%---------------------------------
+		% Ministère de la culture
+		\node[
+			ministere,
+			yshift=-\subyshift-\titleheight,
+		] (mincult) at (minfr.north west) {\includegraphics[height=100pt]{logos/Ministeredelaculture.png} Ministère de la culture};
+
+		%---------------------------------
+		% Ministère des armées + selection
+		\node[
+			ministere,
+			fill=zonebcolor,
+		] (minarm) at (mincult.north east) {\includegraphics[height=100pt]{logos/MinisteredesArmees.png} \bfseries Ministère des armées};
+
+		%---------------------------------
+		% Ministère de l'économie et des finances
+		\node[
+			ministere
+		] (minecofin) at (minarm.north east) {\includegraphics[height=100pt]{logos/MinisteredeleconomieetdesFinances.png} Ministère de l'économie et des finances};
+
+		%---------------------------------
+		% Ministère de l'Éducation nationale
+		\node[
+			ministere
+		] (minedu) at (minecofin.north east) {\includegraphics[height=100pt]{logos/MinisteredelEducationnationale.png} Ministère de l'Éducation nationale};
+
+		%---------------------------------
+		% ...
+		\node[
+			ministere
+		] (minect) at (minedu.north east) {\Huge\ldots};
+
+		%---------------------------------
+		% Zone B: selection Ministère des armées
+		\coordinate (A) at (minarm.south west);
+		\coordinate (B) at (minarm.south east);
+		\coordinate (C) at (0,-\zoneaheight-\zonesep);
+		\coordinate (D) at (\zonewidth,-\zoneaheight-\zonesep);
+		\coordinate (E) at ($(C)+(0,-\zonebheight-\zoneyextra)$);
+		\coordinate (F) at ($(D)+(0,-\zonebheight-\zoneyextra)$);
+
+		\fill[fill=zonebcolor,outer sep=0] (A) -- (C) -- (E) -- (F) -- (D) -- (B) -- cycle;
+		\draw[ultra thick,color=zonebcolor] (minarm.south west) -- (minarm.south east);
+
+		\coordinate (zbnw) at (C);
+		\coordinate (zbne) at (D);
+		\coordinate (zbsw) at (E);
+		\coordinate (zbse) at (F);
+
+		%---------------------------------
+		% DGSE
+		\node[
+			subminarm,
+			yshift=-\subyshift,
+		] (dgse) at (zbnw) {\includegraphics[height=100pt]{logos/DGSE.png} Direction générale de la Sécurité extérieure (DGSE)};
+
+		%---------------------------------
+		% Service de santé des armées
+		\node[
+			subminarm
+		] (sersantearmees) at (dgse.north east) {\includegraphics[height=100pt]{logos/Servicedesantedesarmees.jpg} Service de santé des armées};
+
+		%---------------------------------
+		% DGA + selection
+		\node[
+			subminarm,
+			fill=zoneccolor,
+		] (dga) at (sersantearmees.north east) {\includegraphics[height=100pt]{logos/DGA.png} \bfseries Direction générale de l'armement (DGA)};
+
+		%---------------------------------
+		% DRM
+		\node[
+			subminarm,
+		] (drm) at (dga.north east) {\includegraphics[height=95pt]{logos/DRM.jpg} Direction du Renseignement militaire (DRM)};
+
+		%---------------------------------
+		% ...
+		\node[
+			subminarm
+		] (subminect) at (drm.north east) {\Huge\ldots};
+
+		%---------------------------------
+		% Zone C: selection DGA
+		\coordinate (A) at (dga.south west);
+		\coordinate (B) at (dga.south east);
+		\coordinate (C) at (0,-\zoneaheight-\zonebheight-2*\zonesep);
+		\coordinate (D) at (\zonewidth,-\zoneaheight-\zonebheight-2*\zonesep);
+		\coordinate (E) at ($(C)+(0,-\zonecheight-\zoneyextra)$);
+		\coordinate (F) at ($(D)+(0,-\zonecheight-\zoneyextra)$);
+
+		\fill[fill=zoneccolor,outer sep=0] (A) -- (C) -- (E) -- (F) -- (D) -- (B) -- cycle;
+		\draw[ultra thick,color=zoneccolor] (dga.south west) -- (dga.south east);
+
+		\coordinate (zcnw) at (C);
+		\coordinate (zcne) at (D);
+		\coordinate (zcsw) at (E);
+		\coordinate (zcse) at (F);
+
+		%---------------------------------
+		% DGA EM
+		\node[
+			subdga,
+			yshift=-\subyshift,
+		] (dgaem) at (zcnw) {DGA Essais de missiles (EM)};
+
+		%---------------------------------
+		% DGA MI
+		\node[
+			subdga,
+			%fill=zonedcolor
+			fill=tblockcolor
+		] (dgami) at (dgaem.north east) {\bfseries DGA Maitrise de l'Information (MI)};
+
+		%---------------------------------
+		% DGA TT
+		\node[
+			subdga
+		] (dgatt) at (dgami.north east) {DGA Techniques terrestres (TT)};
+
+		%---------------------------------
+		% DGA TA
+		\node[
+			subdga
+		] (dgata) at (dgatt.north east) {DGA Techniques Aéronautiques (TA)};
+
+		%---------------------------------
+		% ...
+		\node[
+			subdga
+		] (dgaect) at (dgata.north east) {\Huge\ldots};
+
+		%---------------------------------
+		% Zone D: selection DGA MI
+		\coordinate (A) at (dgami.south west);
+		\coordinate (B) at (dgami.south east);
+		\coordinate (C) at (0,-\zoneaheight-\zonebheight-\zonecheight-3*\zonesep);
+		\coordinate (D) at (\zonewidth,-\zoneaheight-\zonebheight-\zonecheight-3*\zonesep);
+		\coordinate (E) at ($(C)+(0,-\zonedheight-\zoneyextra)$);
+		\coordinate (F) at ($(D)+(0,-\zonedheight-\zoneyextra)$);
+
+		\fill[fill=zonedcolor,outer sep=0] (A) -- (C) -- (E) -- (F) -- (D) -- (B) -- cycle;
+		\draw[color=zonedcolor] (dgami.south west) -- (dgami.south east);
+
+		\coordinate (zdnw) at (C);
+		\coordinate (zdne) at (D);
+		\coordinate (zdsw) at (E);
+		\coordinate (zdse) at (F);
+
+		%---------------------------------
+		% Tree ref
+		\coordinate (treeref) at (zdnw.north west);
+
+		%---------------------------------
+		% DGA MI tree
+		\coordinate (A) at ($(dgami.south)-(0,\tlevelaprelinelength)$);
+		\draw (dgami.south) -- (A);
+
+		%---------------------------------
+		% SSI3
+		\node[
+			firsttblock,
+			yshift=-\tlevelayshift,
+			xshift=\tlevelaxshift,
+		] (ssi3) at (treeref) {Sécurité des systèmes d'information 3 (SSI3)};
+		\draw (A) -| (ssi3.north);
+
+		%---------------------------------
+		% SSI5
+		\node[
+			tblock,
+		] (ssi5) at (ssi3.north east) {\bfseries Sécurité des systèmes d'information 5 (SSI5)};
+		\draw (A) -| (ssi5.north);
+
+		%---------------------------------
+		% SSI1
+		\node[
+			tblock,
+		] (ssi1) at (ssi5.north east) {Sécurité des systèmes d'information 1 (SSI1)};
+		\draw (A) -| (ssi1.north);
+
+		%---------------------------------
+		% ...
+		\node[
+			tblock,
+		] (ect) at (ssi1.north east) {\ldots};
+		\draw (A) -| (ect.north);
+
+		%---------------------------------
+		% SSI5 tree
+		\coordinate (A) at ($(ssi5.south)-(0,\tlevelprelinelength)$);
+		\draw (ssi5.south) -- (A);
+
+		%---------------------------------
+		% VIM/VSE
+		\node[
+			firsttblock,
+			anchor=north,
+			minimum width=2*\tblockwidth,
+			text width=(2*\tblockwidth)-5,
+			fill=tblockselectedcolor,
+		] (vimvse) at (A) {\bfseries Rétro-ingénierie et analyse de malwares et produits logiciels (VIM/VSE)};
+		\draw (A) -| (vimvse.north);
+	\end{tikzpicture}
+\end{document}
