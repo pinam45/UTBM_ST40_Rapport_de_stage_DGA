@@ -1,0 +1,161 @@
+\documentclass{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	%---------------------------------
+	% Lengths
+	\pgfmathsetmacro\yearswidth{100}%
+	\pgfmathsetmacro\yearsheight{12}%
+	\pgfmathsetmacro\zoneheight{30}%
+
+	%---------------------------------
+	% Colors
+	\colorlet{anneecolor}{Blue!50}%
+	\colorlet{utbmcolor}{cyan!30}%
+	\colorlet{tccolor}{orange!30}%
+	\colorlet{branchecolor}{red!30}%
+	\colorlet{detailacolor}{Purple!30}%
+	\colorlet{detailbcolor}{Indigo!40}%
+	\colorlet{stagecolor}{green!40}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt]
+		\tikzset{annee/.style={
+			rectangle,
+			outer sep=0,
+			minimum height=\yearsheight,
+			anchor=north west,
+			fill=anneecolor
+		}}
+		\tikzset{anneesep/.style={
+			ultra thick,
+			color=white,
+		}}
+		\tikzset{zone/.style={
+			rectangle,
+			minimum height=\zoneheight,
+			anchor=north west,
+		}}
+
+		%---------------------------------
+		% Années
+		\node[
+			annee,
+			minimum width=1/3*\yearswidth,
+		] (y2014) at (0,3+\yearsheight) {\scriptsize 2014};
+		\draw[anneesep] (y2014.north east) -- (y2014.south east);
+
+		\node[
+			annee,
+			minimum width=\yearswidth,
+		] (y2015) at (y2014.north east) {\scriptsize 2015};
+		\draw[anneesep] (y2015.north east) -- (y2015.south east);
+
+		\node[
+			annee,
+			minimum width=\yearswidth,
+		] (y2016) at (y2015.north east) {\scriptsize 2016};
+		\draw[anneesep] (y2016.north east) -- (y2016.south east);
+
+		\node[
+			annee,
+			minimum width=\yearswidth,
+		] (y2017) at (y2016.north east) {\scriptsize 2017};
+		\draw[anneesep] (y2017.north east) -- (y2017.south east);
+
+		\node[
+			annee,
+			minimum width=\yearswidth,
+		] (y2018) at (y2017.north east) {\scriptsize 2018};
+		\draw[anneesep] (y2018.north east) -- (y2018.south east);
+
+		\node[
+			annee,
+			minimum width=2/3*\yearswidth,
+		] (y2019) at (y2018.north east) {\scriptsize 2019};
+		\fill[fill=anneecolor] ($(y2019.north east)+(1,0)$) -- ++(11,-\yearsheight/2) -- ($(y2019.south east)+(1,0)$) -- cycle;
+
+		%---------------------------------
+		% UTBM
+		\node[
+			zone,
+			minimum width=5*\yearswidth,
+			fill=utbmcolor
+		] (main) at (0,0) {UTBM};
+
+		%---------------------------------
+		% Tronc commun
+		\node[
+			zone,
+			minimum width=2*\yearswidth,
+			fill=tccolor
+		] (tc) at (0,-\zoneheight) {Tronc commun};
+
+		%---------------------------------
+		% Branche INFO
+		\node[
+			zone,
+			minimum width=3*\yearswidth,
+			fill=branchecolor
+		] (branche) at (2*\yearswidth,-\zoneheight) {Branche INFO};
+
+		%---------------------------------
+		% Détails
+		\node[
+			zone,
+			minimum width=\yearswidth/2,
+			fill=detailacolor
+		] (tc01) at (0,-2*\zoneheight) {TC01};
+		\node[
+			zone,
+			minimum width=\yearswidth/2,
+			fill=detailbcolor
+		] (tc02) at (1/2*\yearswidth,-2*\zoneheight) {TC02};
+		\node[
+			zone,
+			minimum width=\yearswidth/2,
+			fill=detailacolor
+		] (tc03) at (\yearswidth,-2*\zoneheight) {TC03};
+		\node[
+			zone,
+			minimum width=\yearswidth/2,
+			fill=detailbcolor
+		] (tc04) at (3/2*\yearswidth,-2*\zoneheight) {TC04};
+		\node[
+			zone,
+			minimum width=\yearswidth/2,
+			fill=detailacolor
+		] (info01) at (2*\yearswidth,-2*\zoneheight) {INFO01};
+		\node[
+			zone,
+			minimum width=\yearswidth/2,
+			fill=detailbcolor
+		] (info02) at (5/2*\yearswidth,-2*\zoneheight) {INFO02};
+		\node[
+			zone,
+			minimum width=\yearswidth/2,
+			fill=stagecolor
+		] (st40) at (3*\yearswidth,-2*\zoneheight) {ST40};
+		\node[
+			zone,
+			minimum width=\yearswidth/2,
+			fill=detailbcolor
+		] (info04) at (7/2*\yearswidth,-2*\zoneheight) {INFO04};
+		\node[
+			zone,
+			minimum width=\yearswidth/2,
+			fill=detailacolor
+		] (info05) at (4*\yearswidth,-2*\zoneheight) {INFO05};
+		\node[
+			zone,
+			minimum width=\yearswidth/2,
+			fill=stagecolor
+		] (st50) at (9/2*\yearswidth,-2*\zoneheight) {ST50};
+
+		%\draw[thick] ($(st40.south west)+(0,-3)$) -- ($(st40.south west)+(0,3)$);
+		%\node[below] at ($(st40.south west)+(0,-3)$) {\footnotesize 01/08/17};
+
+		%\draw[thick] ($(st40.south east)+(0,-3)$) -- ($(st40.south east)+(0,3)$);
+		%\node[below] at ($(st40.south east)+(0,-3)$) {\footnotesize 26/01/18};
+	\end{tikzpicture}
+\end{document}
