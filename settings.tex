@@ -58,6 +58,19 @@
 	\upmdocumentsummary\upmdocumentauthors\upmdocumentvalidators\upmdocumentinformedpeople\clearpage%
 }
 
+% Decrease space after upmcaution upminfo and upmquestion message boxes
+\renewenvironment{upm@highligh@box}[2]{%
+	\par
+	\vspace{.5cm}
+	\begin{tabular}{|p{#1}|}
+	\hline
+	\begin{window}[0,l,{\mbox{\includegraphics[width=1cm]{#2}}},{}]
+}{%
+	\end{window}\\ \hline \end{tabular}
+	%\vspace{.5cm}
+	\par
+}
+
 \makeatother
 
 %----------------------------------------
