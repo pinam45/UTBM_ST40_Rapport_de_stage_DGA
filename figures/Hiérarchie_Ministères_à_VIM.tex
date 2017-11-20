@@ -13,7 +13,7 @@
 	\pgfmathsetmacro\subbheight{150}%
 	\pgfmathsetmacro\subcheight{50}%
 	\pgfmathsetmacro\subxsep{10}%
-	\pgfmathsetmacro\subyshift{10}%
+	\pgfmathsetmacro\subyshift{15}%
 
 	\pgfmathsetmacro\zonewidth{5*\subwidth+6*\subxsep+10*\pgfkeysvalueof{/pgf/inner xsep}}%
 	\pgfmathsetmacro\zoneaheight{\titleheight+\subbheight+2*\subyshift}%
@@ -162,17 +162,17 @@
 		\coordinate (zbse) at (F);
 
 		%---------------------------------
-		% DGSE
+		% État-Major des armées
 		\node[
 			subminarm,
 			yshift=-\subyshift,
-		] (dgse) at (zbnw) {\includegraphics[height=100pt]{logos/DGSE.png} Direction générale de la Sécurité extérieure (DGSE)};
+		] (ema) at (zbnw) {\includegraphics[height=100pt]{logos/État_Major_des_armées.jpg} État-Major des armées};
 
 		%---------------------------------
 		% Service de santé des armées
 		\node[
 			subminarm
-		] (sersantearmees) at (dgse.north east) {\includegraphics[height=100pt]{logos/Servicedesantedesarmees.jpg} Service de santé des armées};
+		] (sersantearmees) at (ema.north east) {\includegraphics[height=100pt]{logos/Servicedesantedesarmees.jpg} Service de santé des armées};
 
 		%---------------------------------
 		% DGA + selection
