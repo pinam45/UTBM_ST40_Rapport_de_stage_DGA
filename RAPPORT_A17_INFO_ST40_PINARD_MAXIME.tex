@@ -102,8 +102,13 @@
 						\begin{upmquestion}
 							This is an example of a question message. This text must be rendered with enough height (usually 2 lines of text) to avoid intersection between the caution icon and the box frame.
 						\end{upmquestion}
-	% Bibliography
+	% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
 	\bibliography{references}
+	\chaptertoc{Annexes}\markboth{ANNEXES}{}
+		\setcounter{section}{0}
+		\renewcommand{\thesection}{\Alph{section}}
+		\renewcommand{\theHsection}{appendixsection.\Alph{section}}
+		\section{TODO}
 \end{document}
