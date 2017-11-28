@@ -2,10 +2,10 @@
 ### Latex
 ########################
 
-## Compilation output:
+## Compilation output
 *.pdf
 
-## Core latex/pdflatex auxiliary files:
+## Core latex/pdflatex auxiliary files
 *.aux
 *.lof
 *.log
@@ -20,11 +20,11 @@
 *.cb2
 *.sta
 
-## Intermediate documents:
+## Intermediate documents
 *.dvi
 *-converted-to.*
 
-## Bibliography auxiliary files (bibtex/biblatex/biber):
+## Bibliography auxiliary files (bibtex/biblatex/biber)
 *.bbl
 *.bcf
 *.blg
@@ -32,7 +32,22 @@
 *-blx.bib
 *.run.xml
 
-## Build tool auxiliary files:
+## makeidx
+*.alg
+*.idx
+*.ilg
+*.ind
+*.ist
+
+## glossaries
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+
+## Build tool auxiliary files
 *.fdb_latexmk
 *.synctex
 *.synctex(busy)
