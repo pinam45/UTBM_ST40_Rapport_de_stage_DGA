@@ -1,9 +1,12 @@
 %!TEX program = xelatex
 % not lualatex because of a pgf bug: https://sourceforge.net/p/pgf/bugs/384/
 \PassOptionsToPackage{table,svgnames}{xcolor}
-\documentclass[11pt, book, english, french]{upmethodology-document}
+\documentclass[11pt, book, english, french, standardlists]{upmethodology-document}
 \input{packages}
 \input{settings}
+
+\makeglossaries
+\input{glossary}
 
 \begin{document}
 	\chapter*{Remerciements}
@@ -152,10 +155,15 @@
 						\begin{upmquestion}
 							This is an example of a question message. This text must be rendered with enough height (usually 2 lines of text) to avoid intersection between the caution icon and the box frame.
 						\end{upmquestion}
-	% Bibliographie
+	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
 	\bibliography{references}
+	%%% Lexique
+	%\glsaddall
+	%\printglossaries{}
+	%printglossary{}
+	\printglossary[type=\acronymtype,title=Lexique,toctitle=Lexique]{}\markboth{LEXIQUE}{}
 	\chaptertoc{Annexes}\markboth{ANNEXES}{}
 		\setcounter{section}{0}
 		\renewcommand{\thesection}{\Alph{section}}
