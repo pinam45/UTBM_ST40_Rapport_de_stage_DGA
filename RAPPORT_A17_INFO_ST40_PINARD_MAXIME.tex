@@ -202,6 +202,38 @@
 				\end{figure}
 				\paragraph*{}
 					Un schémas plus complet reprenant la hiérarchie des Ministères français à VIM/VSE est disponible en Annexe \ref{sec:hierarchieministereavim}.
+			\subsection{Le secret}
+				\p{Classification}
+					<<Les informations et supports classifiés font l'objet d'une classification comprenant trois niveaux:
+					\begin{enumerate}
+						\item Très Secret-Défense;
+						\item Secret-Défense;
+						\item Confidentiel-Défense.>>\cite{CodeDefenseR2311-2}
+					\end{enumerate}
+				\paragraph*{}
+					<<Le niveau Très Secret-Défense est réservé aux informations et supports qui concernent les priorités gouvernementales en matière de défense et de sécurité nationale et dont la divulgation est de nature à nuire très gravement à la défense nationale.
+				\paragraph*{}
+					Le niveau Secret-Défense est réservé aux informations et supports dont la divulgation est de nature à nuire gravement à la défense nationale.
+				\paragraph*{}
+					Le niveau Confidentiel-Défense est réservé aux informations et supports dont la divulgation est de nature à nuire à la défense nationale ou pourrait conduire à la découverte d'un secret de la défense nationale classifié au niveau Très Secret-Défense ou Secret-Défense.>>\cite{CodeDefenseR2311-3}
+				\paragraph*{}
+					Les documents qui ont fait l'objet de mesures de classification au niveaux cité précédemment relèvent de l'article 413-9 du Code Pénal\cite{CodePenal413-9}.
+				\paragraph*{}
+					<<Nul n'est qualifié pour connaître des informations et supports classifiés s'il n'a fait au préalable l'objet d'une décision d'habilitation et s'il n'a besoin, selon l'appréciation de l'autorité d'emploi sous laquelle il est placé, au regard notamment du catalogue des emplois justifiant une habilitation établi par cette autorité, de les connaître pour l'exercice de sa fonction ou l'accomplissement de sa mission.>>\cite{CodeDefenseR2311-7}
+				\p{Diffusion Restreinte}
+					<<Certaines informations qu'il n'y a pas lieu de classifier peuvent cependant recevoir, de la part de leur émetteur, une marque de confidentialité destinée à restreindre leur diffusion à un domaine spécifique [\ldots] ou à garantir leur protection (telle que Diffusion Restreinte).
+				\paragraph*{}
+					Ces mentions, qui ne traduisent pas une classification, ne suffisent pas à conférer aux informations concernées la protection pénale propre au secret de la défense nationale. Leur seul objectif est de sensibiliser l'utilisateur à la nécessaire discrétion dont il doit faire preuve dans la manipulation des informations couvertes par cette mention.
+				\paragraph*{}
+					L'auteur de la divulgation, qu'il relève de la sphère publique ou de la sphère privée, s'expose à des sanctions disciplinaires ou professionnelles, sans préjudice de l'application éventuelle des dispositions spécifiques au traitement et à la protection de données à caractère personnel.
+				\paragraph*{}
+					La mention Diffusion Restreinte [\ldots] indique que l'information ne doit pas être rendue publique et ne doit être communiquée qu'aux personnes ayant besoin de la connaître dans l'exercice de leurs attributions.>>\cite{PRMD1132480A}
+				\p{Concernant le stage}
+					Les projets des départements \gls{VIM/VSE} sont souvent classifiés au niveau Confidentiel-Défense. Cela implique donc des règles de sécurité très strictes et un cloisonnement des projets. Toujours pour des raisons de sécurité, les règles de sécurité, moyens de cryptage utilisés, vérification des données et autres systèmes de sécurité mis en place ne pourront pas être détaillés dans ce rapport.
+				\paragraph*{}
+					La liste des membres des équipes, l'organigramme de la division ou encore activités exactes menées sont soit Diffusion Restreinte soit classé secrètes. Cependant les travaux réalisés par \gls{VIM/VSE} impliquent souvent l'analyse de binaires dont le code source est inconnu, pour cela des outils externes tel que IDA de Hex-Rays sont utilisés mais aussi des outils internes dont GenDbg, un débogueur générique et YaCo, un plugin qui permet le travail collaboratif avec IDA.
+				\paragraph*{}
+					Durant mon stage, j'ai justement travaillé sur ces outils internes (GenDbg et YaCo) dont les informations ne sont ni classées secrètes ni Diffusion Restreinte. GenDbg a été présenté publiquement au \gls{SSTIC} de 2008\cite{SSTICGenDbg} et YaCo à celui de 2017\cite{SSTICYaCo}. %Les membres de l'équipe travaillent sur différentes missions mais ont une partie de leur temps de travail dédié au développement des outils dont ils peuvent avoir besoin tels que GenDbg et YaCo.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
