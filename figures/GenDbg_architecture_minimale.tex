@@ -1,0 +1,122 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\def\computerwidth{200}%
+	\def\computerheight{140}%
+	\def\ymainshift{5}%
+	\def\xstartmodules{25}%
+	\def\ystartmodules{-10}%
+	\def\osiconsheight{25}%
+	\begin{tikzpicture}[x=1pt,y=1pt]
+		\tikzset{comp/.style={
+			draw,
+			rectangle,
+			fill=bg_color,
+			minimum width=\computerwidth,
+			minimum height=\computerheight
+		}}
+		\tikzset{module/.style={
+			draw,
+			rectangle,
+			anchor=north west,
+			minimum height=17,
+			fill=color2,
+			outer sep=0pt,
+		}}
+
+		%---------------------------------
+		% Computers
+		\node[comp] (c1) at (0,0) {};
+		\node[anchor=south] (c1t) at (c1.north) {Ordinateur 1};
+		\node[anchor=south east] (archi) at (c1.south east) {x86, AMD64, ARM, MIPS\ldots};
+		\node[anchor=south east] (win) at (archi.north east) {\includegraphics[height=\osiconsheight pt]{logos/Windows.png}};
+		\node[anchor=east] (tux) at (win.west) {\includegraphics[height=\osiconsheight pt]{logos/Tux.png}};
+
+		\node[comp] (c2) at (280,0) {};
+		\node[anchor=south] (c2t) at (c2.north) {Ordinateur 2};
+		\node[anchor=south west] (win) at (c2.south west) {\includegraphics[height=\osiconsheight pt]{logos/Windows.png}};
+
+		%---------------------------------
+		% Stub
+		\node[
+			isosceles triangle,
+			isosceles triangle apex angle=44.4,
+			xshift=80,
+			yshift=\ymainshift,
+			minimum width=113,
+			fill=cyan,
+			fill opacity=0.20,
+			blue,
+			anchor=east,
+		] (watch) at (c1.center) {};
+
+		\node[
+			draw,
+			diamond,
+			aspect=2.5,
+			fill=color1,
+			text opacity=1,
+			inner sep = 5,
+			anchor=east,
+		] (stub) at (watch.east) {Stub};
+
+		%---------------------------------
+		% Application
+		\node[
+			draw,
+			circle,
+			aspect=2.5,
+			fill=green!40,
+			xshift=-60,
+			yshift=\ymainshift,
+			text opacity=1
+		] (app) at (c1.center) {Application};
+
+		%---------------------------------
+		% Framework
+		\node[
+			draw,
+			diamond,
+			aspect=2.5,
+			fill=color1,
+			xshift=-35,
+			yshift=\ymainshift,
+			text opacity=1
+		] (framework) at (c2.center) {Framework};
+
+		%---------------------------------
+		% GenDbg <-> Stub
+		\draw[
+			<->,
+			>=latex,
+			dotted,
+			thick,
+			label=above:COMfhdgfhrfdgdsx
+		] (framework) to[bend right] node[above,pos=0.5] {COM} (stub);
+
+		%---------------------------------
+		% GUI
+		\node[
+			module,
+			anchor=south west,
+			xshift=\xstartmodules,
+			yshift=-\ystartmodules,
+		] (gui) at (framework.north east) {GUI};
+
+		%---------------------------------
+		% AsmModule
+		\node[
+			module,
+			xshift=\xstartmodules,
+			yshift=\ystartmodules,
+		] (asmmodule) at (framework.south east) {AsmModule};
+
+		%---------------------------------
+		% GenDbg -> modules
+		\draw[-Square] (framework.north east) |- (gui);
+		\draw[-Square] (framework.south east) |- (asmmodule);
+	\end{tikzpicture}
+\end{document}
