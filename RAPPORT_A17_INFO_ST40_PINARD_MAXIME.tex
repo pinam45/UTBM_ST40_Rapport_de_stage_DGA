@@ -234,6 +234,39 @@
 					La liste des membres des équipes, l'organigramme de la division ou encore activités exactes menées sont soit Diffusion Restreinte soit classé secrètes. Cependant les travaux réalisés par \gls{VIM/VSE} impliquent souvent l'analyse de binaires dont le code source est inconnu, pour cela des outils externes tel que IDA de Hex-Rays sont utilisés mais aussi des outils internes dont GenDbg, un débogueur générique et YaCo, un plugin qui permet le travail collaboratif avec IDA.
 				\paragraph*{}
 					Durant mon stage, j'ai justement travaillé sur ces outils internes (GenDbg et YaCo) dont les informations ne sont ni classées secrètes ni Diffusion Restreinte. GenDbg a été présenté publiquement au \gls{SSTIC} de 2008\cite{SSTICGenDbg} et YaCo à celui de 2017\cite{SSTICYaCo}. %Les membres de l'équipe travaillent sur différentes missions mais ont une partie de leur temps de travail dédié au développement des outils dont ils peuvent avoir besoin tels que GenDbg et YaCo.
+	\chapter{Organisation du stage}
+		\section{Objectifs}
+			\subsection{GenDbg}
+				\subsubsection{Présentation}
+					\paragraph*{}
+						Il existe une multitude d'architectures matérielles et des langages et chaque environnement de développement logiciel intègre un outil de débogage plus ou moins évolué. De ce fait, les outils de débogage ne cessent de se multiplier. GenDbg est un débogueur développé et utilisé en interne à la \gls{DGA MI} depuis plus de 10 ans, il a pour but de proposer une solution générique, cohérente et évolutive à ce problème.
+					\paragraph*{}
+						Le projet présente trois grands avantages:
+						\begin{itemize}
+							\item \textbf{Maîtrise}: contrôle de tous les aspects du cycle de vie logiciel et indépendance vis-à-vis de tout éditeur de logiciels
+							\item \textbf{Modularité}: constitué d'un cœur et d'une multitude de modules pour permettre un enrichissement fonctionnel très rapide et facilement paramétrable
+							\item \textbf{Généricité}: certainement le principal intérêt du projet, il est possible d'exécuter pas-à-pas un programme quel que soit son mode d'exécution sur n'importe quelle plate-forme et n'importe quel système d'exploitation
+						\end{itemize}
+					\paragraph*{}
+						GenDbg permet de déboguer tout type de programme (code machine, byte code java, P-Code visual basic, DotNet,\ldots) sur des architectures hétérogènes. Pour cela, il adopte un modèle \gen{Framework} / \gen{Stub} qui permet de séparer les composants débogués et la machine de l'analyste. En fonction du type d'analyse envisagé (malware) on préférera travailler sur deux machines physiques distinctes. Cette approche avec des \gen{Stubs} permet aussi de réduire l'empreinte du débogueur sur la cible. Le \gen{Framework} est capable de communiquer avec les \gen{Stubs} via un port série ou des canaux nommés (pipes).
+					\paragraph*{}
+						Les modules obligatoires au fonctionnement de GenDbg sont le \gen{Stub}, le \gen{Framework}, le \gen{Module ASM} (module de désassemblage) et le \gen{\gls{GUI}}\footnote{interface graphique}. Historiquement seul un \gen{\gls{GUI}} en ``mode texte'' était disponible mais une seconde interface, graphique cette fois, et réalisée avec Qt fut développé plus tard.
+					\begin{figure}[H]
+						\centering
+						\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_architecture_minimale.tex}}
+						\caption{GenDbg: Architecture minimale}
+						\label{fig:GenDbg_architecture_minimale}
+					\end{figure}
+					\paragraph*{}
+						Concrètement, et en utilisant les notations de la figure \ref{fig:GenDbg_architecture_minimale}, pour exécuter un programme pas-à-pas avec GenDbg, il faut:
+						\begin{itemize}
+							\item Sur l'ordinateur 1:\\
+								Exécuter le \gen{Stub} correspondant à l'architecture de l'ordinateur avec en paramètre le programme a analyser ainsi que le canal de communication a utiliser. Le \gen{Stub} se chargera de lancer l'application.
+							\item Sur l'ordinateur 2:\\
+								Spécifier le canal de communication à utiliser dans le fichier de configuration de GenDbg puis exécuter le \gen{Framework}. Le \gen{Framework} se chargera des récupérer les informations nécessaires du \gen{Stub}, tel que le \gen{Module ASM} a utiliser et chargera le \gls{GUI}, permettant d'exécuter l'application pas-à-pas.
+						\end{itemize}
+					\paragraph*{}
+						L'ordinateur 1 pouvant être une machine différente de l'ordinateur 2, ou bien la même machine, ou encore une machine virtuelle.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
