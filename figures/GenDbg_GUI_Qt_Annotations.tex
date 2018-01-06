@@ -1,0 +1,67 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\begin{tikzpicture}[x=1pt,y=1pt]
+		\tikzset{zone/.style={
+			thick,
+			inner sep=0,
+			outer sep=0,
+			fill opacity=0.25
+		}}
+		\tikzset{txt/.style={
+			black,
+			fill opacity=1,
+			font=\bf
+		}}
+
+		\node[
+			anchor=south west,
+			inner sep=0
+		] (image) at (0,0)
+		{\includegraphics[width=0.9\textwidth]{GenDbg_GUI_Qt}};
+
+		\begin{scope}[x={(image.south east)},y={(image.north west)}]
+			%\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+			%\foreach \x in {0,1,...,9} { \node [anchor=north] at (\x/10,0) {\tiny 0.\x}; }
+			%\foreach \y in {0,1,...,9} { \node [anchor=east] at (0,\y/10) {\tiny 0.\y}; }
+			\draw[
+				zone,
+				green,
+				fill=green
+			] (0.0054,0.97) rectangle
+				node[txt] {Vue Hexa}
+			(0.3515,0.4765);
+			\draw[
+				zone,
+				blue,
+				fill=blue
+			] (0.3545,0.97) rectangle
+				node[txt] {Vue Code}
+			(0.745,0.4765);
+			\draw[
+				zone,
+				red,
+				fill=red
+			] (0.748,0.97) rectangle
+				node[txt] {Registres}
+			(0.995,0.4765);
+			\draw[
+				zone,
+				red,
+				fill=red
+			] (0.0054,0.471) rectangle
+				node[txt] {Console classique}
+			(0.491,0.0565);
+			\draw[
+				zone,
+				green,
+				fill=green
+			] (0.494,0.471) rectangle
+				node[txt] {Console Python}
+			(0.995,0.0565);
+		\end{scope}
+	\end{tikzpicture}
+\end{document}
