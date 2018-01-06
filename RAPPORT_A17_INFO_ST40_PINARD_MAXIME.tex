@@ -250,7 +250,7 @@
 					\paragraph*{}
 						GenDbg permet de déboguer tout type de programme (code machine, byte code java, P-Code visual basic, DotNet,\ldots) sur des architectures hétérogènes. Pour cela, il adopte un modèle \gen{Framework} / \gen{Stub} qui permet de séparer les composants débogués et la machine de l'analyste. En fonction du type d'analyse envisagé (malware) on préférera travailler sur deux machines physiques distinctes. Cette approche avec des \gen{Stubs} permet aussi de réduire l'empreinte du débogueur sur la cible. Le \gen{Framework} est capable de communiquer avec les \gen{Stubs} via un port série ou des canaux nommés (pipes).
 					\paragraph*{}
-						Les modules obligatoires au fonctionnement de GenDbg sont le \gen{Stub}, le \gen{Framework}, le \gen{Module ASM} (module de désassemblage) et le \gen{\gls{GUI}}\footnote{interface graphique}. Historiquement seul un \gen{\gls{GUI}} en ``mode texte'' était disponible mais une seconde interface, graphique cette fois, et réalisée avec Qt fut développé plus tard.
+						Les modules obligatoires au fonctionnement de GenDbg sont le \gen{Stub}, le \gen{Framework}, le \gen{Module ASM} (module de désassemblage) et le \gen{\gls{GUI}}\footnote{interface graphique}. Historiquement seul un \gen{\gls{GUI}} en ``mode texte'' était disponible mais une seconde interface, graphique cette fois, et réalisée avec Qt fut développé plus tard. Une vue de Gendbg utilisant le GUI Qt ainsi que sa lecture est présente en \annexe{guiqtgendbg} ainsi que la lecture de la vue Code en \annexe{guiqtgendbgvuecode}.
 					\begin{figure}[H]
 						\centering
 						\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_architecture_minimale.tex}}
