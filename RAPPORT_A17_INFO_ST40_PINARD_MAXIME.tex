@@ -13,14 +13,14 @@
 		\paragraph*{}
 			Je tiens tout particulièrement à remercier mon maître de stage \textbf{Benoît Amiaux} pour m'avoir permis de travailler sur des sujets intéressants et formateurs. Je le remercie aussi pour le suivi et les conseils qu'il m'a apportés au cours du stage, ainsi que pour l'indépendance et la confiance qu'il m'a accordée.
 		\paragraph*{}
-			Ensuite, je tiens à remercier \textbf{les membres l'équipe VIM/VSE} pour leur accueil chaleureux, pour toutes les informations et les conseils qu’ils m’ont donnés ainsi que pour leur bonne humeur aux différentes pauses-café et repas.
+			Ensuite, je tiens à remercier \textbf{les membres l'équipe VIM/VSE} pour leur accueil chaleureux, pour toutes les informations et les conseils qu'ils m'ont donnés ainsi que pour leur bonne humeur aux différentes pauses-café et repas.
 		\paragraph*{}
-			Je remercie aussi \textbf{la direction de la DGA} pour m’avoir permis de  joindre leur personnel durant ces quelques mois ainsi que \textbf{Laure Foissard} du Bureau de Gestion des Emplois et Compétences de la DGA et \textbf{Mireille Jacquot} du Service des Stages de l'UTBM pour la gestion de mon dossier.
+			Je remercie aussi \textbf{la direction de la DGA} pour m'avoir permis de  joindre leur personnel durant ces quelques mois ainsi que \textbf{Laure Foissard} du Bureau de Gestion des Emplois et Compétences de la DGA et \textbf{Mireille Jacquot} du Service des Stages de l'UTBM pour la gestion de mon dossier.
 	\tableofcontents{}
 	\listoffigures{}
 	\chaptertoc{Introduction}
 		\paragraph*{}
-			Le cursus à l'\gls{UTBM} est entrecoupé de deux périodes de stage de 6 mois durant les 3 ans du cycle ingénieur, après le Tronc Commun. La première, après un an en branche, est le ST40 intitulé ``Stage Assistant Ingénieur'' et la seconde, un an plus tard, est le ST50 intitulé ``Projet de fin d’études - Ingénieur débutant''.
+			Le cursus à l'\gls{UTBM} est entrecoupé de deux périodes de stage de 6 mois durant les 3 ans du cycle ingénieur, après le Tronc Commun. La première, après un an en branche, est le ST40 intitulé ``Stage Assistant Ingénieur'' et la seconde, un an plus tard, est le ST50 intitulé ``Projet de fin d'études - Ingénieur débutant''.
 		\begin{figure}[H]
 			\centering%
 			\resizebox{\textwidth}{!}{\import{figures/}{Cursus_INFO_UTBM.tex}}%
@@ -30,7 +30,7 @@
 		\paragraph*{}
 			Ce rapport concerne mon ST40 que j'ai réalisé à la \gls{DGA} Maîtrise de l'Information sur le site de Bruz, près de Renne du 1er Aout 2017 au 26 Janvier 2018 sous la supervision de mon maitre de stage, Benoît Amiaux.
 		\paragraph*{}
-			La \gls{DGA} est une direction du Ministère des Armées qui a de nombreuses missions dont celle de préparer l’avenir des systèmes de défense français, en particulier sur le plan informatique avec son centre d’expertise et d’essais Maîtrise de l'Information. De ce fait, la \gls{DGA MI} est un acteur français important de la sécurité informatique. Ce dernier proposant un sujet intéressant qui correspondait à mes compétences, j'ai donc saisi l'opportunité d'y réalisé mon stage.
+			La \gls{DGA} est une direction du Ministère des Armées qui a de nombreuses missions dont celle de préparer l'avenir des systèmes de défense français, en particulier sur le plan informatique avec son centre d'expertise et d'essais Maîtrise de l'Information. De ce fait, la \gls{DGA MI} est un acteur français important de la sécurité informatique. Ce dernier proposant un sujet intéressant qui correspondait à mes compétences, j'ai donc saisi l'opportunité d'y réalisé mon stage.
 		\paragraph*{}
 			Le sujet du stage implique de nombreux concepts bas niveau, ce qui m'intéresse particulièrement et m'a en partie poussé à choisir ce sujet, préférant travailler plus proche de la machine.  Le sujet est le développement et la fiabilisation d'un module de désassemblage \acrshort{MIPS} pour un débugger développé en interne. Le développement du module est en C/C++ et implique l'assemblage et le désassemblage de code, la gestion des adresses\ldots. Ainsi le sujet a l'avantage d'allier des concepts très bas niveau avec un développement dans des langages plus haut niveau.
 		\paragraph*{}
@@ -77,7 +77,7 @@
 				\begin{figure}[H]
 					\centering%
 					\includegraphics[width=1\textwidth]{Budget_Ministère_Défense_2017}
-					\caption{Part du budget du Ministère de la Défense (pensions incluses) dans le budget général de l’État en 2017\cite{ChiffresDef2017}}%
+					\caption{Part du budget du Ministère de la Défense (pensions incluses) dans le budget général de l'État en 2017\cite{ChiffresDef2017}}%
 					\label{fig:Budget_Ministère_Défense_2017}%
 				\end{figure}
 			\subsection{Effectifs}
@@ -93,21 +93,21 @@
 		\section{La Direction générale de l'Armement}
 			\subsection{Historique}
 				\paragraph*{}
-					En 1961, le général de Gaulle crée la \gls{DMA} pour rationaliser la construction des matériels militaires, elle compte 6 corps d'ingénieur militaires\footnote{Les ingénieurs militaires sont des experts techniques au service de la défense}: les ingénieurs de l'aéronautique, les ingénieurs militaires des fabrications d'armement, les ingénieurs du génie maritime, les ingénieurs hydrographes de la marine, les ingénieurs des poudres et les ingénieurs militaires des télécommunications. En 1968, ils sont remplacés par un corps unique: le corps des ingénieurs de l’armement. En 1977, la \acrshort{DGA-old} signifiant alors ``Délégation Générale pour l'Armement'' est créée pour remplacer la \gls{DMA}.
+					En 1961, le général de Gaulle crée la \gls{DMA} pour rationaliser la construction des matériels militaires, elle compte 6 corps d'ingénieur militaires\footnote{Les ingénieurs militaires sont des experts techniques au service de la défense}: les ingénieurs de l'aéronautique, les ingénieurs militaires des fabrications d'armement, les ingénieurs du génie maritime, les ingénieurs hydrographes de la marine, les ingénieurs des poudres et les ingénieurs militaires des télécommunications. En 1968, ils sont remplacés par un corps unique: le corps des ingénieurs de l'armement. En 1977, la \acrshort{DGA-old} signifiant alors ``Délégation Générale pour l'Armement'' est créée pour remplacer la \gls{DMA}.
 				\paragraph*{}
-					En 1995, l’arrivée de Jean-Yves Helmer au poste de délégué général pour l'armement\footnote{Jean-Yves Helmer sera a la tête de la \acrshort{DGA-old} de 1996 à 2001} lancera un mouvement de regroupement et d'externalisation de la production industrielle. Regroupement d'une part par la fusion des implantations territoriales pour former 14 grands centres ainsi que la réduction du personnel qui passera de plus de 50 000 en 1995 à 9 700 en 2017. D’autre part externalisation car la \acrshort{DGA-old} passe d’une structure de production d’armement à une agence de maîtrise d’ouvrages complexes. Ainsi, la \acrshort{DGA-old} se séparera graduellement de ses activités industrielles.
+					En 1995, l'arrivée de Jean-Yves Helmer au poste de délégué général pour l'armement\footnote{Jean-Yves Helmer sera a la tête de la \acrshort{DGA-old} de 1996 à 2001} lancera un mouvement de regroupement et d'externalisation de la production industrielle. Regroupement d'une part par la fusion des implantations territoriales pour former 14 grands centres ainsi que la réduction du personnel qui passera de plus de 50 000 en 1995 à 9 700 en 2017. D'autre part externalisation car la \acrshort{DGA-old} passe d'une structure de production d'armement à une agence de maîtrise d'ouvrages complexes. Ainsi, la \acrshort{DGA-old} se séparera graduellement de ses activités industrielles.
 					% \begin{itemize}
-					% 	\item[1990] Le \gls{GIAT} de la \gls{DGA} devient la société anonyme \gls{GIAT} Industries (aujourd’hui Nexter System, détenu par l’État français)
-					% 	\item[1991] La \gls{DCN} devient une société de droit privé à capitaux publics sous le nom de DCNS (aujourd’hui Naval Group, détenu à 62,49\% par l’État français)
-					% 	\item[2000] Le \gls{SSF} est créé pour assurer dans une structure unique la maîtrise d’ouvrage de la mise en condition opérationnelle des bâtiments de surface et des sous-marins de la Marine nationale
-					% 	\item[2007] Le \gls{SMA} est transféré à l’état-major de l’armée de l’air et renommé \gls{SIAé}
-					% 	\item[2010] Le Centre d’Études de Gramat, responsable de l’évaluation des vulnérabilités des systèmes d’armes aux agressions des armes nucléaires et conventionnelles, est transféré au \gls{CEA}
+					% 	\item[1990] Le \gls{GIAT} de la \gls{DGA} devient la société anonyme \gls{GIAT} Industries (aujourd'hui Nexter System, détenu par l'État français)
+					% 	\item[1991] La \gls{DCN} devient une société de droit privé à capitaux publics sous le nom de DCNS (aujourd'hui Naval Group, détenu à 62,49\% par l'État français)
+					% 	\item[2000] Le \gls{SSF} est créé pour assurer dans une structure unique la maîtrise d'ouvrage de la mise en condition opérationnelle des bâtiments de surface et des sous-marins de la Marine nationale
+					% 	\item[2007] Le \gls{SMA} est transféré à l'état-major de l'armée de l'air et renommé \gls{SIAé}
+					% 	\item[2010] Le Centre d'Études de Gramat, responsable de l'évaluation des vulnérabilités des systèmes d'armes aux agressions des armes nucléaires et conventionnelles, est transféré au \gls{CEA}
 					% \end{itemize}
 				\paragraph*{}
 					Le 5 octobre 2009, le décret n°2009-1180\cite{DEFD0918712D} officialise le changement de nom et d'organisation de la ``Délégation Générale pour l'Armement'' qui devient dès lors ``Direction Générale de l'Armement'', toujours abrégé \gls{DGA}.
 			\subsection{Missions}
 				\paragraph*{}
-					La \gls{DGA} est une direction du Ministère des Armées, elle dépend non pas du Chef d’État-Major des Armées mais directement du ministre de la Défense. Elle a de très nombreuses missions (listées dans le décret n°2009-1180\cite{DEFD0918712D}, Article 1) dont on peut extraire trois missions principales:
+					La \gls{DGA} est une direction du Ministère des Armées, elle dépend non pas du Chef d'État-Major des Armées mais directement du ministre de la Défense. Elle a de très nombreuses missions (listées dans le décret n°2009-1180\cite{DEFD0918712D}, Article 1) dont on peut extraire trois missions principales:
 				\p{Équiper les forces armées}
 					Maître d'ouvrage des programmes d'armement, la \gls{DGA} est responsable de la conception, de l'acquisition et de l'évaluation des systèmes qui équipent les forces armées. Son action couvre toute la durée de vie de ces programmes.
 				\p{Préparer l'avenir}
@@ -118,21 +118,21 @@
 				\paragraph*{}
 					Depuis le 9 août 2017, Joël Barre est Délégué Général pour l'Armement (voir organigramme en \annexe{organigrammedga}), ce dernier, pour mener a bien les missions de la \gls{DGA}, s'appuie sur différents services (dont les attributions exactes sont détaillées dans le décret n°2009-1180\cite{DEFD0918712D}), organisés la plupart du temps sous forme matricielle:
 				\p{Direction du Développement International} % décret n°2009-1180\cite{DEFD0918712D}, Article 6
-					La \gls{DI} est chargée de la promotion des exportations d’armement en s’appuyant notamment sur le réseau des attachés d’armement. Elle anime et coordonne le soutien de l'État aux industriels exportateurs, en liaison étroite avec les états-majors et le réseau diplomatique.
+					La \gls{DI} est chargée de la promotion des exportations d'armement en s'appuyant notamment sur le réseau des attachés d'armement. Elle anime et coordonne le soutien de l'État aux industriels exportateurs, en liaison étroite avec les états-majors et le réseau diplomatique.
 				\p{Direction des opérations} % décret n°2009-1180\cite{DEFD0918712D}, Article 4
-					La \gls{DO}\footnote{anciennement Direction des systèmes d'armes} est chargée de la conduite des programmes et opérations d'armement, et est chargée de l’exécution des travaux d'études en amont. La \gls{DO} est chargée de l'acquisition des systèmes d'armes, équipements de défense, matériels et logiciels en liaison avec les états-majors, et en assurant la cohérence entre les programmes.
+					La \gls{DO}\footnote{anciennement Direction des systèmes d'armes} est chargée de la conduite des programmes et opérations d'armement, et est chargée de l'exécution des travaux d'études en amont. La \gls{DO} est chargée de l'acquisition des systèmes d'armes, équipements de défense, matériels et logiciels en liaison avec les états-majors, et en assurant la cohérence entre les programmes.
 				\p{Direction de la Stratégie} % décret n°2009-1180\cite{DEFD0918712D}, Article 5
-					La \gls{DS}, à Bagneux, est en charge de la stratégie pour la recherche technologique, l’industrie, et les programmes d’armement menés en coopération en s'appuyant notamment sur la \gls{MRIS}.
+					La \gls{DS}, à Bagneux, est en charge de la stratégie pour la recherche technologique, l'industrie, et les programmes d'armement menés en coopération en s'appuyant notamment sur la \gls{MRIS}.
 				\p{Direction des Plans, des Programmes, et du Budget} % décret n°2009-1180\cite{DEFD0918712D}, Article 8
 					La \acrlong{DP} (\acrshort{DP}\footnote{anciennement DPBG}) est chargée de la planification, de la programmation, de la préparation et de l'exécution du budget et assure la maîtrise financière et comptable des opérations d'armement conduites par la \gls{DGA}.
 				\p{Services de soutien} % décret n°2009-1180\cite{DEFD0918712D}
-					Le \gls{SMQ}, l’inspection, le \gls{COMM}, le \gls{SSDI}, la \gls{DRH}, la \gls{GArm}.
+					Le \gls{SMQ}, l'inspection, le \gls{COMM}, le \gls{SSDI}, la \gls{DRH}, la \gls{GArm}.
 				\p{Direction Technique} % décret n°2009-1180\cite{DEFD0918712D}, Article 7
-					La \gls{DT} assure les activités d’essai et d’expertise des matériels et des technologies militaires à l’aide de différents pôles de compétences. De nombreux centres d’expertise et d’essais interviennent dans le test des technologies de pointe, ces derniers sont dispersés sur toute la France (voir la figure \ref{fig:Carte_centres_expertise_et_essais_DGA}).
+					La \gls{DT} assure les activités d'essai et d'expertise des matériels et des technologies militaires à l'aide de différents pôles de compétences. De nombreux centres d'expertise et d'essais interviennent dans le test des technologies de pointe, ces derniers sont dispersés sur toute la France (voir la figure \ref{fig:Carte_centres_expertise_et_essais_DGA}).
 					\begin{figure}[H]
 						\centering
 						\includegraphics[width=0.9\textwidth]{Carte_centres_expertise_et_essais_DGA}
-						\caption{Carte des centres d’expertise et d’essais de la \acrshort{DGA}\cite{OptroDefDGA}}
+						\caption{Carte des centres d'expertise et d'essais de la \acrshort{DGA}\cite{OptroDefDGA}}
 						\label{fig:Carte_centres_expertise_et_essais_DGA}
 					\end{figure}
 			\subsection{Effectifs et budget}
@@ -140,7 +140,7 @@
 					En 2017 la \gls{DGA} a un effectif de 9 700 personnes dont plus de 51\% d'ingénieurs et cadres\cite{PresentationDGA}. Bien que membre à part entière du ministère de la Défense, la \gls{DGA} se distingue par une forte proportion de civils au sein de son personnel, 55,7\% pour la \gls{DGA} contre une moyenne de 22,9\% pour le Ministère de la Défense dans son ensemble en 2015\cite{ChiffresDef2016}, mais aussi par la quasi-absence de sous-officiers, aucun pour la \gls{DGA} contre une moyenne de 44,9\% pour le Ministère de la Défense dans son ensemble en 2016\cite{ChiffresDef2017}.
 				\paragraph*{}
 					Le budget de la \gls{DGA} n'est pas public, mais représente une part conséquente du budget du Ministère de la défense pour pouvoir maintenir, en 2017, 80 programmes d'armement et maintenir sa position de premier investisseur public de France, avec près de 11 milliards d'euros de commandes passées pour la seule année 2017. De plus la \gls{DGA} maintient une présence internationale dans 20 pays, y compris auprès de l'\gls{OTAN} et de l'\gls{UE}\cite{PresentationDGA}.
-		\section{La DGA Maîtrise de l’Information}
+		\section{La DGA Maîtrise de l'Information}
 			\subsection{Historique}
 				\paragraph*{1961}
 					<<Un conseil interministériel présidé par Georges Pompidou décide de favoriser le développement de l'économie de la Bretagne en y encourageant l'implantation de l'industrie électronique. Au détriment du choix initial de Grenoble, Rennes doit devenir le second pôle de l'électronique en France derrière Paris.>>\cite{CELAR40ansAvenir}
@@ -156,7 +156,7 @@
 				\paragraph*{1980-1990}
 					Les simulations numériques et hybrides prennent leur essor. L'analyse technologique des composants électroniques se renforce. En 1986, est instauré le \gls{SCSSI}\cite{DecretCreationSCSSI} dont la conséquence sera la scission de la \gls{SSI} en France entre le secteur commercial prit en charge par le Ministère des Télécommunications et le secteur gouvernemental prit en charge par le Ministère de la Défense. Les premières actions relevant de la \gls{SSI} au \gls{CELAR} sont des travaux dans le domaine des évaluations des produits de chiffrement gouvernementaux.
 				\paragraph*{1990-2000}
-					À l'issue de la guerre du Golfe, le \gls{CELAR} est désigné comme le centre technique de la \gls{DGA} pour la guerre électronique. Il développe ses compétences pour la sécurité des systèmes d'information. En 1993, \gls{CCSA} disparaît pour laisser place au \gls{CASSI}. <<L'approche est singulière dans le contexte du moment qui jusque-là a une tendance lourde a repousser vers le secteur privé toutes les activités alors industrielles de l’État. Pour la \gls{SSI}, il s'agit en effet de rapatrier en sphère étatique les activités alors industrielles de production des algorithmes cryptographiques gouvernementaux, de réalisation des composants cryptographiques et de définition des équipements de chiffrement.>>\cite{CELAR40ansAvenir} % Toujours en 1993, une première machine est installée sur le réseau internet, c'est une station SUN sous Unix.
+					À l'issue de la guerre du Golfe, le \gls{CELAR} est désigné comme le centre technique de la \gls{DGA} pour la guerre électronique. Il développe ses compétences pour la sécurité des systèmes d'information. En 1993, \gls{CCSA} disparaît pour laisser place au \gls{CASSI}. <<L'approche est singulière dans le contexte du moment qui jusque-là a une tendance lourde a repousser vers le secteur privé toutes les activités alors industrielles de l'État. Pour la \gls{SSI}, il s'agit en effet de rapatrier en sphère étatique les activités alors industrielles de production des algorithmes cryptographiques gouvernementaux, de réalisation des composants cryptographiques et de définition des équipements de chiffrement.>>\cite{CELAR40ansAvenir} % Toujours en 1993, une première machine est installée sur le réseau internet, c'est une station SUN sous Unix.
 				\paragraph*{2000-2010}
 					Le \gls{CELAR} devient le centre de référence européen des techniques de la guerre de l'information, dans un contexte des systèmes pour une sécurité globale. Les effectifs \gls{SSI} se multiplient face au besoin de sécurisation de tous les ministères. <<Par ailleurs, les systèmes d'armes font une entrée massive dans la zone d'action de la \gls{SSI}. [\ldots] Les torpilles, avions, chars et missiles sont désormais dotés de capacités de calcul, de stockage et d'échange d'informations, tout comme les machines informatiques classiques.>>\cite{CELAR40ansAvenir}\\
 					En 2005 le \gls{CELAR} se réorganise en six divisions:
@@ -178,13 +178,13 @@
 				\paragraph*{}
 					La \gls{DGA MI} est un centre d'expertise technique de la \gls{DGA} qui a pour mission:
 					\begin{itemize}
-						\item L'aide à la spécification d’architecture de systèmes et ingénierie des systèmes
-						\item Expertise et évaluation de l’utilisation du spectre des fréquences
+						\item L'aide à la spécification d'architecture de systèmes et ingénierie des systèmes
+						\item Expertise et évaluation de l'utilisation du spectre des fréquences
 						\item Expertise des réseaux de télécommunication et des systèmes de transmission
-						\item Spécification, évaluation et validation de l’interopérabilité des systèmes de commandement et de communication
+						\item Spécification, évaluation et validation de l'interopérabilité des systèmes de commandement et de communication
 						\item Spécification et évaluation des systèmes de renseignement (capteurs spatiaux, drones\ldots)
-						\item Évaluation de la sécurité des systèmes d’information, conception et évaluation de produits de sécurité
-						\item Évaluation des performances de systèmes d’armes, de guerre électronique et de guerre optronique
+						\item Évaluation de la sécurité des systèmes d'information, conception et évaluation de produits de sécurité
+						\item Évaluation des performances de systèmes d'armes, de guerre électronique et de guerre optronique
 						\item Expertise des systèmes de missiles tactiques et stratégiques
 						\item Expertise de composants électroniques spécifiques pour la défense
 					\end{itemize}
