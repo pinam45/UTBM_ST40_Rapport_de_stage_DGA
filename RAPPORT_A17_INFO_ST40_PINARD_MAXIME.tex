@@ -267,6 +267,15 @@
 						\end{itemize}
 					\paragraph*{}
 						L'ordinateur 1 pouvant être une machine différente de l'ordinateur 2, ou bien la même machine, ou encore une machine virtuelle.
+				\subsubsection{Fonctionnement}
+					\p{Le framework}
+						C'est la partie centrale de GenDbg, c'est une application Win32 qui prend en charge la communication inter-modules, implémente le jeu de commandes de base commun à l'ensemble des modules ainsi que le moteur de script historique. Le moteur de script historique est maintenant très peu utilisé puisque des bindings Python sont  disponibles et utilisables dans une console Python intégré au \gls{GUI} Qt, permettant de scripter directement en Python dans GenDbg.
+					\paragraph*{}
+						<<Tous les modules sont implémentés sous forme de librairies dynamiques et sont chargés dans l'espace d'adressage du framework après identification de la cible par un stub.
+					\paragraph*{}
+						Le framework a en charge la lecture d'un fichier de configuration (.ini) pour tenter d'établir un canal de communication avec un stub et l'initialisation des différents modules. Dans l'état actuel du projet le framework est capable de communiquer avec les stubs via un port série ou des canaux nommés (pipes). Il est ainsi possible de déboguer aussi bien des machines physiques que des machines virtuelles (VMWare ou VirtualPC) en mappant un port série virtuel sur un canal nommé.
+					\paragraph*{}
+						Le framework fournit aux différents modules un jeu de fonctions de base qui vont permettre d'interagir entre eux.>>\cite{SSTICGenDbg}
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
