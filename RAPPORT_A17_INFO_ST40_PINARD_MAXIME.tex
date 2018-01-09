@@ -293,6 +293,8 @@
 								Ils permettent d'associer un symbole à une adresse particulière dans un module de l'OS cible.
 						\end{itemize}
 						Ces modules ne sont pas concernés par le stage et n'ont pas été utilisés, ils ne seront pas plus détaillés dans ce rapport.
+					\p{Modularité et généricité}
+						De par son architecture (représentée sur la figure \ref{fig:GenDbg_modules}) GenDbg déplace les spécificités hors du framework, les spécificités d'architecture et d'OS à déboguer se trouvent donc au niveau des stubs tandis que celles dues à la représentation (instructions, adresses\ldots) se trouvent au niveau des modules ASM. De même toutes les fonctionnalité spécifiques supplémentaires se trouvent au niveau des modules additionnels. Cela permet d'avoir un framework générique qui n'a pas besoin d'être modifié pour étendre les fonctionnalités de GenDbg. Cela permet aussi d'avoir un développement très ciblé, pour développer un nouveau module, il est seulement nécessaire de connaître l'API que GenDbg expose aux modules et l'API que le module expose à GenDbg.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
