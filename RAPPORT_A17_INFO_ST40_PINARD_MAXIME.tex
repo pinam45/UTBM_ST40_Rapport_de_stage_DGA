@@ -280,6 +280,19 @@
 						<<Les stubs s'exécutent sur la machine cible et prennent en charge la gestion des exceptions sur l'architecture cible; à ce titre ils sont fortement dépendants de l'architecture et de l'OS de la cible. Les stubs fournissent les services de base au framework, c'est-à-dire les accès en lecture et en écriture aux registres et à la mémoire. Ils réalisent aussi l'identification précise de la cible pour le framework, l'identification conduisant au chargement des modules utiles et disponibles.>>\cite{SSTICGenDbg}
 					\p{Les modules ASM}
 						<<Les modules ASM sont en fait des dés-assembleurs/assembleurs prenant en charge la représentation du code, des données et des adresses propres à l'architecture cible. Par exemple sur l'architecture IA32, en mode virtuel protégé une adresse mémoire est de la forme ``\jcode{sélecteur:offset}'' avec le sélecteur sur 16 bits et l'offset sur 32 bits. C'est le module ASM IA32 qui a la charge de la représentation visuelle d'une adresse virtuelle.>>\cite{SSTICGenDbg}
+					\p{Les modules additionnels}
+						En plus des modules obligatoires, un certain nombre de modules spécifiques optionnels sont définis:
+						\begin{itemize}
+							\item \textbf{Les Command Modules}:\\
+								Ils complètent les commandes de base implémentées dans le framework avec des commandes spécifiques au contexte d'exécution de la cible.
+							\item \textbf{Les OS Helper Modules}:\\
+								Ils offrent des services et des fonctionnalités propres à un système d'exploitation parmi lesquelles la signalisation d'un certain nombre d'événements internes.
+							\item \textbf{Les Breakpoint Helpers Modules}:\\
+								Ils permettent la prise en charge et la définition de points d'arrêt spécifiques à l'architecture cible.
+							\item \textbf{Les Symbol Modules}:\\
+								Ils permettent d'associer un symbole à une adresse particulière dans un module de l'OS cible.
+						\end{itemize}
+						Ces modules ne sont pas concernés par le stage et n'ont pas été utilisés, ils ne seront pas plus détaillés dans ce rapport.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
