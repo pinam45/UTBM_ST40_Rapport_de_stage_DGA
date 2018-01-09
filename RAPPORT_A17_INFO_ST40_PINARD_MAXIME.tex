@@ -276,6 +276,8 @@
 						Le framework a en charge la lecture d'un fichier de configuration (.ini) pour tenter d'établir un canal de communication avec un stub et l'initialisation des différents modules. Dans l'état actuel du projet le framework est capable de communiquer avec les stubs via un port série ou des canaux nommés (pipes). Il est ainsi possible de déboguer aussi bien des machines physiques que des machines virtuelles (VMWare ou VirtualPC) en mappant un port série virtuel sur un canal nommé.
 					\paragraph*{}
 						Le framework fournit aux différents modules un jeu de fonctions de base qui vont permettre d'interagir entre eux.>>\cite{SSTICGenDbg}
+					\p{Les stubs}
+						<<Les stubs s'exécutent sur la machine cible et prennent en charge la gestion des exceptions sur l'architecture cible; à ce titre ils sont fortement dépendants de l'architecture et de l'OS de la cible. Les stubs fournissent les services de base au framework, c'est-à-dire les accès en lecture et en écriture aux registres et à la mémoire. Ils réalisent aussi l'identification précise de la cible pour le framework, l'identification conduisant au chargement des modules utiles et disponibles.>>\cite{SSTICGenDbg}
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
