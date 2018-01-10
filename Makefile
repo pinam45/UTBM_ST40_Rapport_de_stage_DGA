@@ -12,7 +12,7 @@ RM                      = rm -f
 
 #=============================================================================
 # Other
-TO_DELETE_EXT           = .acn .acr .alg .aux .bbl .blg .glg .glo .gls .ist .lof .log .out .toc .synctex.gz .pdf
+TO_DELETE_EXT           = .acn .acr .alg .aux .bbl .blg .fdb_latexmk .fls .glg .glo .gls .ist .lof .log .out .toc .synctex.gz .pdf .xdv
 LATEX_COMPILER_SILENT   = -interaction=batchmode 1>/dev/null 2>/dev/null
 MAKEGLOSSARIES_SILENT   = -q
 BIBTEX_SILENT           = 1>/dev/null 2>/dev/null
