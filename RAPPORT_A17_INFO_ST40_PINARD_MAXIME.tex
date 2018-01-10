@@ -303,6 +303,15 @@
 						\caption{L'architecture modulaire du framework de GenDbg}
 						\label{fig:GenDbg_modules}
 					\end{figure}
+				\subsubsection{Gestion du projet}
+					\paragraph*{}
+						Le projet n'étant pas une mission de la division mais un outil interne, son développement s'est étalé sur de nombreuses années et beaucoup de personnes ont travaillé dessus, souvent sur de courtes durées, sur les heures allouées au développement des outils internes.
+					\paragraph*{}
+						L'intégralité du code (framework, modules et stubs) est géré avec le gestionnaire de version Git, mais, pour des raisons de sécurité, il n'y a pas de serveur avec un repo synchronisé, ce dernier est passé par support physique entre les développeurs.
+					\paragraph*{}
+						La compilation est gérée avec CMake qui peut générer le projet pour différentes cibles (le plus souvent Visual Sudio) permettant de compiler le projet. Toutes les dépendances sont contenues dans le projet et compilées avec, à l'exception de Qt qui doit être installé sur la machine pour compiler le \gls{GUI} Qt.
+					\paragraph*{}
+						Il n'y a pas de normes de documentation, cette dernière est très peu présente en dehors des API exposées par GenDbg et les modules. Il n'y avait, avant le stage, pas de tests, ceux que j'ai ajoutés sont gérés et exécutés avec CMake et utilisent la librairie \gls{GTest}.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
