@@ -295,6 +295,14 @@
 						Ces modules ne sont pas concernés par le stage et n'ont pas été utilisés, ils ne seront pas plus détaillés dans ce rapport.
 					\p{Modularité et généricité}
 						De par son architecture (représentée sur la figure \ref{fig:GenDbg_modules}) GenDbg déplace les spécificités hors du framework, les spécificités d'architecture et d'OS à déboguer se trouvent donc au niveau des stubs tandis que celles dues à la représentation (instructions, adresses\ldots) se trouvent au niveau des modules ASM. De même toutes les fonctionnalité spécifiques supplémentaires se trouvent au niveau des modules additionnels. Cela permet d'avoir un framework générique qui n'a pas besoin d'être modifié pour étendre les fonctionnalités de GenDbg. Cela permet aussi d'avoir un développement très ciblé, pour développer un nouveau module, il est seulement nécessaire de connaître l'API que GenDbg expose aux modules et l'API que le module expose à GenDbg.
+					\p{Implémentation}
+						Le framework est écrit en C, mais de par l'architecture modulaire, ne restreint pas le langage d'écriture des stubs et modules, le \gls{GUI} Qt est par exemple lui en C++. Dans les faits la plupart des stubs et modules sont, eux aussi, écrit en C. Certains stubs sont implémentés nativement d'autres le sont sous la forme de ``wrapper'' qui réalisent la traduction du protocole GenDbg vers le protocole d'un autre débogueur (par exemple gdb\footnote{Débogueur standard du projet GNU} et jdb\footnote{Débogueur Java de Oracle}).
+					\begin{figure}[H]
+						\centering
+						\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_modules.tex}}
+						\caption{L'architecture modulaire du framework de GenDbg}
+						\label{fig:GenDbg_modules}
+					\end{figure}
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
