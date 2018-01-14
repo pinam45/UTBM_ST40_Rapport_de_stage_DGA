@@ -312,6 +312,21 @@
 						La compilation est gérée avec CMake qui peut générer le projet pour différentes cibles (le plus souvent Visual Sudio) permettant de compiler le projet. Toutes les dépendances sont contenues dans le projet et compilées avec, à l'exception de Qt qui doit être installé sur la machine pour compiler le \gls{GUI} Qt.
 					\paragraph*{}
 						Il n'y a pas de normes de documentation, cette dernière est très peu présente en dehors des API exposées par GenDbg et les modules. Il n'y avait, avant le stage, pas de tests, ceux que j'ai ajoutés sont gérés et exécutés avec CMake et utilisent la librairie \gls{GTest}.
+				\subsubsection{Travail a réaliser}
+					\paragraph*{}
+						Le but initial du stage était le développement et la fiabilisation d'un module de désassemblage basé sur la librairie Capstone pour les architectures \acrshort{MIPS} et PowerPC. Le développement nécessitant d'implémenter toutes les fonctionnalités d'un module ASM GenDbg dont l'assemblage et le désassemblage en réalisant l'interfaçage entre GenDbg et Capstone. La fiabilisation elle, nécessitant la réalisation et la validation de tests unitaires sur les modules développés.
+					\begin{figure}[H]
+						\centering
+						\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_modules_impl.tex}}
+						\caption{Implémentation des modules GenDbg et librairies utilisées}
+						\label{fig:GenDbg_modules_impl}
+					\end{figure}
+					\paragraph*{}
+						Lorsqu'il est évoqué d'utiliser la librairie Capstone, c'est en réalité la librairie Capstone et Keystone qui sont concernées, la première réalisant le désassemblage et la deuxième l'assemblage de code pour de nombreuses architectures, elles seront abordées plus en détail dans le chapitre \ref{ch:gendbg}. Certains modules utilisent déjà des librairies, c'est le cas des modules x86 et AMD64 qui utilisent déjà Capstone et Keystone. Les librairies étant déjà présentes, elles sont déjà intégrées au système de compilation, il suffira d'ajouter la liaison aux modules \acrshort{MIPS} et \acrshort{PPC} lors de leur compilation.
+					\paragraph{}
+						Le travail à réaliser est donc très technique et ne requiert pas d'étude préalable des cas d'utilisation ou d'identification des besoins, la conception du logiciel, son architecture et les différentes API étant déjà présente et non modifiables au cours du stage. Il sera nécessaire d'étudier les différentes API utilisables (GenDbg et Capstone) pour réalisé l'API demandée (module ASM) tout en s'assurant de l'évolutivité du module.
+					\paragraph*{}
+						Le stage a commencé par la réalisation du module pour l'architecture \acrshort{MIPS} (détaillé au chapitre \ref{ch:gendbg}). À la fin de la réalisation de ce dernier cependant il fut décidé qu'il serait plus intéressant de ne pas réaliser le module pour l'architecture \acrshort{PPC}, pour à la place travailler sur le projet YaCo. %(présenté dans la section suivante et détaillé au chapitre \ref{ch:yaco}).
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
