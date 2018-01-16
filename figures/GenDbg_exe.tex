@@ -1,0 +1,190 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\pgfmathsetmacro\computerwidth{210}%
+	\pgfmathsetmacro\computerheight{200}%
+	\pgfmathsetmacro\xstartmodules{15}%
+	\pgfmathsetmacro\ystartmodules{-10}%
+	\pgfmathsetmacro\yshiftmodules{-5}%
+	\pgfmathsetmacro\osiconsheight{25}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt]
+		\tikzset{comp/.style={
+			draw,
+			rectangle,
+			fill=bg_color,
+			minimum width=\computerwidth,
+			minimum height=\computerheight
+		}}
+		\tikzset{module/.style={
+			draw,
+			rectangle,
+			anchor=north west,
+			minimum height=17,
+			fill=color2,
+			outer sep=0pt,
+		}}
+		\tikzset{dll/.style={
+			draw,
+			rectangle,
+			anchor=west,
+			minimum height=17,
+			font=\footnotesize,
+			fill=color3,
+		}}
+
+		%---------------------------------
+		% Computers
+		\node[comp] (c1) at (0,0) {};
+		\node[anchor=south] (c1t) at (c1.north) {Ordinateur 1};
+		\node[anchor=south west] (win) at (c1.south west) {\includegraphics[height=\osiconsheight pt]{logos/Windows.png}};
+		\node[anchor=west] (tux) at (win.east) {\includegraphics[height=\osiconsheight pt]{logos/Tux.png}};
+		\node[anchor=west] (ect) at (tux.east) {\large\ldots};
+
+		\node[comp] (c2) at (290,0) {};
+		\node[anchor=south] (c2t) at (c2.north) {Ordinateur 2};
+		\node[anchor=south west] (win) at (c2.south west) {\includegraphics[height=\osiconsheight pt]{logos/Windows.png}};
+
+		%---------------------------------
+		% Stub
+		\node[
+			isosceles triangle,
+			isosceles triangle apex angle=44,
+			xshift=90,
+			yshift=40,
+			minimum width=112.5,
+			fill=cyan,
+			fill opacity=0.20,
+			blue,
+			anchor=east,
+			outer sep=0,
+			inner sep=0
+		] (watch) at (c1.center) {};
+
+		\node[
+			draw,
+			diamond,
+			aspect=2.5,
+			fill=color1,
+			text opacity=1,
+			inner sep = 5,
+			anchor=east,
+			outer sep=0
+		] (stub) at (watch.east) {Stub};
+
+		\draw[
+			fill=color3,
+		] (stub.east) -- ($(stub.east) + (stub.south) - (stub)$) -- (stub.south) -- cycle;
+		\node[
+			xshift=10,
+			yshift=-3,
+			font=\footnotesize,
+		] (exe) at (stub.south east) {exe};
+
+		%---------------------------------
+		% Application
+		\node[
+			draw,
+			circle,
+			aspect=2.5,
+			fill=green!40,
+			xshift=-50,
+			yshift=40,
+			text opacity=1
+		] (app) at (c1.center) {Application};
+
+		%---------------------------------
+		% GenDbg
+		\node[
+			draw,
+			diamond,
+			aspect=2.5,
+			fill=color1,
+			xshift=-55,
+			yshift=40,
+			text opacity=1
+		] (gendbg) at (c2.center) {GenDbg};
+
+		\draw[
+			fill=color3,
+		] (gendbg.west) -- ($(gendbg.west) + (gendbg.south) - (gendbg)$) -- (gendbg.south) -- cycle;
+		\node[
+			xshift=-11,
+			yshift=-3.5,
+			font=\footnotesize,
+		] (exe) at (gendbg.south west) {exe};
+
+		%---------------------------------
+		% GenDbg <-> Stub
+		\draw[
+			<->,
+			>=latex,
+			dotted,
+			thick,
+			label=above:COMfhdgfhrfdgdsx
+		] (gendbg) to[bend right] node[above,pos=0.5] {COM} (stub);
+
+		%---------------------------------
+		% GUI
+		\node[
+			module,
+			anchor=south west,
+			xshift=\xstartmodules,
+			yshift=-\ystartmodules,
+		] (gui) at (gendbg.north east) {GUI};
+		\node[dll] (dll) at (gui.east) {dll};
+
+		%---------------------------------
+		% AsmModule
+		\node[
+			module,
+			xshift=\xstartmodules,
+			yshift=\ystartmodules,
+		] (asmmodule) at (gendbg.south east) {AsmModule};
+		\node[dll] (dll) at (asmmodule.east) {dll};
+
+		%---------------------------------
+		% CmdModule
+		\node[
+			module,
+			yshift=\yshiftmodules,
+		] (cmdmodule) at (asmmodule.south west) {CmdModule};
+		\node[dll] (dll) at (cmdmodule.east) {dll};
+
+		%---------------------------------
+		% SymModule
+		\node[
+			module,
+			yshift=\yshiftmodules,
+		] (symmodule) at (cmdmodule.south west) {SymModule};
+		\node[dll] (dll) at (symmodule.east) {dll};
+
+		%---------------------------------
+		% OSHelperModule
+		\node[
+			module,
+			yshift=\yshiftmodules,
+		] (oshelpermodule) at (symmodule.south west) {OSHelperModule};
+		\node[dll] (dll) at (oshelpermodule.east) {dll};
+
+		%---------------------------------
+		% BpModule
+		\node[
+			module,
+			yshift=\yshiftmodules,
+		] (bpmodule) at (oshelpermodule.south west) {BpModule};
+		\node[dll] (dll) at (bpmodule.east) {dll};
+
+		%---------------------------------
+		% GenDbg -> modules
+		\draw[-Square] (gendbg.north east) |- (gui);
+		\draw[-Square] (gendbg.south east) |- (asmmodule);
+		\draw[-Square] (gendbg.south east) |- (cmdmodule);
+		\draw[-Square] (gendbg.south east) |- (symmodule);
+		\draw[-Square] (gendbg.south east) |- (oshelpermodule);
+		\draw[-Square] (gendbg.south east) |- (bpmodule);
+	\end{tikzpicture}
+\end{document}
