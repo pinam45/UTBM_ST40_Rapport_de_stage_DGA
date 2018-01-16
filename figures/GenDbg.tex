@@ -4,13 +4,14 @@
 \input{figures_common}
 
 \begin{document}
-	\def\computerwidth{210}%
-	\def\computerheight{200}%
-	\def\xstartmodules{15}%
-	\def\ystartmodules{-10}%
-	\def\yshiftmodules{-5}%
-	\def\osiconsheight{25}%
-	\begin{tikzpicture}
+	\pgfmathsetmacro\computerwidth{210}%
+	\pgfmathsetmacro\computerheight{200}%
+	\pgfmathsetmacro\xstartmodules{15}%
+	\pgfmathsetmacro\ystartmodules{-10}%
+	\pgfmathsetmacro\yshiftmodules{-5}%
+	\pgfmathsetmacro\osiconsheight{25}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt]
 		\tikzset{comp/.style={
 			draw,
 			rectangle,
@@ -42,8 +43,9 @@
 		\node[anchor=south] (c1t) at (c1.north) {Ordinateur 1};
 		\node[anchor=south west] (win) at (c1.south west) {\includegraphics[height=\osiconsheight pt]{logos/Windows.png}};
 		\node[anchor=west] (tux) at (win.east) {\includegraphics[height=\osiconsheight pt]{logos/Tux.png}};
+		\node[anchor=west] (ect) at (tux.east) {\large\ldots};
 
-		\node[comp] (c2) at (10,0) {};
+		\node[comp] (c2) at (290,0) {};
 		\node[anchor=south] (c2t) at (c2.north) {Ordinateur 2};
 		\node[anchor=south west] (win) at (c2.south west) {\includegraphics[height=\osiconsheight pt]{logos/Windows.png}};
 
@@ -51,14 +53,16 @@
 		% Stub
 		\node[
 			isosceles triangle,
-			isosceles triangle apex angle=43,
+			isosceles triangle apex angle=44,
 			xshift=90,
 			yshift=40,
-			minimum width=110,
+			minimum width=112.5,
 			fill=cyan,
 			fill opacity=0.20,
 			blue,
 			anchor=east,
+			outer sep=0,
+			inner sep=0
 		] (watch) at (c1.center) {};
 
 		\node[
@@ -69,6 +73,7 @@
 			text opacity=1,
 			inner sep = 5,
 			anchor=east,
+			outer sep=0
 		] (stub) at (watch.east) {Stub};
 
 		%---------------------------------
