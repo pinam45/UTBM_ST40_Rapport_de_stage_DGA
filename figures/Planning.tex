@@ -1,0 +1,94 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\begin{tikzpicture}[x=1pt,y=1pt]
+		\begin{ganttchart}[
+				vgrid,
+				% vgrid={*6{draw=none},*1{dotted}},
+				vgrid={draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,dotted,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none,draw=none}, % beautiful
+				x unit=3,
+				y unit chart=20,
+				group left shift=0,
+				group right shift=0,
+				group peaks width=2,
+				link bulge=2.5,
+				milestone inline label node/.append style={anchor=west,font=\footnotesize},
+				bar inline label node/.append style={font=\footnotesize},
+				time slot format=isodate,
+				milestone/.append style={text width=7},
+			]{2017-08-01}{2018-01-28}
+
+			%---------------------------------
+			% Time
+			\gantttitlecalendar{year, month=name}\\
+			\gantttitle[title label node/.append style={xshift=-25}]{\color{gray!80}\textit{semaines}}{0}
+			\gantttitle{1}{6}
+			\gantttitlelist{2,...,26}{7}\\
+
+			%---------------------------------
+			% Events
+			\ganttmilestone[inline]{Obtention du badge}{2017-08-29}
+			\ganttmilestone[inline]{Formation sécurité}{2017-10-10}
+			\ganttmilestone[inline]{Visite du suiveur UTBM}{2017-12-01}\\
+			\ganttmilestone[inline]{Obtention du poste internet}{2017-08-30}
+			\ganttbar[name=closed,inline,bar/.append style={fill=gray},bar inline label node/.append style={anchor=west,xshift=15}]{Site fermé}{2017-12-23}{2018-01-02}\\
+			% \ganttmilestone[inline]{Sortie cohésion}{2017-09-01}
+			% \ganttmilestone[inline]{Sortie cohésion}{2018-01-09}\\
+			% \ganttnewline[dashed]
+
+			%---------------------------------
+			% GenDbg
+			\ganttgroup{GenDbg}{2017-08-01}{2017-11-06}\\
+				\ganttbar[name=gendbgcode1]{Module MIPS}{2017-08-01}{2017-10-04}
+				\ganttbar[name=gendbgcode2]{}{2017-10-31}{2017-11-06} \\
+				\ganttmilestone[name=gendbgcr1]{Code reviews}{2017-09-04}
+				\ganttmilestone[name=gendbgcr2]{}{2017-10-01}
+				\ganttmilestone[name=gendbgcr3]{}{2017-10-30}
+				\ganttmilestone[name=gendbgcr4,inline]{Validation finale du code}{2017-11-06}\\
+				\ganttbar[name=gendbgtests]{Tests}{2017-10-05}{2017-10-15}\\
+				% \ganttmilestone{Issue Keystone}{2017-09-08}\\
+			% \ganttnewline[dashed]
+
+			%---------------------------------
+			% YaCo
+			\ganttgroup{YaCo}{2017-10-16}{2018-01-28}\\
+				\ganttbar[name=yacorepository1]{Repository}{2017-10-16}{2017-10-30}
+				\ganttbar[name=yacorepository2]{}{2017-11-07}{2017-11-14}
+				\ganttbar[name=yacorepository3]{}{2017-11-23}{2017-11-30}\\
+				\ganttmilestone[name=yacorepocr1]{Code reviews}{2017-11-22}
+				\ganttmilestone[name=yacorepocr2]{}{2017-11-28}\\
+				\ganttmilestone[name=yacorepopr1,inline]{Pull request}{2017-11-30}\\
+				\ganttbar[name=yacohooks1]{Hooks}{2017-11-15}{2017-11-22}
+				\ganttbar[name=yacohooks2]{}{2017-11-31}{2017-12-22}
+				\ganttbar[name=yacohooks3]{}{2018-01-03}{2018-01-09}\\
+				\ganttmilestone[name=yacohookscr1]{Code reviews}{2017-12-14}
+				\ganttmilestone[name=yacohookscr2]{}{2018-01-05}\\
+				\ganttmilestone[name=yacohookspr1,inline]{Pull request}{2018-01-09}
+			% \ganttnewline[dashed]
+
+			%---------------------------------
+			% ...
+			% \ganttmilestone[inline]{Probleme des pragma pack}{2017-09-21}
+			% \ganttmilestone[inline]{MAJ Capstone}{2017-09-25}
+			% \ganttmilestone[inline]{MAJ Keystone}{2017-09-26}
+
+			%---------------------------------
+			% Links
+			\ganttlink[link type=bartobardown]{gendbgcode1}{gendbgtests}
+			\ganttlink[link type=bartobardown]{gendbgtests}{yacorepository1}
+			\ganttlink[link type=bartobarup]{yacorepository1}{gendbgcode2}
+			\ganttlink[link type=bartomilestonedown]{gendbgcode2}{gendbgcr4}
+			\ganttlink[link type=milestonetobardown]{gendbgcr4}{yacorepository2}
+			\ganttlink[link type=bartobardown]{yacorepository2}{yacohooks1}
+			\ganttlink[link type=bartobarup]{yacohooks1}{yacorepository3}
+			\ganttlink[link type=bartomilestonedown]{yacorepository3}{yacorepopr1}
+			\ganttlink[link type=milestonetobardown]{yacorepopr1}{yacohooks2}
+			\ganttlink[link type=bartobarup,link/.append style={dashed,gray}]{yacohooks2}{closed}
+			\ganttlink[link type=bartobardown,link/.append style={dashed,gray}]{closed}{yacohooks3}
+			\ganttlink[link type=bartomilestonedown]{yacohooks3}{yacohookspr1}
+		\end{ganttchart}
+	\end{tikzpicture}
+\end{document}

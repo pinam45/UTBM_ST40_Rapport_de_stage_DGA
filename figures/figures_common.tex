@@ -8,3 +8,24 @@
 \colorlet{color2}{red!30!green!40}
 \colorlet{color3}{orange!50}
 \colorlet{color4}{violet!60!blue!55}
+
+\newganttlinktype{bartobardown}{
+	\ganttsetstartanchor{south east}
+	\ganttsetendanchor{north west}
+	\draw [/pgfgantt/link] (\xLeft, \yUpper) -- (\xRight, \yLower);
+}
+\newganttlinktype{bartobarup}{
+	\ganttsetstartanchor{north east}
+	\ganttsetendanchor{south west}
+	\draw [/pgfgantt/link] (\xLeft, \yUpper) -- (\xRight, \yLower);
+}
+\newganttlinktype{milestonetobardown}{
+	\ganttsetstartanchor{south}
+	\ganttsetendanchor{north west}
+	\draw [/pgfgantt/link] (\xLeft, \yUpper) -- (\xRight, \yLower);
+}
+\newganttlinktype{bartomilestonedown}{
+	\ganttsetstartanchor{south east}
+	\ganttsetendanchor{north}
+	\draw [/pgfgantt/link] (\xLeft, \yUpper) -- (\xRight, \yLower);
+}
