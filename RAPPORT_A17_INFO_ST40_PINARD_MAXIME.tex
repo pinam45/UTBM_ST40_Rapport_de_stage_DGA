@@ -346,6 +346,26 @@
 					Toujours dans un but de sécurité, les postes de travail ne sont reliés a aucun réseau afin de limiter leurs interactions avec des données étrangères. L'accès à internet se fait donc par un poste dédié qui est simplement une machine Windows avec uniquement un navigateur internet et un montage logiciel et réseau permettant de s'assurer de la sécurité de la connexion. Une fois le badge obtenu et un bureau attribué, j'ai été équipé d'un poste dédié pour accéder à internet.
 				% \p{Logiciels}
 				% 	Pour travailler sur GenDbg et YaCo, il m'était indispensable d'avoir CMake, git, Python, Hex-Rays IDA et un environnement de développement C/C++. J'ai travaillé durant la totalité du stage sous Windows 10 avec Microsoft Visual Studio 2017 et Sublime Text 3. En plus des logiciels indispensables cités avant j'ai aussi utilisé plusieurs outils de visualisation graphique pour Git. % + VirtualBox, QEMU Alpine Linux, Debian MIPS, TeXLive pour la présentation...
+			\subsection{Planning}
+				Voir figure \ref{fig:Planning}.
+				\begin{landscape}
+					\begin{figure}[H]
+						\vspace*{-0.5cm}
+						\hspace*{-2cm}
+						\centering
+						\resizebox{1.2\paperwidth}{!}{\import{figures/}{Planning.tex}}
+						\caption{Planning}
+						\label{fig:Planning}
+					\end{figure}
+				\end{landscape}
+				\paragraph*{}
+					Comme visible sur la figure \ref{fig:Planning}, j'ai commencé par le travail sur GenDbg avec le développement du module \acrshort{MIPS}, j'ai ensuite testé le module tout en effectuant les modifications et corrections nécessaires. Par la suite, à partir de mi Octobre, j'ai commencé à travailler sur YaCo en commençant par le Repository et en continuant sur les Hooks.
+				\paragraph*{}
+					Lors de mon travail plusieurs code review\footnote{revues de code} ont été réalisées par mon maître de stage, ce dernier m'indiquant des corrections et améliorations a réalisé dans mon code. Je suis donc parfois retourné travailler sur le travail précédant afin d'appliquer les modification demandées dans la revue de code.
+				\paragraph*{}
+					Enfin, le travail sur YaCo a donné lieu a deux pull request\cite{GithubYaCoPR24,GithubYaCoPR30} sur le repo publique du projet sur GitHub\cite{SSTICYaCo}.
+				\paragraph*{}
+					Après avoir terminé le travail sur GenDbg et YaCo, j'ai préparé une présentation orale interne a la \gls{DGA MI} sur le contenu de mon stage qui a eu lieu le 23 Janvier 2018. En parallèle à cela, j'ai commencé la rédaction du rapport de stage que j'ai continué sur les 3 jours restants après la présentation.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
