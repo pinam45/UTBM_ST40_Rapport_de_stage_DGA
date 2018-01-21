@@ -403,6 +403,11 @@
 							\item \file{Mips.h} et \file{Mips64.h}: enum des registres MIPS
 						\end{itemize}
 						Ces derniers seront utilisés sans être modifiés afin de garder l'\gls{API} de GenDbg et des composants MIPS inchangée.
+				\subsubsection{Ajout du module}
+					\paragraph*{}
+						L'ajout du module a été assez simple puisque l'ancien module \acrshort{MIPS} étant présent, la configuration de CMake pour sa compilation était, elle aussi, déjà présente. Il a suffi de supprimer ce dernier pour le remplacer par une implémentation, initialement vide de l'\gls{API} des modules ASM pour que le nouveau module compile.
+					\paragraph*{}
+						Les librairies Capstone et Keystone étant déjà présentes pour les modules x86 et AMD64, je n'ai eu qu'à les ajouter en dépendances du module \acrshort{MIPS} pour que celles-ci lui soient lié à la compilation. Ces dernières sont liées statiquement pour ne pas avoir à gérer des \acrshort{DLL} externes desquelles dépendrait le module.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
