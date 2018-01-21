@@ -366,6 +366,26 @@
 					Enfin, le travail sur YaCo a donné lieu a deux pull request\cite{GithubYaCoPR24,GithubYaCoPR30} sur le repo publique du projet sur GitHub\cite{SSTICYaCo}.
 				\paragraph*{}
 					Après avoir terminé le travail sur GenDbg et YaCo, j'ai préparé une présentation orale interne a la \gls{DGA MI} sur le contenu de mon stage qui a eu lieu le 23 Janvier 2018. En parallèle à cela, j'ai commencé la rédaction du rapport de stage que j'ai continué sur les 3 jours restants après la présentation.
+	\chapter{GenDbg}\label{ch:gendbg}
+		\section{Développement du module}
+			\subsection{Compilation}
+				\subsubsection{Le système en place}
+					\paragraph*{}
+						CMake est une famille d'outils multiplateformes et open-source conçus pour compiler, tester et déployer des logiciels. CMake est utilisé pour contrôler la compilation d'un logiciel en utilisant des fichiers de configuration indépendants de la plate-forme et du compilateur à partir desquels seront générés des makefiles et projets pour de nombreux IDE et compilateurs.
+					\paragraph*{}
+						Le système de compilation et de tests de GenDbg utilise CMake pour ne dépendre d'aucune plateforme ou compilateur particulier, pour cela un fichier (\file{CMakeLists.txt}) définit plusieurs cibles pour CMake. Chaque cible correspond a un ou plusieurs fichiers de sortie (\acrshort{DLL}, exécutable\ldots). Les principales cibles sont:
+						\begin{itemize}
+							\item Le framework (\file{GenDbg.exe}), c'est l'exécutable principal
+							\item Les modules, une cible par module (\file{AsmModuleMIPS.dll}, \file{OSHelper\_AMD64.dll}, \ldots)
+							\item Les stubs, une cible par stub (\file{JAVAStub.exe}, \file{VBoxStub.exe}, \ldots)
+							\item Le dépendances, une cible par dépendance (\file{Capstone.dll}, \file{Keystone.dll}, \ldots)
+						\end{itemize}
+					\paragraph*{}
+						Afin que l’installation de GenDbg se suffise à elle-même et qu'il ne soit pas nécessaire d’installer préalablement des librairies ou logiciels nécessaires au fonctionnement de GenDbg, toutes les dépendances sont incluses dans le projet et compilées en même temps que ce dernier. La seule exception est Qt pour le \gls{GUI} dont l'incorporation et le maintien à jour du système de compilation auraient demandé trop de travail.
+					\paragraph*{}
+						Un autre avantage non négligeable de gérer directement les dépendances plutôt que se reposer sur l'installation de ces dernières par l'utilisateur est le contrôle de la version utilisée. Si, par exemple, la dernière version de la librairie Capstone change l'API ou contient un bug, cela permet d'avoir le temps de modifier GenDbg en conséquence avant de mettre à jour la librairie.
+					\paragraph*{}
+						Me concernant durant le stage, j'utilisais CMake pour générer un projet Visual Studio 2017 qui me servait à développer le module et à compiler GenDbg.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
