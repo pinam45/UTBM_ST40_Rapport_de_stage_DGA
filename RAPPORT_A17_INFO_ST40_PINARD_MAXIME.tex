@@ -386,6 +386,23 @@
 						Un autre avantage non négligeable de gérer directement les dépendances plutôt que se reposer sur l'installation de ces dernières par l'utilisateur est le contrôle de la version utilisée. Si, par exemple, la dernière version de la librairie Capstone change l'API ou contient un bug, cela permet d'avoir le temps de modifier GenDbg en conséquence avant de mettre à jour la librairie.
 					\paragraph*{}
 						Me concernant durant le stage, j'utilisais CMake pour générer un projet Visual Studio 2017 qui me servait à développer le module et à compiler GenDbg.
+				\subsubsection{Les interdépendances}
+					\paragraph*{}
+						En plus de dépendre parfois d'une ou plusieurs dépendances externes, le framework, les modules et les stubs, puisque communicants ensembles, dépendent de définitions et donc de fichiers communs. Un schéma simplifié représentant les dépendances entre éléments de GenDbg développés et utilisés durant le stage est disponible en \annexe{gendbgdependancescompilationsimplifiees}.
+					\paragraph*{}
+						Les fichiers de code source de chaque module ou stub sont regroupés dans un dossier, basiquement la compilation d'un module ou stub revient à compiler tous les fichiers de ce dossier, mais il faut ajouter à cela les fichiers en commun. Le principal fichier commun est \file{GenDbg.h}, il contient toutes les définitions des types communs qui sont utilisés pour la communication avec le framework tel que \jclass{MemoryAddress\_T} ou \jclass{ViewCtx\_T}.
+					\paragraph*{}
+						Chaque type de module (ASM, OS helper, \ldots) a une API a implémenter qui sera utilisée par le framework. La définition de cette API est donc commune entre tous les modules d'un même type et le framework. Ainsi, le framework et le module ASM \acrshort{MIPS} que j'ai développé ont en commun, en plus de \file{GenDbg.h}, le fichier \file{AsmModule.h} qui définit l'API des modules ASM.
+					\paragraph*{}
+						Le framework étant générique, il n'a pas à connaître les informations spécifiques à l'architecture déboguée. Cependant, les modules ASM et les stubs manipulent eux directement des informations relatives aux registres du processeur débogué, le stub par les requêtes de lecture et écriture de ces derniers et le module ASM par l'assemblage / désassemblage des instructions. Ils ont donc besoin de dénominations communes, concrètement dans GenDbg pour chaque architecture de processeur une enum avec tous les registres du processeur sert à les identifier. Pour l'architecture \acrshort{MIPS} cette enum est contenue dans les fichiers \file{Mips.h} et \file{Mips64.h}.
+					\paragraph*{}
+						Les fichiers contenant des définitions nécessaires au développement du module sont donc:
+						\begin{itemize}
+							\item \file{GenDbg.h}: types communs
+							\item \file{AsmModule.h} API des modules ASM
+							\item \file{Mips.h} et \file{Mips64.h}: enum des registres MIPS
+						\end{itemize}
+						Ces derniers seront utilisés sans être modifiés afin de garder l'API de GenDbg et des composants MIPS inchangée.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
