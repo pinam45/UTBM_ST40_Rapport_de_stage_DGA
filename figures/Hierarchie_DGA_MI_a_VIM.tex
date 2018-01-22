@@ -50,39 +50,39 @@
 		\draw (dgami.south) -- (A);
 
 		%---------------------------------
-		% SSI3
+		% Composants électroniques et optroniques
 		\node[
 			firsttblock,
 			yshift=-\tlevellinelength,
 			xshift=\tlevelaxshift,
-		] (ssi3) at (A) {Sécurité des systèmes d'information 3 (SSI3)};
-		\draw (A) -| (ssi3.north);
+		] (ceo) at (A) {Composants électroniques et optroniques};
+		\draw (A) -| (ceo.north);
 
 		%---------------------------------
-		% SSI5
+		% SSI
 		\node[
 			tblock,
-		] (ssi5) at (ssi3.north east) {\bfseries Sécurité des systèmes d'information 5 (SSI5)};
-		\draw (A) -| (ssi5.north);
+		] (ssi) at (ceo.north east) {\bfseries Sécurité des systèmes d'information (SSI)};
+		\draw (A) -| (ssi.north);
 
 		%---------------------------------
-		% SSI1
+		% Réseaux de télécommunications
 		\node[
 			tblock,
-		] (tec) at (ssi5.north east) {Télécommunications (TEC)};
-		\draw (A) -| (tec.north);
+		] (rdt) at (ssi.north east) {Réseaux de télécommunications};
+		\draw (A) -| (rdt.north);
 
 		%---------------------------------
 		% ...
 		\node[
 			tblock,
-		] (ect) at (tec.north east) {\huge\ldots};
+		] (ect) at (rdt.north east) {\huge\ldots};
 		\draw (A) -| (ect.north);
 
 		%---------------------------------
 		% SSI5 tree
-		\coordinate (A) at ($(ssi5.south)-(0,\tlevelprelinelength)$);
-		\draw (ssi5.south) -- (A);
+		\coordinate (A) at ($(ssi.south)-(0,\tlevelprelinelength)$);
+		\draw (ssi.south) -- (A);
 
 		%---------------------------------
 		% VIM/VSE
