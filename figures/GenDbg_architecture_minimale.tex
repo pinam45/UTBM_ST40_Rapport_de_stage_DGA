@@ -4,12 +4,13 @@
 \input{figures_common}
 
 \begin{document}
-	\def\computerwidth{200}%
-	\def\computerheight{140}%
-	\def\ymainshift{5}%
-	\def\xstartmodules{25}%
-	\def\ystartmodules{-10}%
-	\def\osiconsheight{25}%
+	\pgfmathsetmacro\computerwidth{200}%
+	\pgfmathsetmacro\computerheight{140}%
+	\pgfmathsetmacro\ymainshift{5}%
+	\pgfmathsetmacro\xstartmodules{25}%
+	\pgfmathsetmacro\ystartmodules{-10}%
+	\pgfmathsetmacro\osiconsheight{25}%
+
 	\begin{tikzpicture}[x=1pt,y=1pt]
 		\tikzset{comp/.style={
 			draw,
