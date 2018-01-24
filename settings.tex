@@ -133,7 +133,13 @@
 	Analyse de binaires
 }
 \setutbmabstract{
-	TODO
+	La Direction Générale de l'Armement (DGA) est une direction du Ministère des Armées qui a de nombreuses missions dont celle de préparer l'avenir des systèmes de défense français, pour cela plusieurs centres d'expertise et d'essais sont répartis en France tels que la DGA Maîtrise de l'Information (DGA MI) situé près de Rennes. La DGA MI a pour mission des études, expertises et essais dans les domaines de la guerre électronique, des systèmes d'armes, des systèmes d'information, des télécommunications, de la sécurité de l'information et des composants électroniques.
+	\vspace{12pt}\\
+	Au sein de la DGA MI des équipes travaillent sur l’analyse de binaires dont le code source est inconnu, pour cela deux types d'analyses sont utilisées, l'analyse dynamique en suivant l'exécution du programme à l'aide d'un débogueur et l'analyse statique en étudiant le code désassemblé sans exécuter le programme.
+	\vspace{12pt}\\
+	GenDbg est un débogueur générique développé en interne de la DGA MI, conçu pour pouvoir déboguer tout type de programme, il repose sur de nombreux modules spécifiques aux caractéristiques du programme débogué. Le module de désassemblage pour les architectures de processeurs MIPS de GenDbg étant obsolète et non maintenu, ma première mission a été de réaliser une nouvelle implémentation de ce dernier en utilisant la librairie de désassemblage Capstone.
+	\vspace{12pt}\\
+	Hex-Rays IDA est un logiciel d'analyse statique qui permet de documenter un binaire pour en comprendre le fonctionnement, la DGA MI développe et maintient un plugin IDA nommé YaCo qui permet de travailler à plusieurs sur une même base de code. YaCo, initialement codé en Python, a été porté en C++, la deuxième mission de mon stage a été de réaliser le portage C++ et l'amélioration des parties responsables de la gestion du dépôt Git et des événements IDA.
 }
 
 %----------------------------------------
