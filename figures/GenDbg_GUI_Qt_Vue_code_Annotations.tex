@@ -4,7 +4,7 @@
 \input{figures_common}
 
 \begin{document}
-	\begin{tikzpicture}[x=1pt,y=1pt]
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
 		\tikzset{txt/.style={
 			black,
 			font=\footnotesize,
@@ -55,7 +55,7 @@
 			%---------------------------------
 			% Current instr
 			\coordinate (currentline) at (0.65,0.877);
-			\draw[<-,>=latex] (currentline) -- ++(0.1,0) node[txt,anchor=west,text width=90] {instruction courante (saut conditionnel)};
+			\draw[<-] (currentline) -- ++(0.1,0) node[txt,anchor=west,text width=90] {instruction courante (saut conditionnel)};
 
 			%---------------------------------
 			% Jump direction
@@ -70,11 +70,11 @@
 			\coordinate (jump4) at (0.55,0.52);
 			\coordinate (jump5) at (0.55,0.45);
 			\coordinate (jumps) at ($(jump3)+(0.09,0)$);
-			\draw[<-,>=latex] (jump1) -| (jumps);
-			\draw[<-,>=latex] (jump2) -| (jumps);
-			\draw[<-,>=latex] (jump3) -| (jumps);
-			\draw[<-,>=latex] (jump4) -| (jumps);
-			\draw[<-,>=latex] (jump5) -| (jumps);
+			\draw[<-] (jump1) -| (jumps);
+			\draw[<-] (jump2) -| (jumps);
+			\draw[<-] (jump3) -| (jumps);
+			\draw[<-] (jump4) -| (jumps);
+			\draw[<-] (jump5) -| (jumps);
 			\draw (jumps) -- ++(0.08,0) node[txt,anchor=west,text width=85] {instructions de saut non conditionnel};
 		\end{scope}
 	\end{tikzpicture}

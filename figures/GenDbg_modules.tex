@@ -20,7 +20,7 @@
 	\pgfmathsetmacro\xshiftoshelpermoduleimpl{30}%
 	\pgfmathsetmacro\xshiftbpmoduleimpl{140}%
 
-	\begin{tikzpicture}[x=1pt,y=1pt]
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
 		\tikzset{module/.style={
 			draw,
 			rectangle,
@@ -130,8 +130,8 @@
 
 		%---------------------------------
 		% GUI -- GUI impl
-		\draw[->,>=latex] (gui.east) to (guiimp1.west);
-		\draw[->,>=latex] (gui.east) to (guiimpl2.west);
+		\draw[->] (gui.east) to (guiimp1.west);
+		\draw[->] (gui.east) to (guiimpl2.west);
 
 		%---------------------------------
 		% AsmModule impl
@@ -141,9 +141,9 @@
 
 		%---------------------------------
 		% AsmModule -- AsmModule impl
-		\draw[->,>=latex] (asmmodule.east) to (asmmoduleimpl2.west);
-		\draw[->,>=latex] (asmmodule.east) to (asmmoduleimpl1.west);
-		\draw[->,>=latex,dashed] (asmmodule.east) to (asmmoduleimpl3.west);
+		\draw[->] (asmmodule.east) to (asmmoduleimpl2.west);
+		\draw[->] (asmmodule.east) to (asmmoduleimpl1.west);
+		\draw[->,dashed] (asmmodule.east) to (asmmoduleimpl3.west);
 
 		%---------------------------------
 		% CmdModule impl
@@ -153,9 +153,9 @@
 
 		%---------------------------------
 		% CmdModule -- CmdModule impl
-		\draw[->,>=latex] (cmdmodule.east) to (cmdmoduleimpl1.west);
-		\draw[->,>=latex] (cmdmodule.east) to (cmdmoduleimpl2.west);
-		\draw[->,>=latex,dashed] (cmdmodule.east) to (cmdmoduleimpl3.west);
+		\draw[->] (cmdmodule.east) to (cmdmoduleimpl1.west);
+		\draw[->] (cmdmodule.east) to (cmdmoduleimpl2.west);
+		\draw[->,dashed] (cmdmodule.east) to (cmdmoduleimpl3.west);
 
 		%---------------------------------
 		% SymModule impl
@@ -165,9 +165,9 @@
 
 		%---------------------------------
 		% SymModule -- SymModule impl
-		\draw[->,>=latex] (symmodule.east) to (symmoduleimpl2.west);
-		\draw[->,>=latex] (symmodule.east) to (symmoduleimpl1.west);
-		\draw[->,>=latex,dashed] (symmodule.east) to (symmoduleimpl3.west);
+		\draw[->] (symmodule.east) to (symmoduleimpl2.west);
+		\draw[->] (symmodule.east) to (symmoduleimpl1.west);
+		\draw[->,dashed] (symmodule.east) to (symmoduleimpl3.west);
 
 		%---------------------------------
 		% OSHelperModule impl
@@ -177,9 +177,9 @@
 
 		%---------------------------------
 		% OSHelperModule -- OSHelperModule impl
-		\draw[->,>=latex] (oshelpermodule.east) to (oshelpermoduleimpl1.west);
-		\draw[->,>=latex] (oshelpermodule.east) to (oshelpermoduleimpl2.west);
-		\draw[->,>=latex,dashed] (oshelpermodule.east) to (oshelpermoduleimpl3.west);
+		\draw[->] (oshelpermodule.east) to (oshelpermoduleimpl1.west);
+		\draw[->] (oshelpermodule.east) to (oshelpermoduleimpl2.west);
+		\draw[->,dashed] (oshelpermodule.east) to (oshelpermoduleimpl3.west);
 
 		%---------------------------------
 		% BpModule impl
@@ -189,9 +189,9 @@
 
 		%---------------------------------
 		% BpModule -- BpModule impl
-		\draw[->,>=latex] (bpmodule.east) to (bpmoduleimpl2.west);
-		\draw[->,>=latex] (bpmodule.east) to (bpmoduleimpl1.west);
-		\draw[->,>=latex,dashed] (bpmodule.east) to (bpmoduleimpl3.west);
+		\draw[->] (bpmodule.east) to (bpmoduleimpl2.west);
+		\draw[->] (bpmodule.east) to (bpmoduleimpl1.west);
+		\draw[->,dashed] (bpmodule.east) to (bpmoduleimpl3.west);
 
 		%---------------------------------
 		% AsmModule notes

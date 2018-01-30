@@ -11,7 +11,7 @@
 	\pgfmathsetmacro\yshiftmodules{-5}%
 	\pgfmathsetmacro\iconsheight{15}%
 
-	\begin{tikzpicture}[x=1pt,y=1pt]
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
 		\tikzset{module/.style={
 			draw,
 			rectangle,
@@ -76,8 +76,8 @@
 		\node[dll1] (consolegui) at ($(gui.east) + (70,12)$) {GenDbgGuiConsole.dll};
 		\node[dll2] (qtgui) at (consolegui.south west) {GenDbgGui.dll};
 
-		\draw[->,>=latex] (gui.east) to (consolegui.west);
-		\draw[->,>=latex] (gui.east) to (qtgui.west);
+		\draw[->] (gui.east) to (consolegui.west);
+		\draw[->] (gui.east) to (qtgui.west);
 
 		%---------------------------------
 		% AsmModule impl
@@ -89,11 +89,11 @@
 
 		%---------------------------------
 		% AsmModule -- AsmModule impl
-		\draw[->,>=latex] (asmmodule.east) to (asmmodulemips.west);
-		\draw[->,>=latex] (asmmodule.east) to (asmmodulex86.west);
-		\draw[->,>=latex] (asmmodule.east) to (asmmoduleppc.west);
-		\draw[->,>=latex] (asmmodule.east) to (asmmoduleamd64.west);
-		\draw[->,>=latex] (asmmodule.east) to (asmmodulearm.west);
+		\draw[->] (asmmodule.east) to (asmmodulemips.west);
+		\draw[->] (asmmodule.east) to (asmmodulex86.west);
+		\draw[->] (asmmodule.east) to (asmmoduleppc.west);
+		\draw[->] (asmmodule.east) to (asmmoduleamd64.west);
+		\draw[->] (asmmodule.east) to (asmmodulearm.west);
 
 		%---------------------------------
 		% Qt
