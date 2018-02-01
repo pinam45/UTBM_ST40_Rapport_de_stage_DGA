@@ -407,7 +407,10 @@
 				\paragraph*{}
 					Ce comportement vient du fait que l'instruction après un branchement a déjà été chargée dans le pipeline par le processeur. La Release 6 supprime les delay slot mais ajoute un concept de ``forbidden slot''. Ces particularités (delay slot / forbidden slot) n’impactent pas le module, elles ne seront donc pas plus détaillées, mais elles sont importantes à prendre en compte lors du débogage de code MIPS.
 			\subsection{Backward-compatibilité}
-				TODO
+				\paragraph*{}
+					L'\gls{ISA} MIPS32 est conçue pour les processeurs 32 bits, les registres ont donc une longueur de 32 bits tandis que l'\gls{ISA} MIPS64 est conçue pour les processeurs 64 bits, les registres ont donc une longueur de 64 bits. La particularité est que, que ce soit en MIPS32 ou en MIPS64, les instructions restent sur 32 bits cela permettant au MIPS64 d'être backward-compatible avec le MIPS32.
+				\paragraph*{}
+					Le module ASM développé a été conçu pour le MIPS64 ainsi que le MIPS32 mais, de par cette propriété, à partir du MIPS64 le support du MIPS32 a demandé très peu d'effort.
 			\subsection{Coprocesseurs}
 				TODO
 			\subsection{Documentation}
