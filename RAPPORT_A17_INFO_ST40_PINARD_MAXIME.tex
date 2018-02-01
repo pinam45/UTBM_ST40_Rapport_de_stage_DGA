@@ -202,8 +202,9 @@
 				\end{figure}
 				\paragraph*{}
 					Un schémas plus complet reprenant la hiérarchie des Ministères français à VIM/VSE est disponible en \annexe{hierarchieministereavim}.
-			\subsection{Le secret}
-				\p{Classification}
+		\section{Le secret}
+			\subsection{Classification}
+				\paragraph*{}
 					<<Les informations et supports classifiés font l'objet d'une classification comprenant trois niveaux:
 					\begin{enumerate}
 						\item Très Secret-Défense;
@@ -220,7 +221,8 @@
 					Les documents qui ont fait l'objet de mesures de classification au niveaux cité précédemment relèvent de l'article 413-9 du Code Pénal\cite{CodePenal413-9}.
 				\paragraph*{}
 					<<Nul n'est qualifié pour connaître des informations et supports classifiés s'il n'a fait au préalable l'objet d'une décision d'habilitation et s'il n'a besoin, selon l'appréciation de l'autorité d'emploi sous laquelle il est placé, au regard notamment du catalogue des emplois justifiant une habilitation établi par cette autorité, de les connaître pour l'exercice de sa fonction ou l'accomplissement de sa mission.>>\cite{CodeDefenseR2311-7}
-				\p{Diffusion Restreinte}
+			\subsection{Diffusion Restreinte}
+				\paragraph*{}
 					<<Certaines informations qu'il n'y a pas lieu de classifier peuvent cependant recevoir, de la part de leur émetteur, une marque de confidentialité destinée à restreindre leur diffusion à un domaine spécifique [\ldots] ou à garantir leur protection (telle que Diffusion Restreinte).
 				\paragraph*{}
 					Ces mentions, qui ne traduisent pas une classification, ne suffisent pas à conférer aux informations concernées la protection pénale propre au secret de la défense nationale. Leur seul objectif est de sensibiliser l'utilisateur à la nécessaire discrétion dont il doit faire preuve dans la manipulation des informations couvertes par cette mention.
@@ -228,114 +230,114 @@
 					L'auteur de la divulgation, qu'il relève de la sphère publique ou de la sphère privée, s'expose à des sanctions disciplinaires ou professionnelles, sans préjudice de l'application éventuelle des dispositions spécifiques au traitement et à la protection de données à caractère personnel.
 				\paragraph*{}
 					La mention Diffusion Restreinte [\ldots] indique que l'information ne doit pas être rendue publique et ne doit être communiquée qu'aux personnes ayant besoin de la connaître dans l'exercice de leurs attributions.>>\cite{PRMD1132480A}
-				\p{Concernant le stage}
+			\subsection{Application au stage}
+				\paragraph*{}
 					Les projets des départements \gls{VIM/VSE} sont souvent classifiés au niveau Confidentiel-Défense. Cela implique donc des règles de sécurité très strictes et un cloisonnement des projets. Toujours pour des raisons de sécurité, les règles de sécurité, moyens de cryptage utilisés, vérification des données et autres systèmes de sécurité mis en place ne pourront pas être détaillés dans ce rapport.
 				\paragraph*{}
 					La liste des membres des équipes, l'organigramme de la division ou encore activités exactes menées sont soit Diffusion Restreinte soit classé secrètes. Cependant les travaux réalisés par \gls{VIM/VSE} impliquent souvent l'analyse de binaires dont le code source est inconnu, pour cela des outils externes tel que IDA de Hex-Rays sont utilisés mais aussi des outils internes dont GenDbg, un débogueur générique et YaCo, un plugin qui permet le travail collaboratif avec IDA.
 				\paragraph*{}
 					Durant mon stage, j'ai justement travaillé sur ces outils internes (GenDbg et YaCo) dont les informations ne sont ni classées secrètes ni Diffusion Restreinte. GenDbg a été présenté publiquement au \gls{SSTIC} de 2008\cite{SSTICGenDbg} et YaCo à celui de 2017\cite{SSTICYaCo}. %Les membres de l'équipe travaillent sur différentes missions mais ont une partie de leur temps de travail dédié au développement des outils dont ils peuvent avoir besoin tels que GenDbg et YaCo.
 	\chapter{Organisation du stage}
-		\section{Objectifs}
-			\subsection{GenDbg}
-				\subsubsection{Présentation}
-					\paragraph*{}
-						Il existe une multitude d'architectures matérielles et des langages et chaque environnement de développement logiciel intègre un outil de débogage plus ou moins évolué. De ce fait, les outils de débogage ne cessent de se multiplier. GenDbg est un débogueur développé et utilisé en interne à la \gls{DGA MI} depuis plus de 10 ans, il a pour but de proposer une solution générique, cohérente et évolutive à ce problème.
-					\paragraph*{}
-						Le projet présente trois grands avantages:
-						\begin{itemize}
-							\item \textbf{Maîtrise}: contrôle de tous les aspects du cycle de vie logiciel et indépendance vis-à-vis de tout éditeur de logiciels
-							\item \textbf{Modularité}: constitué d'un cœur et d'une multitude de modules pour permettre un enrichissement fonctionnel très rapide et facilement paramétrable
-							\item \textbf{Généricité}: certainement le principal intérêt du projet, il est possible d'exécuter pas-à-pas un programme quel que soit son mode d'exécution sur n'importe quelle plate-forme et n'importe quel système d'exploitation
-						\end{itemize}
-					\paragraph*{}
-						GenDbg permet de déboguer tout type de programme (code machine, byte code java, P-Code visual basic, DotNet,\ldots) sur des architectures hétérogènes. Pour cela, il adopte un modèle framework / stub qui permet de séparer les composants débogués et la machine de l'analyste. En fonction du type d'analyse envisagé (malware) on préférera travailler sur deux machines physiques distinctes. Cette approche avec des stubs permet aussi de réduire l'empreinte du débogueur sur la cible. Le framework est capable de communiquer avec les stubs via un port série ou des canaux nommés (pipes).
-					\paragraph*{}
-						Les modules obligatoires au fonctionnement de GenDbg sont le stub, le framework, le module ASM (module de désassemblage) et le \gls{GUI}\footnote{interface graphique}. Historiquement seul un \gls{GUI} en ``mode texte'' était disponible mais une seconde interface, graphique cette fois, et réalisée avec Qt fut développé plus tard. Une vue de Gendbg utilisant le GUI Qt ainsi que sa lecture est présente en \annexe{guiqtgendbg} ainsi que la lecture de la vue Code en \annexe{guiqtgendbgvuecode}.
-					\begin{figure}[H]
-						\centering
-						\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_architecture_minimale.tex}}
-						\caption{GenDbg: Architecture minimale}
-						\label{fig:GenDbg_architecture_minimale}
-					\end{figure}
-					\paragraph*{}
-						Concrètement, et en utilisant les notations de la figure \ref{fig:GenDbg_architecture_minimale}, pour exécuter un programme pas-à-pas avec GenDbg, il faut:
-						\begin{itemize}
-							\item Sur l'ordinateur 1:\\
-								Exécuter le stub correspondant à l'architecture de l'ordinateur avec en paramètre le programme a analyser ainsi que le canal de communication a utiliser. Le stub se chargera de lancer l'application.
-							\item Sur l'ordinateur 2:\\
-								Spécifier le canal de communication à utiliser dans le fichier de configuration de GenDbg puis exécuter le framework. Le framework se chargera des récupérer les informations nécessaires du stub, tel que le module ASM a utiliser et chargera le \gls{GUI}, permettant d'exécuter l'application pas-à-pas.
-						\end{itemize}
-					\paragraph*{}
-						L'ordinateur 1 pouvant être une machine différente de l'ordinateur 2, ou bien la même machine, ou encore une machine virtuelle.
-				\subsubsection{Fonctionnement}
-					\p{Le framework}
-						C'est la partie centrale de GenDbg, c'est une application Win32 qui prend en charge la communication inter-modules, implémente le jeu de commandes de base commun à l'ensemble des modules ainsi que le moteur de script historique. Le moteur de script historique est maintenant très peu utilisé puisque des bindings Python sont  disponibles et utilisables dans une console Python intégré au \gls{GUI} Qt, permettant de scripter directement en Python dans GenDbg.
-					\paragraph*{}
-						<<Tous les modules sont implémentés sous forme de librairies dynamiques et sont chargés dans l'espace d'adressage du framework après identification de la cible par un stub.
-					\paragraph*{}
-						Le framework a en charge la lecture d'un fichier de configuration (.ini) pour tenter d'établir un canal de communication avec un stub et l'initialisation des différents modules. Dans l'état actuel du projet le framework est capable de communiquer avec les stubs via un port série ou des canaux nommés (pipes). Il est ainsi possible de déboguer aussi bien des machines physiques que des machines virtuelles (VMWare ou VirtualPC) en mappant un port série virtuel sur un canal nommé.
-					\paragraph*{}
-						Le framework fournit aux différents modules un jeu de fonctions de base qui vont permettre d'interagir entre eux.>>\cite{SSTICGenDbg}
-					\p{Les stubs}
-						<<Les stubs s'exécutent sur la machine cible et prennent en charge la gestion des exceptions sur l'architecture cible; à ce titre ils sont fortement dépendants de l'architecture et de l'OS de la cible. Les stubs fournissent les services de base au framework, c'est-à-dire les accès en lecture et en écriture aux registres et à la mémoire. Ils réalisent aussi l'identification précise de la cible pour le framework, l'identification conduisant au chargement des modules utiles et disponibles.>>\cite{SSTICGenDbg}
-					\p{Les modules ASM}
-						<<Les modules ASM sont en fait des dés-assembleurs/assembleurs prenant en charge la représentation du code, des données et des adresses propres à l'architecture cible. Par exemple sur l'architecture IA32, en mode virtuel protégé une adresse mémoire est de la forme ``\jcode{sélecteur:offset}'' avec le sélecteur sur 16 bits et l'offset sur 32 bits. C'est le module ASM IA32 qui a la charge de la représentation visuelle d'une adresse virtuelle.>>\cite{SSTICGenDbg}
-					\p{Les modules additionnels}
-						En plus des modules obligatoires, un certain nombre de modules spécifiques optionnels sont définis:
-						\begin{itemize}
-							\item \textbf{Les Command Modules}:\\
-								Ils complètent les commandes de base implémentées dans le framework avec des commandes spécifiques au contexte d'exécution de la cible.
-							\item \textbf{Les OS Helper Modules}:\\
-								Ils offrent des services et des fonctionnalités propres à un système d'exploitation parmi lesquelles la signalisation d'un certain nombre d'événements internes.
-							\item \textbf{Les Breakpoint Helpers Modules}:\\
-								Ils permettent la prise en charge et la définition de points d'arrêt spécifiques à l'architecture cible.
-							\item \textbf{Les Symbol Modules}:\\
-								Ils permettent d'associer un symbole à une adresse particulière dans un module de l'OS cible.
-						\end{itemize}
-						Ces modules ne sont pas concernés par le stage et n'ont pas été utilisés, ils ne seront pas plus détaillés dans ce rapport.
-					\p{Modularité et généricité}
-						De par son architecture (représentée sur la figure \ref{fig:GenDbg_modules}) GenDbg déplace les spécificités hors du framework, les spécificités d'architecture et d'OS à déboguer se trouvent donc au niveau des stubs tandis que celles dues à la représentation (instructions, adresses\ldots) se trouvent au niveau des modules ASM. De même toutes les fonctionnalité spécifiques supplémentaires se trouvent au niveau des modules additionnels. Cela permet d'avoir un framework générique qui n'a pas besoin d'être modifié pour étendre les fonctionnalités de GenDbg. Cela permet aussi d'avoir un développement très ciblé, pour développer un nouveau module, il est seulement nécessaire de connaître l'\gls{API} que GenDbg expose aux modules et l'\gls{API} que le module expose à GenDbg.
-					\p{Implémentation}
-						Le framework est écrit en C, mais de par l'architecture modulaire, ne restreint pas le langage d'écriture des stubs et modules, le \gls{GUI} Qt est par exemple lui en C++. Dans les faits la plupart des stubs et modules sont, eux aussi, écrit en C. Certains stubs sont implémentés nativement d'autres le sont sous la forme de ``wrapper'' qui réalisent la traduction du protocole GenDbg vers le protocole d'un autre débogueur (par exemple gdb\footnote{Débogueur standard du projet GNU} et jdb\footnote{Débogueur Java de Oracle}).
-					\begin{figure}[H]
-						\centering
-						\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_modules.tex}}
-						\caption{L'architecture modulaire du framework de GenDbg}
-						\label{fig:GenDbg_modules}
-					\end{figure}
-				\subsubsection{Gestion du projet}
-					\paragraph*{}
-						Le projet n'étant pas une mission de la division mais un outil interne, son développement s'est étalé sur de nombreuses années et beaucoup de personnes ont travaillé dessus, souvent sur de courtes durées, sur les heures allouées au développement des outils internes.
-					\paragraph*{}
-						L'intégralité du code (framework, modules et stubs) est géré avec le gestionnaire de version Git, mais, pour des raisons de sécurité, il n'y a pas de serveur avec un repo synchronisé, ce dernier est passé par support physique entre les développeurs.
-					\paragraph*{}
-						La compilation est gérée avec CMake qui peut générer le projet pour différentes cibles (le plus souvent Visual Sudio) permettant de compiler le projet. Toutes les dépendances sont contenues dans le projet et compilées avec, à l'exception de Qt qui doit être installé sur la machine pour compiler le \gls{GUI} Qt.
-					\paragraph*{}
-						Il n'y a pas de normes de documentation, cette dernière est très peu présente en dehors des \gls{API} exposées par GenDbg et les modules. Il n'y avait, avant le stage, pas de tests, ceux que j'ai ajoutés sont gérés et exécutés avec CMake et utilisent la librairie \gls{GTest}.
-				\subsubsection{Travail a réaliser}
-					\paragraph*{}
-						Le but initial du stage était le développement et la fiabilisation d'un module de désassemblage basé sur la librairie Capstone pour les architectures \acrshort{MIPS} et PowerPC. Le développement nécessitant d'implémenter toutes les fonctionnalités d'un module ASM GenDbg dont l'assemblage et le désassemblage en réalisant l'interfaçage entre GenDbg et Capstone. La fiabilisation elle, nécessitant la réalisation et la validation de tests unitaires sur les modules développés.
-					\begin{figure}[H]
-						\centering
-						\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_modules_impl.tex}}
-						\caption{Implémentation des modules GenDbg et librairies utilisées}
-						\label{fig:GenDbg_modules_impl}
-					\end{figure}
-					\paragraph*{}
-						Lorsqu'il est évoqué d'utiliser la librairie Capstone, c'est en réalité la librairie Capstone et Keystone qui sont concernées, la première réalisant le désassemblage et la deuxième l'assemblage de code pour de nombreuses architectures, elles seront abordées plus en détail dans le chapitre \ref{ch:gendbg}. Certains modules utilisent déjà des librairies, c'est le cas des modules x86 et AMD64 qui utilisent déjà Capstone et Keystone. Les librairies étant déjà présentes, elles sont déjà intégrées au système de compilation, il suffira d'ajouter la liaison aux modules \acrshort{MIPS} et \acrshort{PPC} lors de leur compilation.
-					\paragraph{}
-						Le travail à réaliser est donc très technique et ne requiert pas d'étude préalable des cas d'utilisation ou d'identification des besoins, la conception du logiciel, son architecture et les différentes \gls{API} étant déjà présente et non modifiables au cours du stage. Il sera nécessaire d'étudier les différentes \gls{API} utilisables (GenDbg et Capstone) pour réalisé l'\gls{API} demandée (module ASM) tout en s'assurant de l'évolutivité du module.
-					\paragraph*{}
-						Le stage a commencé par la réalisation du module pour l'architecture \acrshort{MIPS} (détaillé au chapitre \ref{ch:gendbg}). À la fin de la réalisation de ce dernier cependant il fut décidé qu'il serait plus intéressant de ne pas réaliser le module pour l'architecture \acrshort{PPC}, pour à la place travailler sur le projet YaCo. %(présenté dans la section suivante et détaillé au chapitre \ref{ch:yaco}).
-			\subsection{YaCo}
-				\subsubsection{Présentation}
-					TODO
-				\subsubsection{Fonctionnement}
-					TODO
-				\subsubsection{Gestion du projet}
-					TODO
-				\subsubsection{Travail a réaliser}
-					TODO
+		\section{GenDbg}
+			\subsection{Présentation}
+				\paragraph*{}
+					Il existe une multitude d'architectures matérielles et des langages et chaque environnement de développement logiciel intègre un outil de débogage plus ou moins évolué. De ce fait, les outils de débogage ne cessent de se multiplier. GenDbg est un débogueur développé et utilisé en interne à la \gls{DGA MI} depuis plus de 10 ans, il a pour but de proposer une solution générique, cohérente et évolutive à ce problème.
+				\paragraph*{}
+					Le projet présente trois grands avantages:
+					\begin{itemize}
+						\item \textbf{Maîtrise}: contrôle de tous les aspects du cycle de vie logiciel et indépendance vis-à-vis de tout éditeur de logiciels
+						\item \textbf{Modularité}: constitué d'un cœur et d'une multitude de modules pour permettre un enrichissement fonctionnel très rapide et facilement paramétrable
+						\item \textbf{Généricité}: certainement le principal intérêt du projet, il est possible d'exécuter pas-à-pas un programme quel que soit son mode d'exécution sur n'importe quelle plate-forme et n'importe quel système d'exploitation
+					\end{itemize}
+				\paragraph*{}
+					GenDbg permet de déboguer tout type de programme (code machine, byte code java, P-Code visual basic, DotNet,\ldots) sur des architectures hétérogènes. Pour cela, il adopte un modèle framework / stub qui permet de séparer les composants débogués et la machine de l'analyste. En fonction du type d'analyse envisagé (malware) on préférera travailler sur deux machines physiques distinctes. Cette approche avec des stubs permet aussi de réduire l'empreinte du débogueur sur la cible. Le framework est capable de communiquer avec les stubs via un port série ou des canaux nommés (pipes).
+				\paragraph*{}
+					Les modules obligatoires au fonctionnement de GenDbg sont le stub, le framework, le module ASM (module de désassemblage) et le \gls{GUI}\footnote{interface graphique}. Historiquement seul un \gls{GUI} en ``mode texte'' était disponible mais une seconde interface, graphique cette fois, et réalisée avec Qt fut développé plus tard. Une vue de Gendbg utilisant le GUI Qt ainsi que sa lecture est présente en \annexe{guiqtgendbg} ainsi que la lecture de la vue Code en \annexe{guiqtgendbgvuecode}.
+				\begin{figure}[H]
+					\centering
+					\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_architecture_minimale.tex}}
+					\caption{GenDbg: Architecture minimale}
+					\label{fig:GenDbg_architecture_minimale}
+				\end{figure}
+				\paragraph*{}
+					Concrètement, et en utilisant les notations de la figure \ref{fig:GenDbg_architecture_minimale}, pour exécuter un programme pas-à-pas avec GenDbg, il faut:
+					\begin{itemize}
+						\item Sur l'ordinateur 1:\\
+							Exécuter le stub correspondant à l'architecture de l'ordinateur avec en paramètre le programme a analyser ainsi que le canal de communication a utiliser. Le stub se chargera de lancer l'application.
+						\item Sur l'ordinateur 2:\\
+							Spécifier le canal de communication à utiliser dans le fichier de configuration de GenDbg puis exécuter le framework. Le framework se chargera des récupérer les informations nécessaires du stub, tel que le module ASM a utiliser et chargera le \gls{GUI}, permettant d'exécuter l'application pas-à-pas.
+					\end{itemize}
+				\paragraph*{}
+					L'ordinateur 1 pouvant être une machine différente de l'ordinateur 2, ou bien la même machine, ou encore une machine virtuelle.
+			\subsection{Fonctionnement}
+				\p{Le framework}
+					C'est la partie centrale de GenDbg, c'est une application Win32 qui prend en charge la communication inter-modules, implémente le jeu de commandes de base commun à l'ensemble des modules ainsi que le moteur de script historique. Le moteur de script historique est maintenant très peu utilisé puisque des bindings Python sont  disponibles et utilisables dans une console Python intégré au \gls{GUI} Qt, permettant de scripter directement en Python dans GenDbg.
+				\paragraph*{}
+					<<Tous les modules sont implémentés sous forme de librairies dynamiques et sont chargés dans l'espace d'adressage du framework après identification de la cible par un stub.
+				\paragraph*{}
+					Le framework a en charge la lecture d'un fichier de configuration (.ini) pour tenter d'établir un canal de communication avec un stub et l'initialisation des différents modules. Dans l'état actuel du projet le framework est capable de communiquer avec les stubs via un port série ou des canaux nommés (pipes). Il est ainsi possible de déboguer aussi bien des machines physiques que des machines virtuelles (VMWare ou VirtualPC) en mappant un port série virtuel sur un canal nommé.
+				\paragraph*{}
+					Le framework fournit aux différents modules un jeu de fonctions de base qui vont permettre d'interagir entre eux.>>\cite{SSTICGenDbg}
+				\p{Les stubs}
+					<<Les stubs s'exécutent sur la machine cible et prennent en charge la gestion des exceptions sur l'architecture cible; à ce titre ils sont fortement dépendants de l'architecture et de l'OS de la cible. Les stubs fournissent les services de base au framework, c'est-à-dire les accès en lecture et en écriture aux registres et à la mémoire. Ils réalisent aussi l'identification précise de la cible pour le framework, l'identification conduisant au chargement des modules utiles et disponibles.>>\cite{SSTICGenDbg}
+				\p{Les modules ASM}
+					<<Les modules ASM sont en fait des dés-assembleurs/assembleurs prenant en charge la représentation du code, des données et des adresses propres à l'architecture cible. Par exemple sur l'architecture IA32, en mode virtuel protégé une adresse mémoire est de la forme ``\jcode{sélecteur:offset}'' avec le sélecteur sur 16 bits et l'offset sur 32 bits. C'est le module ASM IA32 qui a la charge de la représentation visuelle d'une adresse virtuelle.>>\cite{SSTICGenDbg}
+				\p{Les modules additionnels}
+					En plus des modules obligatoires, un certain nombre de modules spécifiques optionnels sont définis:
+					\begin{itemize}
+						\item \textbf{Les Command Modules}:\\
+							Ils complètent les commandes de base implémentées dans le framework avec des commandes spécifiques au contexte d'exécution de la cible.
+						\item \textbf{Les OS Helper Modules}:\\
+							Ils offrent des services et des fonctionnalités propres à un système d'exploitation parmi lesquelles la signalisation d'un certain nombre d'événements internes.
+						\item \textbf{Les Breakpoint Helpers Modules}:\\
+							Ils permettent la prise en charge et la définition de points d'arrêt spécifiques à l'architecture cible.
+						\item \textbf{Les Symbol Modules}:\\
+							Ils permettent d'associer un symbole à une adresse particulière dans un module de l'OS cible.
+					\end{itemize}
+					Ces modules ne sont pas concernés par le stage et n'ont pas été utilisés, ils ne seront pas plus détaillés dans ce rapport.
+				\p{Modularité et généricité}
+					De par son architecture (représentée sur la figure \ref{fig:GenDbg_modules}) GenDbg déplace les spécificités hors du framework, les spécificités d'architecture et d'OS à déboguer se trouvent donc au niveau des stubs tandis que celles dues à la représentation (instructions, adresses\ldots) se trouvent au niveau des modules ASM. De même toutes les fonctionnalité spécifiques supplémentaires se trouvent au niveau des modules additionnels. Cela permet d'avoir un framework générique qui n'a pas besoin d'être modifié pour étendre les fonctionnalités de GenDbg. Cela permet aussi d'avoir un développement très ciblé, pour développer un nouveau module, il est seulement nécessaire de connaître l'\gls{API} que GenDbg expose aux modules et l'\gls{API} que le module expose à GenDbg.
+				\p{Implémentation}
+					Le framework est écrit en C, mais de par l'architecture modulaire, ne restreint pas le langage d'écriture des stubs et modules, le \gls{GUI} Qt est par exemple lui en C++. Dans les faits la plupart des stubs et modules sont, eux aussi, écrit en C. Certains stubs sont implémentés nativement d'autres le sont sous la forme de ``wrapper'' qui réalisent la traduction du protocole GenDbg vers le protocole d'un autre débogueur (par exemple gdb\footnote{Débogueur standard du projet GNU} et jdb\footnote{Débogueur Java de Oracle}).
+				\begin{figure}[H]
+					\centering
+					\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_modules.tex}}
+					\caption{L'architecture modulaire du framework de GenDbg}
+					\label{fig:GenDbg_modules}
+				\end{figure}
+			\subsection{Gestion du projet}
+				\paragraph*{}
+					Le projet n'étant pas une mission de la division mais un outil interne, son développement s'est étalé sur de nombreuses années et beaucoup de personnes ont travaillé dessus, souvent sur de courtes durées, sur les heures allouées au développement des outils internes.
+				\paragraph*{}
+					L'intégralité du code (framework, modules et stubs) est géré avec le gestionnaire de version Git, mais, pour des raisons de sécurité, il n'y a pas de serveur avec un repo synchronisé, ce dernier est passé par support physique entre les développeurs.
+				\paragraph*{}
+					La compilation est gérée avec CMake qui peut générer le projet pour différentes cibles (le plus souvent Visual Sudio) permettant de compiler le projet. Toutes les dépendances sont contenues dans le projet et compilées avec, à l'exception de Qt qui doit être installé sur la machine pour compiler le \gls{GUI} Qt.
+				\paragraph*{}
+					Il n'y a pas de normes de documentation, cette dernière est très peu présente en dehors des \gls{API} exposées par GenDbg et les modules. Il n'y avait, avant le stage, pas de tests, ceux que j'ai ajoutés sont gérés et exécutés avec CMake et utilisent la librairie \gls{GTest}.
+			\subsection{Travail a réaliser}
+				\paragraph*{}
+					Le but initial du stage était le développement et la fiabilisation d'un module de désassemblage basé sur la librairie Capstone pour les architectures \acrshort{MIPS} et PowerPC. Le développement nécessitant d'implémenter toutes les fonctionnalités d'un module ASM GenDbg dont l'assemblage et le désassemblage en réalisant l'interfaçage entre GenDbg et Capstone. La fiabilisation elle, nécessitant la réalisation et la validation de tests unitaires sur les modules développés.
+				\begin{figure}[H]
+					\centering
+					\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_modules_impl.tex}}
+					\caption{Implémentation des modules GenDbg et librairies utilisées}
+					\label{fig:GenDbg_modules_impl}
+				\end{figure}
+				\paragraph*{}
+					Lorsqu'il est évoqué d'utiliser la librairie Capstone, c'est en réalité la librairie Capstone et Keystone qui sont concernées, la première réalisant le désassemblage et la deuxième l'assemblage de code pour de nombreuses architectures, elles seront abordées plus en détail dans le chapitre \ref{ch:gendbg}. Certains modules utilisent déjà des librairies, c'est le cas des modules x86 et AMD64 qui utilisent déjà Capstone et Keystone. Les librairies étant déjà présentes, elles sont déjà intégrées au système de compilation, il suffira d'ajouter la liaison aux modules \acrshort{MIPS} et \acrshort{PPC} lors de leur compilation.
+				\paragraph{}
+					Le travail à réaliser est donc très technique et ne requiert pas d'étude préalable des cas d'utilisation ou d'identification des besoins, la conception du logiciel, son architecture et les différentes \gls{API} étant déjà présente et non modifiables au cours du stage. Il sera nécessaire d'étudier les différentes \gls{API} utilisables (GenDbg et Capstone) pour réalisé l'\gls{API} demandée (module ASM) tout en s'assurant de l'évolutivité du module.
+				\paragraph*{}
+					Le stage a commencé par la réalisation du module pour l'architecture \acrshort{MIPS} (détaillé au chapitre \ref{ch:gendbg}). À la fin de la réalisation de ce dernier cependant il fut décidé qu'il serait plus intéressant de ne pas réaliser le module pour l'architecture \acrshort{PPC}, pour à la place travailler sur le projet YaCo. %(présenté dans la section suivante et détaillé au chapitre \ref{ch:yaco}).
+		\section{YaCo}
+			\subsection{Présentation}
+				TODO
+			\subsection{Fonctionnement}
+				TODO
+			\subsection{Gestion du projet}
+				TODO
+			\subsection{Travail a réaliser}
+				TODO
 		\section{Déroulement du stage}
 			\subsection{Conditions de travail}
 				\p{Horaires}
@@ -367,58 +369,68 @@
 				\paragraph*{}
 					Après avoir terminé le travail sur GenDbg et YaCo, j'ai préparé une présentation orale interne a la \gls{DGA MI} sur le contenu de mon stage qui a eu lieu le 23 Janvier 2018. En parallèle à cela, j'ai commencé la rédaction du rapport de stage que j'ai continué sur les 3 jours restants après la présentation.
 	\chapter{GenDbg}\label{ch:gendbg}
-		\section{Développement du module}
-			\subsection{Compilation}
-				\subsubsection{Le système en place}
-					\paragraph*{}
-						CMake est une famille d'outils multiplateformes et open-source conçus pour compiler, tester et déployer des logiciels. CMake est utilisé pour contrôler la compilation d'un logiciel en utilisant des fichiers de configuration indépendants de la plate-forme et du compilateur à partir desquels seront générés des makefiles et projets pour de nombreux IDE et compilateurs.
-					\paragraph*{}
-						Le système de compilation et de tests de GenDbg utilise CMake pour ne dépendre d'aucune plateforme ou compilateur particulier, pour cela un fichier (\file{CMakeLists.txt}) définit plusieurs cibles pour CMake. Chaque cible correspond a un ou plusieurs fichiers de sortie (\acrshort{DLL}, exécutable\ldots). Les principales cibles sont:
-						\begin{itemize}
-							\item Le framework (\file{GenDbg.exe}), c'est l'exécutable principal
-							\item Les modules, une cible par module (\file{AsmModuleMIPS.dll}, \file{OSHelper\_AMD64.dll}, \ldots)
-							\item Les stubs, une cible par stub (\file{JAVAStub.exe}, \file{VBoxStub.exe}, \ldots)
-							\item Le dépendances, une cible par dépendance (\file{Capstone.dll}, \file{Keystone.dll}, \ldots)
-						\end{itemize}
-					\paragraph*{}
-						Afin que l’installation de GenDbg se suffise à elle-même et qu'il ne soit pas nécessaire d’installer préalablement des librairies ou logiciels nécessaires au fonctionnement de GenDbg, toutes les dépendances sont incluses dans le projet et compilées en même temps que ce dernier. La seule exception est Qt pour le \gls{GUI} dont l'incorporation et le maintien à jour du système de compilation auraient demandé trop de travail.
-					\paragraph*{}
-						Un autre avantage non négligeable de gérer directement les dépendances plutôt que se reposer sur l'installation de ces dernières par l'utilisateur est le contrôle de la version utilisée. Si, par exemple, la dernière version de la librairie Capstone change l'\gls{API} ou contient un bug, cela permet d'avoir le temps de modifier GenDbg en conséquence avant de mettre à jour la librairie.
-					\paragraph*{}
-						Me concernant durant le stage, j'utilisais CMake pour générer un projet Visual Studio 2017 qui me servait à développer le module et à compiler GenDbg.
-				\subsubsection{Les interdépendances}
-					\paragraph*{}
-						En plus de dépendre parfois d'une ou plusieurs dépendances externes, le framework, les modules et les stubs, puisque communicants ensembles, dépendent de définitions et donc de fichiers communs. Un schéma simplifié représentant les dépendances entre éléments de GenDbg développés et utilisés durant le stage est disponible en \annexe{gendbgdependancescompilationsimplifiees}.
-					\paragraph*{}
-						Les fichiers de code source de chaque module ou stub sont regroupés dans un dossier, basiquement la compilation d'un module ou stub revient à compiler tous les fichiers de ce dossier, mais il faut ajouter à cela les fichiers en commun. Le principal fichier commun est \file{GenDbg.h}, il contient toutes les définitions des types communs qui sont utilisés pour la communication avec le framework tel que \jclass{MemoryAddress\_T} ou \jclass{ViewCtx\_T}.
-					\paragraph*{}
-						Chaque type de module (ASM, OS helper, \ldots) a une \gls{API} a implémenter qui sera utilisée par le framework. La définition de cette \gls{API} est donc commune entre tous les modules d'un même type et le framework. Ainsi, le framework et le module ASM \acrshort{MIPS} que j'ai développé ont en commun, en plus de \file{GenDbg.h}, le fichier \file{AsmModule.h} qui définit l'\gls{API} des modules ASM.
-					\paragraph*{}
-						Le framework étant générique, il n'a pas à connaître les informations spécifiques à l'architecture déboguée. Cependant, les modules ASM et les stubs manipulent eux directement des informations relatives aux registres du processeur débogué, le stub par les requêtes de lecture et écriture de ces derniers et le module ASM par l'assemblage / désassemblage des instructions. Ils ont donc besoin de dénominations communes, concrètement dans GenDbg pour chaque architecture de processeur une enum avec tous les registres du processeur sert à les identifier. Pour l'architecture \acrshort{MIPS} cette enum est contenue dans les fichiers \file{Mips.h} et \file{Mips64.h}.
-					\paragraph*{}
-						Les fichiers contenant des définitions nécessaires au développement du module sont donc:
-						\begin{itemize}
-							\item \file{GenDbg.h}: types communs
-							\item \file{AsmModule.h} \gls{API} des modules ASM
-							\item \file{Mips.h} et \file{Mips64.h}: enum des registres MIPS
-						\end{itemize}
-						Ces derniers seront utilisés sans être modifiés afin de garder l'\gls{API} de GenDbg et des composants MIPS inchangée.
-				\subsubsection{Ajout du module}
-					\paragraph*{}
-						L'ajout du module a été assez simple puisque l'ancien module \acrshort{MIPS} étant présent, la configuration de CMake pour sa compilation était, elle aussi, déjà présente. Il a suffi de supprimer ce dernier pour le remplacer par une implémentation, initialement vide de l'\gls{API} des modules ASM pour que le nouveau module compile.
-					\paragraph*{}
-						Les librairies Capstone et Keystone étant déjà présentes pour les modules x86 et AMD64, je n'ai eu qu'à les ajouter en dépendances du module \acrshort{MIPS} pour que celles-ci lui soient lié à la compilation. Ces dernières sont liées statiquement pour ne pas avoir à gérer des \acrshort{DLL} externes desquelles dépendrait le module.
-				\subsubsection{Ajout des tests}
-					\paragraph*{}
-						GTest est un framework de tests unitaires pour le C++, basé sur une architecture xUnit\footnote{désigne les frameworks de tests qui ont une structure semblable à SUnit, conçut par Kent Beck en 1998}, \gls{GTest} est open-source et multi plateforme. Il permet de réaliser des tests unitaires sans modification des sources du projet, son utilisation est très répandue pour les projets C et C++.
-					\paragraph*{}
-						Les test du module utilisent \gls{GTest}, j'ai donc téléchargé les sources de \gls{GTest}\cite{GithubGTest} et les ai ajouté aux dépendances. Les dépendances de GenDbg sont toutes placées dans le répertoire \folder{deps}, chacune dans un dossier nommé \file{<nom de la dépendance>-<version>}.
-					\paragraph*{}
-						YaCo a lui aussi pour dépendance \gls{GTest}, pour ce qui est de la compilation je n'ai donc eu qu'à isoler et reprendre la partie du script CMake de YaCo qui gère la compilation de \gls{GTest} et l'adapter pour GenDbg. J'ai ensuite ajouté \gls{GTest} en dépendance du module \acrshort{MIPS} pour qu'il lui soit lié à la compilation.
-					\paragraph*{}
-						J'ai décidé de différencier les fichiers contenant les tests en les nommant avec le suffixe \file{\_test}, pour ajouter la cible des tests à CMake, je prend donc la liste des fichiers du module et retire ceux ne finissant pas par \file{\_test}. J'ajoute ensuite une cible de test avec comme sources les fichiers filtrés et comme dépendance le module ASM et \gls{GTest}.
-					\paragraph*{}
-						La cible génère un fichier exécutable avec la fonction \jfunc{main} définie par \gls{GTest} qui va réaliser les tests que j'ai spécifiés et retourner 0 en cas de réussite ou un code d'erreur en cas d'échec des tests. Les tests pourront alors être lancés avec CTest (utilitaire de test de CMake) qui va exécuter le test et en cas d'échec afficher l'output du test.
+		\section{L'architecture MIPS}
+			\subsection{Présentation}
+				TODO
+			\subsection{Particularités}
+				TODO
+			\subsection{Backward-compatibilité}
+				TODO
+			\subsection{Coprocesseurs}
+				TODO
+			\subsection{Documentation}
+				TODO
+		\section{Compilation}
+			\subsection{Le système en place}
+				\paragraph*{}
+					CMake est une famille d'outils multiplateformes et open-source conçus pour compiler, tester et déployer des logiciels. CMake est utilisé pour contrôler la compilation d'un logiciel en utilisant des fichiers de configuration indépendants de la plate-forme et du compilateur à partir desquels seront générés des makefiles et projets pour de nombreux IDE et compilateurs.
+				\paragraph*{}
+					Le système de compilation et de tests de GenDbg utilise CMake pour ne dépendre d'aucune plateforme ou compilateur particulier, pour cela un fichier (\file{CMakeLists.txt}) définit plusieurs cibles pour CMake. Chaque cible correspond a un ou plusieurs fichiers de sortie (\acrshort{DLL}, exécutable\ldots). Les principales cibles sont:
+					\begin{itemize}
+						\item Le framework (\file{GenDbg.exe}), c'est l'exécutable principal
+						\item Les modules, une cible par module (\file{AsmModuleMIPS.dll}, \file{OSHelper\_AMD64.dll}, \ldots)
+						\item Les stubs, une cible par stub (\file{JAVAStub.exe}, \file{VBoxStub.exe}, \ldots)
+						\item Le dépendances, une cible par dépendance (\file{Capstone.dll}, \file{Keystone.dll}, \ldots)
+					\end{itemize}
+				\paragraph*{}
+					Afin que l’installation de GenDbg se suffise à elle-même et qu'il ne soit pas nécessaire d’installer préalablement des librairies ou logiciels nécessaires au fonctionnement de GenDbg, toutes les dépendances sont incluses dans le projet et compilées en même temps que ce dernier. La seule exception est Qt pour le \gls{GUI} dont l'incorporation et le maintien à jour du système de compilation auraient demandé trop de travail.
+				\paragraph*{}
+					Un autre avantage non négligeable de gérer directement les dépendances plutôt que se reposer sur l'installation de ces dernières par l'utilisateur est le contrôle de la version utilisée. Si, par exemple, la dernière version de la librairie Capstone change l'\gls{API} ou contient un bug, cela permet d'avoir le temps de modifier GenDbg en conséquence avant de mettre à jour la librairie.
+				\paragraph*{}
+					Me concernant durant le stage, j'utilisais CMake pour générer un projet Visual Studio 2017 qui me servait à développer le module et à compiler GenDbg.
+			\subsection{Les interdépendances}
+				\paragraph*{}
+					En plus de dépendre parfois d'une ou plusieurs dépendances externes, le framework, les modules et les stubs, puisque communicants ensembles, dépendent de définitions et donc de fichiers communs. Un schéma simplifié représentant les dépendances entre éléments de GenDbg développés et utilisés durant le stage est disponible en \annexe{gendbgdependancescompilationsimplifiees}.
+				\paragraph*{}
+					Les fichiers de code source de chaque module ou stub sont regroupés dans un dossier, basiquement la compilation d'un module ou stub revient à compiler tous les fichiers de ce dossier, mais il faut ajouter à cela les fichiers en commun. Le principal fichier commun est \file{GenDbg.h}, il contient toutes les définitions des types communs qui sont utilisés pour la communication avec le framework tel que \jclass{MemoryAddress\_T} ou \jclass{ViewCtx\_T}.
+				\paragraph*{}
+					Chaque type de module (ASM, OS helper, \ldots) a une \gls{API} a implémenter qui sera utilisée par le framework. La définition de cette \gls{API} est donc commune entre tous les modules d'un même type et le framework. Ainsi, le framework et le module ASM \acrshort{MIPS} que j'ai développé ont en commun, en plus de \file{GenDbg.h}, le fichier \file{AsmModule.h} qui définit l'\gls{API} des modules ASM.
+				\paragraph*{}
+					Le framework étant générique, il n'a pas à connaître les informations spécifiques à l'architecture déboguée. Cependant, les modules ASM et les stubs manipulent eux directement des informations relatives aux registres du processeur débogué, le stub par les requêtes de lecture et écriture de ces derniers et le module ASM par l'assemblage / désassemblage des instructions. Ils ont donc besoin de dénominations communes, concrètement dans GenDbg pour chaque architecture de processeur une enum avec tous les registres du processeur sert à les identifier. Pour l'architecture \acrshort{MIPS} cette enum est contenue dans les fichiers \file{Mips.h} et \file{Mips64.h}.
+				\paragraph*{}
+					Les fichiers contenant des définitions nécessaires au développement du module sont donc:
+					\begin{itemize}
+						\item \file{GenDbg.h}: types communs
+						\item \file{AsmModule.h} \gls{API} des modules ASM
+						\item \file{Mips.h} et \file{Mips64.h}: enum des registres MIPS
+					\end{itemize}
+					Ces derniers seront utilisés sans être modifiés afin de garder l'\gls{API} de GenDbg et des composants MIPS inchangée.
+			\subsection{Ajout du module}
+				\paragraph*{}
+					L'ajout du module a été assez simple puisque l'ancien module \acrshort{MIPS} étant présent, la configuration de CMake pour sa compilation était, elle aussi, déjà présente. Il a suffi de supprimer ce dernier pour le remplacer par une implémentation, initialement vide de l'\gls{API} des modules ASM pour que le nouveau module compile.
+				\paragraph*{}
+					Les librairies Capstone et Keystone étant déjà présentes pour les modules x86 et AMD64, je n'ai eu qu'à les ajouter en dépendances du module \acrshort{MIPS} pour que celles-ci lui soient lié à la compilation. Ces dernières sont liées statiquement pour ne pas avoir à gérer des \acrshort{DLL} externes desquelles dépendrait le module.
+			\subsection{Ajout des tests}
+				\paragraph*{}
+					GTest est un framework de tests unitaires pour le C++, basé sur une architecture xUnit\footnote{désigne les frameworks de tests qui ont une structure semblable à SUnit, conçut par Kent Beck en 1998}, \gls{GTest} est open-source et multi plateforme. Il permet de réaliser des tests unitaires sans modification des sources du projet, son utilisation est très répandue pour les projets C et C++.
+				\paragraph*{}
+					Les test du module utilisent \gls{GTest}, j'ai donc téléchargé les sources de \gls{GTest}\cite{GithubGTest} et les ai ajouté aux dépendances. Les dépendances de GenDbg sont toutes placées dans le répertoire \folder{deps}, chacune dans un dossier nommé \file{<nom de la dépendance>-<version>}.
+				\paragraph*{}
+					YaCo a lui aussi pour dépendance \gls{GTest}, pour ce qui est de la compilation je n'ai donc eu qu'à isoler et reprendre la partie du script CMake de YaCo qui gère la compilation de \gls{GTest} et l'adapter pour GenDbg. J'ai ensuite ajouté \gls{GTest} en dépendance du module \acrshort{MIPS} pour qu'il lui soit lié à la compilation.
+				\paragraph*{}
+					J'ai décidé de différencier les fichiers contenant les tests en les nommant avec le suffixe \file{\_test}, pour ajouter la cible des tests à CMake, je prend donc la liste des fichiers du module et retire ceux ne finissant pas par \file{\_test}. J'ajoute ensuite une cible de test avec comme sources les fichiers filtrés et comme dépendance le module ASM et \gls{GTest}.
+				\paragraph*{}
+					La cible génère un fichier exécutable avec la fonction \jfunc{main} définie par \gls{GTest} qui va réaliser les tests que j'ai spécifiés et retourner 0 en cas de réussite ou un code d'erreur en cas d'échec des tests. Les tests pourront alors être lancés avec CTest (utilitaire de test de CMake) qui va exécuter le test et en cas d'échec afficher l'output du test.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
@@ -439,14 +451,14 @@
 				\caption{Organigramme de la DGA\cite{OrganigrammeDGA}}
 				\label{fig:Organigramme_DGA}
 			\end{figure}
-		\section{Hiérarchie des Ministères Français à VIM/VSE}\label{sec:hierarchieministereavim}
+		\newpage\section{Hiérarchie des Ministères Français à VIM/VSE}\label{sec:hierarchieministereavim}
 			\begin{figure}[H]
 				\centering
-				\resizebox{\textwidth}{!}{\import{figures/}{Hierarchie_Ministeres_a_VIM.tex}}
+				\resizebox{1.05\textwidth}{!}{\import{figures/}{Hierarchie_Ministeres_a_VIM.tex}}
 				\caption{Hiérarchie des Ministères Français à VIM/VSE}
 				\label{fig:Hierarchie_Ministeres_a_VIM}
 			\end{figure}
-		\section{GUI Qt de GenDbg}\label{sec:guiqtgendbg}
+		\newpage\section{GUI Qt de GenDbg}\label{sec:guiqtgendbg}
 			\begin{figure}[H]
 				\hspace*{-1cm}
 				\centering
@@ -464,7 +476,7 @@
 				\caption{\acrshort{GUI} Qt de GenDbg: lecture}
 				\label{fig:GenDbg_GUI_Qt_Annotations}
 			\end{figure}
-		\section{GUI Qt de GenDbg: lecture de la vue code}\label{sec:guiqtgendbgvuecode}
+		\newpage\section{GUI Qt de GenDbg: lecture de la vue code}\label{sec:guiqtgendbgvuecode}
 			\begin{figure}[H]
 				\hspace*{-1cm}
 				\centering
