@@ -412,7 +412,10 @@
 				\paragraph*{}
 					Le module ASM développé a été conçu pour le MIPS64 ainsi que le MIPS32 mais, de par cette propriété, à partir du MIPS64 le support du MIPS32 a demandé très peu d'effort.
 			\subsection{Coprocesseurs}
-				TODO
+				\paragraph*{}
+					Une particularité du \gls{MIPS} est qu'il supporte jusqu'à quatre coprocesseurs (CP0/1/2/3). Dans la terminologie \gls{MIPS}, CP0 est le coprocesseur de contrôle du système, CP1 est une \gls{FPU} et CP2/3 sont des coprocesseurs optionnels définis par l'implémentation. Par exemple, dans la console PlayStation, CP2 est le \gls{GTE}, qui accélère le traitement de la géométrie dans les graphiques 3D.
+				\paragraph*{}
+					Chaque coprocesseur possède des instructions particulières, celles du CP0 et du CP1 étant supportées par Capstone, le module les supporte aussi. Pour les coprocesseurs spécifiques définis par l'implémentation, et non supportés par Capstone, ils ne seront pas traités durant ce stage.
 			\subsection{Documentation}
 				TODO
 		\section{Compilation}
