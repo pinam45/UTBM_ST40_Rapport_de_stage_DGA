@@ -384,7 +384,28 @@
 				\paragraph*{}
 					Vers la fin des années 1990, on estimait que les processeurs dérivés de l'architecture \gls{MIPS} occupaient le tiers des processeurs \gls{RISC} produits. De nos jours cette architecture reste populaire dans le marché de l'informatique embarquée où elle subit une intense concurrence de la part de l'architecture ARM.
 			\subsection{Particularités}
-				TODO
+				\paragraph*{}
+					\gls{MIPS} est une architecture de type ``load / store''\footnote{également appelée ``register-register''} (chargement / stockage), c'est-à-dire qu'à l'exception des instructions de chargement et stockage utilisées pour accéder à la mémoire, toutes les instructions opèrent sur les registres.
+				\paragraph*{}
+					Les registres \gls{MIPS} ont une taille de 32 bits et sont répartis comme suit:
+					\begin{itemize}
+						\item 32 \gls{GPR} noté de \reg{0} à \reg{31}
+							\begin{itemize}
+								\item \reg{0} est câblé à zéro et les écritures sont ignorées
+								%\item \reg{31} est le registre de liens
+							\end{itemize}
+						\item 3 \gls{SPR}
+							\begin{itemize}
+								\item \reg{HI} et \reg{LO} contiennent le résultat des opérations de multiplication et de division
+								\item \reg{PC} est le compteur de programme
+							\end{itemize}
+					\end{itemize}
+				\paragraph*{}
+					Pour récupérer les résultats des multiplications et divisions, un petit jeu d'instructions permet de copier des données entre les \gls{GPR} et les registres \reg{HI} et \reg{LO}. Les deux bits de poids faible de \reg{PC} sont toujours à 0 puisque les instructions \gls{MIPS} ont une longueur de 32 bits et sont toujours alignées.
+				\paragraph*{}
+					Une autre particularité du \gls{MIPS} est le ``delay slot'', c'est une instruction qui se trouve après un branchement, mais qui sera exécutée que le branchement soit pris ou non (dans le cas de branchement conditionnel). Certaines instructions ont un comportement indéfini lorsque placées dans le delay slot.
+				\paragraph*{}
+					Ce comportement vient du fait que l'instruction après un branchement a déjà été chargée dans le pipeline par le processeur. La Release 6 supprime les delay slot mais ajoute un concept de ``forbidden slot''. Ces particularités (delay slot / forbidden slot) n’impactent pas le module, elles ne seront donc pas plus détaillées, mais elles sont importantes à prendre en compte lors du débogage de code MIPS.
 			\subsection{Backward-compatibilité}
 				TODO
 			\subsection{Coprocesseurs}
