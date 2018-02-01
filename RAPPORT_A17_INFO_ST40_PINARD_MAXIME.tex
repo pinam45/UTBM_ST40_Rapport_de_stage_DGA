@@ -417,7 +417,30 @@
 				\paragraph*{}
 					Chaque coprocesseur possède des instructions particulières, celles du CP0 et du CP1 étant supportées par Capstone, le module les supporte aussi. Pour les coprocesseurs spécifiques définis par l'implémentation, et non supportés par Capstone, ils ne seront pas traités durant ce stage.
 			\subsection{Documentation}
-				TODO
+				\paragraph*{}
+					Le module développé durant le stage a pour but de supporter les \gls{ISA} MIPS32 et MIPS64 dans la majorité de leurs versions. Les versions de 1 à 5 ne présentent pas d'incompatibilités entre elles et ne sont que des évolutions / extensions des versions précédentes. La version 6 quant à elle modifie des instructions et en supprime d'autres par rapport la version 5, elle présente donc des incompatibilités.
+				\paragraph*{}
+					Les documentations utilisées seront les volumes de ``MIPS® Architecture For Programmers'' mis à disposition par Imagination Technologies LTD.\\
+					Pour le MIPS32:
+					\begin{itemize}
+						\item Volume I-A: Introduction to the MIPS32® Architecture\cite{MIPS32Arch}
+						\item Volume II-A: The MIPS32® Instruction Set Manual, Revision 6.05\cite{MIPS32InstrSet605}
+						\item Volume II-A: The MIPS32® Instruction Set Manual, Revision 5.04\cite{MIPS32InstrSet504}
+					\end{itemize}
+					Pour le MIPS64:
+					\begin{itemize}
+						\item Volume I-A: Introduction to the MIPS64® Architecture\cite{MIPS64Arch}
+						\item Volume II-A: The MIPS64® Instruction Set Reference Manual, Revision 6.05\cite{MIPS64InstrSet605}
+						\item Volume II-A: The MIPS64® Instruction Set Reference Manual, Revision 5.04\cite{MIPS64InstrSet504}
+					\end{itemize}
+				\paragraph*{}
+					Ces documentations contiennent toutes les informations sur l'\gls{ISA} \gls{MIPS} ainsi que le descriptif de chaque instruction et son encodage (voir figure \ref{fig:MIPS_Description_instruction_ADD}). Ces informations permettent de coder un assembleur / désassembleur du langage, cette partie du module est gérée avec Capstone, mais le décodage manuel des instructions a parfois été nécessaire, notamment pour les tests.
+					\begin{figure}[H]
+						\centering
+						\fbox{\includegraphics[width=\textwidth]{MIPS_Description_instruction_ADD}}
+						\caption{Extrait de la documentation \acrshort{MIPS}: Description de l'instruction ADD\cite{MIPS64InstrSet605}}
+						\label{fig:MIPS_Description_instruction_ADD}
+					\end{figure}
 		\section{Compilation}
 			\subsection{Le système en place}
 				\paragraph*{}
