@@ -405,7 +405,7 @@
 				\paragraph*{}
 					Une autre particularité du \gls{MIPS} est le ``delay slot'', c'est une instruction qui se trouve après un branchement, mais qui sera exécutée que le branchement soit pris ou non (dans le cas de branchement conditionnel). Certaines instructions ont un comportement indéfini lorsque placées dans le delay slot.
 				\paragraph*{}
-					Ce comportement vient du fait que l'instruction après un branchement a déjà été chargée dans le pipeline par le processeur. La Release 6 supprime les delay slot mais ajoute un concept de ``forbidden slot''. Ces particularités (delay slot / forbidden slot) n’impactent pas le module, elles ne seront donc pas plus détaillées, mais elles sont importantes à prendre en compte lors du débogage de code MIPS.
+					Ce comportement vient du fait que l'instruction après un branchement a déjà été chargée dans le pipeline par le processeur. La Release 6 supprime les delay slot mais ajoute un concept de ``forbidden slot''. Ces particularités (delay slot / forbidden slot) n'impactent pas le module, elles ne seront donc pas plus détaillées, mais elles sont importantes à prendre en compte lors du débogage de code MIPS.
 			\subsection{Backward-compatibilité}
 				\paragraph*{}
 					L'\gls{ISA} MIPS32 est conçue pour les processeurs 32 bits, les registres ont donc une longueur de 32 bits tandis que l'\gls{ISA} MIPS64 est conçue pour les processeurs 64 bits, les registres ont donc une longueur de 64 bits. La particularité est que, que ce soit en MIPS32 ou en MIPS64, les instructions restent sur 32 bits cela permettant au MIPS64 d'être backward-compatible avec le MIPS32.
@@ -454,7 +454,7 @@
 						\item Le dépendances, une cible par dépendance (\file{Capstone.dll}, \file{Keystone.dll}, \ldots)
 					\end{itemize}
 				\paragraph*{}
-					Afin que l’installation de GenDbg se suffise à elle-même et qu'il ne soit pas nécessaire d’installer préalablement des librairies ou logiciels nécessaires au fonctionnement de GenDbg, toutes les dépendances sont incluses dans le projet et compilées en même temps que ce dernier. La seule exception est Qt pour le \gls{GUI} dont l'incorporation et le maintien à jour du système de compilation auraient demandé trop de travail.
+					Afin que l'installation de GenDbg se suffise à elle-même et qu'il ne soit pas nécessaire d'installer préalablement des librairies ou logiciels nécessaires au fonctionnement de GenDbg, toutes les dépendances sont incluses dans le projet et compilées en même temps que ce dernier. La seule exception est Qt pour le \gls{GUI} dont l'incorporation et le maintien à jour du système de compilation auraient demandé trop de travail.
 				\paragraph*{}
 					Un autre avantage non négligeable de gérer directement les dépendances plutôt que se reposer sur l'installation de ces dernières par l'utilisateur est le contrôle de la version utilisée. Si, par exemple, la dernière version de la librairie Capstone change l'\gls{API} ou contient un bug, cela permet d'avoir le temps de modifier GenDbg en conséquence avant de mettre à jour la librairie.
 				\paragraph*{}
