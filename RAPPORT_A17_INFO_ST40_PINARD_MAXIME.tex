@@ -545,6 +545,26 @@
 				\caption{\acrshort{GUI} Qt de GenDbg: lecture de la vue code}
 				\label{fig:GenDbg_GUI_Qt_Vue_code_Annotations}
 			\end{figure}
+		\newpage\section{Détail de AsmModuleInfo\_T}\label{sec:detailasmmoduleinfot}
+			\lstinputlisting[language={[gendbg]C}, style=magic_style]{code/AsmModuleInfo_T.c}
+			\begin{itemize}
+				\item \texttt{Version}: version du module (2)
+				\item \texttt{Architecture}: architecture (\gls{MIPS})
+				\item \texttt{szCellInBits}: taille de cellule (8 bits)
+				\item \texttt{szMaxInstructionInCell}: taille max d'une instruction (32 bits, 4 cellules)
+				\item \texttt{TblDataType}: type de données utilisées (byte, halfword, word, doubleword)
+				\item \texttt{TblGroupRegister}: groupes de registres (\gls{GPR}32, \gls{GPR}64, \gls{SPR}32, \ldots)
+				\item \texttt{TblAddressType}: types d'adresses (virtual, physical)
+				\item \texttt{TblAddressSpace}: espaces d'adressage (espace unique sur \gls{MIPS})
+				\item \texttt{TblBank}: modes du processeur (absent sur \gls{MIPS})
+				\item \texttt{CPUCtxSyntaxHelp}: aide utilisateur pour la syntaxe du contexte CPU
+				\item \texttt{AddressSyntaxHelp}: aide utilisateur pour la syntaxe des adresses
+				\item \texttt{DataSyntaxHelp}: aide utilisateur pour la syntaxe des données
+				\item \texttt{ConditionSyntaxHelp}: aide utilisateur pour la syntaxe des conditions
+				\item \texttt{FunctionTbl}: liste des fonctions de rappel du module
+			\end{itemize}
+			\paragraph*{}
+				\texttt{FunctionTbl} a pour taille \texttt{AsmModule\_LastFnIdx} car il contient les pointeur sur toutes les fonctions de rappel de module listé dans \jclass{AsmModuleFnIdx\_T} (voir \annexe{asmmodulefnidxt}).
 		\newpage\section{AsmModuleFnIdx\_T}\label{sec:asmmodulefnidxt}
 			\lstinputlisting[language={[gendbg]C}, style=magic_style]{code/AsmModuleFnIdx_T.c}
 \end{document}
