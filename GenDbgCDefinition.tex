@@ -1,0 +1,47 @@
+\lstalias[gendbg]{C}[GenDbg]{C}
+\lstdefinelanguage[gendbg]{C}{
+	language={[StandardLibrary]C},
+	morekeywords=[1]{
+		__cdecl
+	},
+	morekeywords=[2]{
+		DWORD
+	},
+	morekeywords=[2]{
+		AsmBankInfo_T,
+		AsmAddressSpaceInfo_T,
+		AsmAddressTypeInfo_T,
+		AsmGroupRegisterInfo_T,
+		AsmDataInfo_T,
+		AsmDecodedInstruction_T,
+		AsmInstructionInfo_T,
+		AsmModuleInfo_T,
+		CPUCtx_T,
+		GenDbgHelperAsmInfo_T,
+		MemoryAddress_T,
+		MemoryArea_T,
+		ViewCtx_T,
+		AsmModuleFnIdx_T,
+		MIPS_RegisterId_T
+	},
+	morekeywords=[2]{
+		cs_insn,
+		cs_detail,
+		cs_x86,
+		cs_arm64,
+		cs_arm,
+		cs_m68k,
+		cs_mips,
+		cs_ppc,
+		cs_sparc,
+		cs_sysz,
+		cs_xcore,
+		cs_tms320c64x,
+		cs_mips_op,
+		mips_reg,
+		mips_op_mem
+	},
+	morekeywords=[3]{
+		CS_MNEMONIC_SIZE
+	}
+}
