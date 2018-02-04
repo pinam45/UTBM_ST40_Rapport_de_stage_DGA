@@ -1,0 +1,247 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	%---------------------------------
+	% Modules
+	\pgfmathsetmacro\xstartmodules{15}%
+	\pgfmathsetmacro\ystartmodules{-10}%
+	\pgfmathsetmacro\yshiftmodules{-40}%
+	\pgfmathsetmacro\yshiftmodulesimpl{-5}%
+
+	%---------------------------------
+	% Modules impl
+	\pgfmathsetmacro\xshiftguiimpl{60}%
+	\pgfmathsetmacro\xshiftasmmoduleimpl{170}%
+	\pgfmathsetmacro\xshiftcmdmoduleimpl{30}%
+	\pgfmathsetmacro\xshiftsymmoduleimpl{170}%
+	\pgfmathsetmacro\xshiftoshelpermoduleimpl{30}%
+	\pgfmathsetmacro\xshiftbpmoduleimpl{140}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
+		\tikzset{module/.style={
+			draw,
+			rectangle,
+			anchor=north west,
+			minimum height=17,
+			fill=color2,
+			outer sep=0pt,
+		}}
+		\tikzset{modulenote/.style={
+			draw,
+			chamfered rectangle,
+			chamfered rectangle xsep=0pt,
+			text width=120,
+			text centered,
+			fill=bg_color,
+			anchor=east,
+			inner sep=2pt,
+			font=\footnotesize,
+			xshift=-40,
+			yshift=-15,
+		}}
+		\tikzset{dll1/.style={
+			draw,
+			rectangle,
+			anchor=west,
+			minimum height=17,
+			font=\footnotesize,
+			fill=color3,
+			text opacity=1,
+		}}
+		\tikzset{dll2/.style={
+			dll1,
+			anchor=north west,
+			yshift=\yshiftmodulesimpl,
+		}}
+
+		%---------------------------------
+		% Framework
+		\node[
+			draw,
+			diamond,
+			aspect=2.5,
+			fill=color1,
+			xshift=-55,
+			yshift=40,
+			text opacity=1
+		] (framework) {Framework};
+
+		%---------------------------------
+		% GUI
+		\node[
+			module,
+			anchor=south west,
+			xshift=\xstartmodules,
+			yshift=-\ystartmodules,
+		] (gui) at (framework.north east) {GUI};
+
+		%---------------------------------
+		% AsmModule
+		\node[
+			module,
+			xshift=\xstartmodules,
+			yshift=\ystartmodules,
+		] (asmmodule) at (framework.south east) {AsmModule};
+
+		%---------------------------------
+		% CmdModule
+		\uncover<2->{
+			\node[
+				module,
+				yshift=\yshiftmodules,
+			] (cmdmodule) at (asmmodule.south west) {CmdModule};
+		}
+
+		%---------------------------------
+		% SymModule
+		\uncover<2->{
+			\node[
+				module,
+				yshift=\yshiftmodules,
+			] (symmodule) at (cmdmodule.south west) {SymModule};
+		}
+
+		%---------------------------------
+		% OSHelperModule
+		\uncover<2->{
+			\node[
+				module,
+				yshift=\yshiftmodules,
+			] (oshelpermodule) at (symmodule.south west) {OSHelperModule};
+		}
+
+		%---------------------------------
+		% BpModule
+		\uncover<2->{
+			\node[
+				module,
+				yshift=\yshiftmodules,
+			] (bpmodule) at (oshelpermodule.south west) {BpModule};
+		}
+
+		%---------------------------------
+		% Framework -> modules
+		\draw[-Square] (framework.north east) |- (gui);
+		\draw[-Square] (framework.south east) |- (asmmodule);
+		\uncover<2->{
+			\draw[-Square] (framework.south east) |- (cmdmodule);
+			\draw[-Square] (framework.south east) |- (symmodule);
+			\draw[-Square] (framework.south east) |- (oshelpermodule);
+			\draw[-Square] (framework.south east) |- (bpmodule);
+		}
+
+		\uncover<4->{
+			%---------------------------------
+			% GUI impl
+			\node[dll1,xshift=\xshiftguiimpl,yshift=10] (guiimp1) at (gui.east) {GenDbgGuiConsole.dll};
+			\node[dll2] (guiimpl2) at (guiimp1.south west) {GenDbgGui.dll};
+
+			%---------------------------------
+			% GUI -- GUI impl
+			\draw[->] (gui.east) to (guiimp1.west);
+			\draw[->] (gui.east) to (guiimpl2.west);
+
+			%---------------------------------
+			% AsmModule impl
+			\node[dll1,xshift=\xshiftasmmoduleimpl,yshift=22] (asmmoduleimpl1) at (asmmodule.east) {AsmModuleX86.dll};
+			\node[dll2] (asmmoduleimpl2) at (asmmoduleimpl1.south west) {AsmModuleMIPS.dll};
+			\node[dll2] (asmmoduleimpl3) at (asmmoduleimpl2.south west) {\ldots};
+
+			%---------------------------------
+			% AsmModule -- AsmModule impl
+			\draw[->] (asmmodule.east) to (asmmoduleimpl2.west);
+			\draw[->] (asmmodule.east) to (asmmoduleimpl1.west);
+			\draw[->,dashed] (asmmodule.east) to (asmmoduleimpl3.west);
+
+			%---------------------------------
+			% CmdModule impl
+			\node[dll1,xshift=\xshiftcmdmoduleimpl,yshift=22] (cmdmoduleimpl1) at (cmdmodule.east) {CmdModule\_AMD64.dll};
+			\node[dll2] (cmdmoduleimpl2) at (cmdmoduleimpl1.south west) {CmdModule\_JAVA.dll};
+			\node[dll2] (cmdmoduleimpl3) at (cmdmoduleimpl2.south west) {\ldots};
+
+			%---------------------------------
+			% CmdModule -- CmdModule impl
+			\draw[->] (cmdmodule.east) to (cmdmoduleimpl1.west);
+			\draw[->] (cmdmodule.east) to (cmdmoduleimpl2.west);
+			\draw[->,dashed] (cmdmodule.east) to (cmdmoduleimpl3.west);
+
+			%---------------------------------
+			% SymModule impl
+			\node[dll1,xshift=\xshiftsymmoduleimpl,yshift=22] (symmoduleimpl1) at (symmodule.east) {SymbolModule\_PDB.dll};
+			\node[dll2] (symmoduleimpl2) at (symmoduleimpl1.south west) {SymbolModule\_SymELF.dll};
+			\node[dll2] (symmoduleimpl3) at (symmoduleimpl2.south west) {\ldots};
+
+			%---------------------------------
+			% SymModule -- SymModule impl
+			\draw[->] (symmodule.east) to (symmoduleimpl2.west);
+			\draw[->] (symmodule.east) to (symmoduleimpl1.west);
+			\draw[->,dashed] (symmodule.east) to (symmoduleimpl3.west);
+
+			%---------------------------------
+			% OSHelperModule impl
+			\node[dll1,xshift=\xshiftoshelpermoduleimpl,yshift=22] (oshelpermoduleimpl1) at (oshelpermodule.east) {OSHelper\_Win64.dll};
+			\node[dll2] (oshelpermoduleimpl2) at (oshelpermoduleimpl1.south west) {OSHelper\_AMD64.dll};
+			\node[dll2] (oshelpermoduleimpl3) at (oshelpermoduleimpl2.south west) {\ldots};
+
+			%---------------------------------
+			% OSHelperModule -- OSHelperModule impl
+			\draw[->] (oshelpermodule.east) to (oshelpermoduleimpl1.west);
+			\draw[->] (oshelpermodule.east) to (oshelpermoduleimpl2.west);
+			\draw[->,dashed] (oshelpermodule.east) to (oshelpermoduleimpl3.west);
+
+			%---------------------------------
+			% BpModule impl
+			\node[dll1,xshift=\xshiftbpmoduleimpl,yshift=22] (bpmoduleimpl1) at (bpmodule.east) {BPEx\_IntelNT.dll};
+			\node[dll2] (bpmoduleimpl2) at (bpmoduleimpl1.south west) {BPEx\_NtAmd64.dll};
+			\node[dll2] (bpmoduleimpl3) at (bpmoduleimpl2.south west) {\ldots};
+
+			%---------------------------------
+			% BpModule -- BpModule impl
+			\draw[->] (bpmodule.east) to (bpmoduleimpl2.west);
+			\draw[->] (bpmodule.east) to (bpmoduleimpl1.west);
+			\draw[->,dashed] (bpmodule.east) to (bpmoduleimpl3.west);
+		}
+
+		%---------------------------------
+		% AsmModule notes
+		\uncover<3->{
+			\node[modulenote] (asmmodulenote) at (asmmodule.south west) {Module de désassemblage};
+			\node[modulenote] (cmdmodulenote) at (cmdmodule.south west) {Module de commandes additionnelles};
+			\node[modulenote] (symmodulenote) at (symmodule.south west) {Module de gestion de symboles};
+			\node[modulenote] (oshelpermodulenote) at (oshelpermodule.south west) {Module OS};
+			\node[modulenote] (bpmodulenote) at (bpmodule.south west) {Module de gestion de points d'arrêts additionnels};
+		}
+
+		%---------------------------------
+		% AsmModule -- AsmModule notes
+		\uncover<3->{
+			\draw[thick,dotted] (asmmodulenote.east) -| (asmmodule.south);
+			\draw[thick,dotted] (cmdmodulenote.east) -| (cmdmodule.south);
+			\draw[thick,dotted] (symmodulenote.east) -| (symmodule.south);
+			\draw[thick,dotted] (oshelpermodulenote.east) -| (oshelpermodule.south);
+			\draw[thick,dotted] (bpmodulenote.east) -| (bpmodule.south);
+		}
+
+		%---------------------------------
+		% Stage
+		\uncover<5->{
+			\node[
+				draw,
+				chamfered rectangle,
+				chamfered rectangle xsep=0pt,
+				text width=70,
+				text centered,
+				fill=bg_color,
+				anchor=west,
+				inner sep=2pt,
+				font=\footnotesize,
+				xshift=10,
+				yshift=-30,
+			] (stage) at (asmmoduleimpl2.south) {Module concerné par le stage};
+			\draw[thick,dotted] (asmmoduleimpl2.south) |- (stage.west);
+		}
+	\end{tikzpicture}
+\end{document}
