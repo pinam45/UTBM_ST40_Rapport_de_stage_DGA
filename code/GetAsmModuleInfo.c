@@ -1,0 +1,1 @@
+int __cdecl GetAsmModuleInfo(AsmModuleInfo_T** AsmModuleInfo)
