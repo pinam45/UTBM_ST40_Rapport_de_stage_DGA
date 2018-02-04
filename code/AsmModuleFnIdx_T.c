@@ -1,0 +1,22 @@
+typedef enum {
+    AsmModule_Init,
+    AsmModule_Uninit,
+    AsmModule_GetLastErrorMsg,
+    AsmModule_AssembleSingle,
+    AsmModule_UnassembleBloc,
+    AsmModule_DataToTxt,
+    AsmModule_TxtToData,
+    AsmModule_AddressToTxt,
+    AsmModule_TxtToAddress,
+    AsmModule_GetInstructionInfo,
+    AsmModule_IsConditionSatisfied,
+    AsmModule_IsAddressInMemoryArea,
+    AsmModule_CompareAddress,
+    AsmModule_EvalAddress,
+    AsmModule_EvalOffset,
+    AsmModule_TxtToCPUCtx,
+    AsmModule_CPUCtxToTxt,
+    AsmModule_GetInstructionPointer,
+    AsmModule_ReadValueFromThisValue,
+    AsmModule_LastFnIdx
+} AsmModuleFnIdx_T;
