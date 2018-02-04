@@ -1,0 +1,161 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\pgfmathsetmacro\computerwidth{210}%
+	\pgfmathsetmacro\computerheight{200}%
+	\pgfmathsetmacro\xstartmodules{15}%
+	\pgfmathsetmacro\ystartmodules{-10}%
+	\pgfmathsetmacro\yshiftmodules{-5}%
+	\pgfmathsetmacro\iconsheight{15}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
+		\tikzset{module/.style={
+			draw,
+			rectangle,
+			anchor=north west,
+			minimum height=17,
+			fill=color2,
+			outer sep=0pt,
+		}}
+		\tikzset{dll1/.style={
+			draw,
+			rectangle,
+			anchor=west,
+			minimum height=17,
+			font=\footnotesize,
+			fill=color3,
+			text opacity=1,
+		}}
+		\tikzset{dll2/.style={
+			dll1,
+			anchor=north west,
+			yshift=\yshiftmodules,
+		}}
+
+		%---------------------------------
+		% Framework
+		\node[
+			draw,
+			diamond,
+			aspect=2.5,
+			fill=color1,
+			xshift=-55,
+			yshift=40,
+			text opacity=1
+		] (framework) {Framework};
+
+		%---------------------------------
+		% GUI
+		\node[
+			module,
+			anchor=south west,
+			xshift=\xstartmodules,
+			yshift=-\ystartmodules,
+		] (gui) at (framework.north east) {GUI};
+
+		%---------------------------------
+		% AsmModule
+		\node[
+			module,
+			xshift=\xstartmodules,
+			yshift=\ystartmodules,
+		] (asmmodule) at (framework.south east) {AsmModule};
+
+
+		%---------------------------------
+		% Framework -> modules
+		\draw[-Square] (framework.north east) |- (gui);
+		\draw[-Square] (framework.south east) |- (asmmodule);
+		%\draw[dashed] (framework.south east) -- ++(0,-44);
+
+		%---------------------------------
+		% GUI impl
+		\node[dll1] (consolegui) at ($(gui.east) + (70,12)$) {GenDbgGuiConsole.dll};
+		\node[dll2] (qtgui) at (consolegui.south west) {GenDbgGui.dll};
+
+		\draw[->] (gui.east) to (consolegui.west);
+		\draw[->] (gui.east) to (qtgui.west);
+
+		%---------------------------------
+		% AsmModule impl
+		\node[dll1] (asmmodulex86) at ($(asmmodule.east) + (70,12)$) {AsmModuleX86.dll};
+		\node[dll2] (asmmodulemips) at (asmmodulex86.south west) {AsmModuleMIPS.dll};
+		\node[dll2] (asmmoduleppc) at (asmmodulemips.south west) {AsmModulePPC.dll};
+		\node[dll2] (asmmoduleamd64) at (asmmoduleppc.south west) {AsmModuleAMD64.dll};
+		\node[dll2] (asmmodulearm) at (asmmoduleamd64.south west) {AsmModuleARM.dll};
+
+		%---------------------------------
+		% AsmModule -- AsmModule impl
+		\draw[->] (asmmodule.east) to (asmmodulemips.west);
+		\draw[->] (asmmodule.east) to (asmmodulex86.west);
+		\draw[->] (asmmodule.east) to (asmmoduleppc.west);
+		\draw[->] (asmmodule.east) to (asmmoduleamd64.west);
+		\draw[->] (asmmodule.east) to (asmmodulearm.west);
+
+		\uncover<2->{
+			%---------------------------------
+			% Qt
+			\node[
+				draw,
+				rectangle,
+				minimum height=\iconsheight + 4,
+				minimum width=75,
+				fill=color4,
+				anchor=west
+			] (qtrect) at ($(framework.east) + (270,18)$) {};
+			\node[anchor=west] (qtpicture) at (qtrect.west) {\includegraphics[height=\iconsheight pt]{logos/Qt.png}};
+			\node[anchor=west,xshift=-3] (qttxt) at (qtpicture.east) {Qt};
+
+			%---------------------------------
+			% GUI impl -- Qt
+			\draw[Turned Square-] (qtgui.east) -| (qtrect.west);
+
+			%---------------------------------
+			% Capstone
+			\node[
+				draw,
+				rectangle,
+				minimum height=\iconsheight + 4,
+				minimum width=75,
+				fill=color4,
+				anchor=west
+			] (capstonerect) at ($(framework.east) + (270,-35)$) {};
+			\node[anchor=west] (capstonepicture) at (capstonerect.west) {\includegraphics[height=\iconsheight pt]{logos/capstone.png}};
+			\node[anchor=west,xshift=-3] (capstonetxt) at (capstonepicture.east) {Capstone};
+
+			%---------------------------------
+			% Keystone
+			\node[
+				draw,
+				rectangle,
+				minimum height=\iconsheight + 4,
+				minimum width=75,
+				fill=color4,
+				anchor=west
+			] (keystonerect) at ($(framework.east) + (270,-65)$) {};
+			\node[anchor=west] (keystonepicture) at (keystonerect.west) {\includegraphics[height=\iconsheight pt]{logos/keystone.png}};
+			\node[anchor=west,xshift=-3] (keystonetxt) at (keystonepicture.east) {Keystone};
+
+			%---------------------------------
+			% AsmModule impl -- Capstone Keystone
+			\draw (capstonerect.west) -- ++(-10,0) |- (keystonerect.west);
+			\coordinate (A) at ($(capstonerect.west)+(-10,0)$);
+			\coordinate (B) at ($(keystonerect.west)+(-10,0)$);
+			\coordinate (C) at ($(A)!0.5!(B)$);
+			\coordinate (D) at ($(C)+(-18,0)$);
+			\draw[thick] (C) -- (D);
+		}
+
+		\uncover<3->{
+			\draw[color=green,Turned Square-] (asmmodulemips.east) -| (D);
+		}
+
+		\uncover<2->{
+			\draw[Turned Square-] (asmmodulex86.east) -| (D);
+			\draw[Turned Square-] (asmmoduleamd64.east) -| (D);
+		}
+	\end{tikzpicture}
+\end{document}
