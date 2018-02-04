@@ -172,4 +172,38 @@
 				\centering\fbox{\includegraphics[width=0.9\textwidth]{MIPS_LWC2}}\\
 				\centering\fbox{\includegraphics[width=0.9\textwidth]{MIPS_R6_BC}}
 			\end{frame}
+		\subsection{Développement du module}
+			\begin{frame}
+				\frametitle{API}
+				\begin{center}
+					\begin{minipage}{0.9\textwidth}
+						\lstinputlisting[language={[gendbg]C}, style=magic_style, numbers=none]{code/GetAsmModuleInfo.c}
+					\end{minipage}
+				\end{center}
+				\begin{itemize}
+					\item version du module (2)
+					\item architecture (MIPS)
+					\item taille de cellule (8 bits)
+					\item taille max d'une instruction (32 bits)
+					\item type de données utilisées (byte, halfword, word, doubleword)
+					\item groupes de registres (GPR32, GPR64, SPR32, \ldots)
+					\item \ldots
+					\item liste des callbacks du module
+				\end{itemize}
+			\end{frame}
+			\begin{frame}
+				\hspace{30pt}\resizebox{!}{110pt}{\lstinputlisting[language={[gendbg]C}, style=magic_style]{code/AsmModuleFnIdx_T.c}}
+			\end{frame}
+			\begin{frame}
+				\frametitle{API}
+				Différent types de fonctions:
+				\begin{itemize}
+					\item Init / Uninit
+					\item Manipulation des informations au format spécifique
+					\item Conversion du format spécifique à l'architecture vers texte et inversement
+					\begin{itemize}
+						\item Utilisation de Capstone et Keystone
+					\end{itemize}
+				\end{itemize}
+			\end{frame}
 \end{document}
