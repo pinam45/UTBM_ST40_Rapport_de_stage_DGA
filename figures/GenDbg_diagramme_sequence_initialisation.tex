@@ -1,0 +1,52 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+    \begin{sequencediagram}
+        \newthread{frameword}{:Framework}
+        \newinst[4]{stub}{:Stub}
+        \newinst[4]{asmmodule}{:ASM\_Module}
+        \begin{call}[4]
+            {frameword}
+            {Requète StubInfo}
+            {stub}
+            {\begin{minipage}{5cm}\centering Réponse StubInfo:\\\textit{Plateforme\\Architecture\\OS}\end{minipage}}
+        \end{call}
+        \begin{call}[4]
+            {frameword}
+            {GetAsmModuleInfo()}
+            {asmmodule}
+            {\begin{minipage}{6cm}\centering Informations du module:\\\textit{Version,\\ types de données,\\ liste des fonctions, \ldots}\end{minipage}}
+        \end{call}
+        \begin{call}[2]
+            {frameword}
+            {Init()}
+            {asmmodule}
+            {Contexte du module}
+        \end{call}
+        % \begin{sdblock}[black!40]
+        %     {Récupération du pointeur d'instruction}
+        %     {}
+        %     \begin{call}[1]
+        %         {frameword}
+        %         {GetInstructionPointer()}
+        %         {asmmodule}
+        %         {Valeur du pointeur d'instruction}
+        %         \begin{call}[1]
+        %             {asmmodule}
+        %             {ReadRegister()}
+        %             {frameword}
+        %             {Valeur du registre}
+        %             \begin{call}[2]
+        %                 {frameword}
+        %                 {Requète ReadRegister}
+        %                 {stub}
+        %                 {\begin{minipage}{5cm}\centering Réponse ReadRegister:\\\textit{RegValue}\end{minipage}}
+        %             \end{call}
+        %         \end{call}
+        %     \end{call}
+        % \end{sdblock}
+    \end{sequencediagram}
+\end{document}
