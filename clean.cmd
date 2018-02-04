@@ -1,10 +1,14 @@
 @echo off
-set DOCUMENT_NAME=RAPPORT_A17_INFO_ST40_PINARD_MAXIME
+set DOCUMENTS_NAMES=RAPPORT_A17_INFO_ST40_PINARD_MAXIME PRESENTATION_DGA
+set TO_DELETE_EXT=-blx.aux -blx.bib .acn .acr .alg .aux .bbl .bcf .blg .cb .cb2 .dvi .fdb_latexmk .fls .fmt .fot .glg .glo .gls .glsdefs .idx .ilg .ind .ist .lof .log .lol .lot .nav .out .pdf .pdfsync .pre .run.xml .snm .sta .synctex .synctex.gz .toc .vrb .xdv
 echo.
-for %%X in  (.acn .acr .alg .aux .bbl .blg .fdb_latexmk .fls .glg .glo .gls .ist .lof .log .out .toc .synctex.gz .pdf .xdv) do (
-	if exist %DOCUMENT_NAME%%%X (
-		echo Removing file %DOCUMENT_NAME%%%X
-		del %DOCUMENT_NAME%%%X >NUL 2>&1
+for %%D in  (%DOCUMENTS_NAMES%) do (
+	echo Clean of %%D:
+	for %%E in  (%TO_DELETE_EXT%) do (
+		if exist %%D%%E (
+			echo ^> Removing file %%D%%E
+			del %%D%%E >NUL 2>&1
+		)
 	)
+	echo.
 )
-echo.
