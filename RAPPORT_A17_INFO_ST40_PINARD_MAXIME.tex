@@ -517,6 +517,26 @@
 						\item Manipulation des données
 						\item Conversion des données
 					\end{itemize}
+			\subsection{Gestion du module}
+				\paragraph*{}
+					Les différents modules de GenDbg ainsi que le framework ``exportent'' des fonctions qui prennent toutes en premier paramètre un pointeur non typé, il pointe sur le contexte / l'instance du module, ce dernier contient les informations privées du module qui permettent son fonctionnement sans utiliser de variables globales pour sauvegarder son état.
+				\paragraph*{}
+					Généralement, les modules ASM sauvegardent dans leur contexte les fonctions de rappel et le contexte du framework, ainsi que le dernier message d'erreur qui peut ensuite être récupéré par le framework avec la fonction \jfunc{GetLastErrorMsg}. Dans le cas du module \gls{MIPS}, sera aussi conservé dans le contexte les contextes de Capstone et Keystone.
+				\paragraph*{}
+					La première fonction que le framework doit appeler avant de commencer à utiliser le module est \jfunc{Init}. Par cette fonction le framework donne au module un pointeur sur son contexte ainsi qu'un tableau de pointeur sur ses fonctions de rappel utilisables par le module. Ces dernières sont gardées dans le contexte du module et permettent de demander des informations au framework qui se chargera d'obtenir les informations par le stub par exemple.
+				\begin{figure}[H]
+					\centering
+					\resizebox{0.9\textwidth}{!}{\import{figures/}{GenDbg_diagramme_sequence_initialisation.tex}}
+					\caption{GenDbg: Séquence d'initialisation}
+					\label{fig:GenDbg_diagramme_sequence_initialisation}
+					\vspace{-0.5cm}
+				\end{figure}
+				\paragraph*{}
+					La figure \ref{fig:GenDbg_diagramme_sequence_initialisation} représente la séquence d'initialisation du module, le framework commence par récupérer les informations du programme débogué auprès du stub, puis, pour chaque module ASM il récupère sa structure \jclass{AsmModuleInfo\_T}, compare l'architecture du module avec celle fournie par le stub jusqu'à trouver le module adapté. Une fois le module ASM adapté trouvé, il appelle sa fonction \jfunc{Init} explicité précédemment et récupère son contexte.
+				\paragraph*{}
+					Les fonctions du module ont alors en leur possession tous les éléments nécessaires à la réalisation de leur tache: Capstone et Keystone pour l'assemblage et le dé-assemblage, et les fonctions de rappel du framework pour accéder aux informations du programme débogué.
+				\paragraph*{}
+					À la fin de l’exécution de GenDbg, le framework appelle la fonction \jcode{Uninit} qui se charge de libérer la mémoire utilisée par le module et de supprimer son contexte.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
