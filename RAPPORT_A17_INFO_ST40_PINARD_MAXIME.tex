@@ -492,6 +492,31 @@
 					J'ai décidé de différencier les fichiers contenant les tests en les nommant avec le suffixe \file{\_test}, pour ajouter la cible des tests à CMake, je prend donc la liste des fichiers du module et retire ceux ne finissant pas par \file{\_test}. J'ajoute ensuite une cible de test avec comme sources les fichiers filtrés et comme dépendance le module ASM et \gls{GTest}.
 				\paragraph*{}
 					La cible génère un fichier exécutable avec la fonction \jfunc{main} définie par \gls{GTest} qui va réaliser les tests que j'ai spécifiés et retourner 0 en cas de réussite ou un code d'erreur en cas d'échec des tests. Les tests pourront alors être lancés avec CTest (utilitaire de test de CMake) qui va exécuter le test et en cas d'échec afficher l'output du test.
+		\section{Fonctionnement}
+			\subsection{API}
+				\paragraph*{}
+					Les modules ASM exposent une \gls{API} minimale composée d'une seule fonction:\\
+					\lstinputlisting[language={[gendbg]C}, style=magic_style, numbers=none]{code/GetAsmModuleInfo.c}
+					Cette fonction retourne simplement la structure \jclass{AsmModuleInfo\_T} allouée statiquement dans le module qui contient toutes les informations nécessaires à l'utilisation du module:
+					\begin{itemize}
+						\item version du module (2)
+						\item architecture (MIPS)
+						\item taille de cellule (8 bits)
+						\item taille max d'une instruction (32 bits)
+						\item type de données utilisées (byte, halfword, word, doubleword)
+						\item groupes de registres (\gls{GPR}32, \gls{GPR}64, \gls{SPR}32, \ldots)
+						\item \ldots
+						\item liste des fonctions de rappel du module
+					\end{itemize}
+				\paragraph*{}
+					Le détail de la structure est disponible en \annexe{detailasmmoduleinfot}, la structure contient de nombreuses informations nécessaires au framework pour identifier le module, mais ce qui sert à utiliser le module c'est la liste des fonctions de rappel (callback en anglais).
+				\paragraph*{}
+					Les fonctions de rappel sont les fonctions ``exportées'' par le module, celles qui réalisent les fonctionnalités du module. Toutes les fonctions ne seront pas abordées dans la suite du rapport, la liste complète des fonctions de rappel du module est présente en \annexe{fonctionsrappelmodulesasm}. On peut les regrouper en trois grands groupes qui seront abordés dans les sections suivantes:
+					\begin{itemize}
+						\item Gestion du module
+						\item Manipulation des données
+						\item Conversion des données
+					\end{itemize}
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
