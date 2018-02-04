@@ -1,25 +1,73 @@
 #=============================================================================
 # Project related variables
-DOCUMENT_NAME           = RAPPORT_A17_INFO_ST40_PINARD_MAXIME
+DOCUMENTS_NAMES=RAPPORT_A17_INFO_ST40_PINARD_MAXIME PRESENTATION_DGA
+
+NEEDS_BIBTEX=RAPPORT_A17_INFO_ST40_PINARD_MAXIME
+NEEDS_MAKEGLOSSARIES=RAPPORT_A17_INFO_ST40_PINARD_MAXIME
+
+PACKAGES_REQUIRED[RAPPORT_A17_INFO_ST40_PINARD_MAXIME]=amsmath amssymb array caption chngcntr fancyvrb float fontenc footmisc glossaries hyperref import listings lmodern mathrsfs multirow pdflscape pgf pgf-umlsd pgfgantt scalerel stackengine standalone tabularx tikz tocbibind translator upmethodology-document utbmcovers xcolor packages/MagicListings packages/StandardLibraryCDefinition
+PACKAGES_REQUIRED[PRESENTATION_DGA]=amsmath amssymb array caption float fontenc hyperref import listings lmodern mathrsfs multirow pgf pgf-umlsd pgfgantt standalone tabularx tikz translator xcolor packages/MagicListings packages/StandardLibraryCDefinition
 
 #=============================================================================
 # Commands variables
 LATEX_COMPILER_CMD      = xelatex
-MAKEGLOSSARIES_CMD      = makeglossaries
 BIBTEX_CMD              = bibtex
+MAKEGLOSSARIES_CMD      = makeglossaries
+KPSEWHICH_CMD           = kpsewhich
 DISPLAY                 = printf
 RM                      = rm -f
 
 #=============================================================================
-# Other
-TO_DELETE_EXT           = .acn .acr .alg .aux .bbl .blg .fdb_latexmk .fls .glg .glo .gls .ist .lof .log .out .toc .synctex.gz .pdf .xdv
+# Other configs
+TO_DELETE_EXT           = -blx.aux -blx.bib .acn .acr .alg .aux .bbl .bcf .blg .cb .cb2 .dvi .fdb_latexmk .fls .fmt .fot .glg .glo .gls .glsdefs .idx .ilg .ind .ist .lof .log .lol .lot .nav .out .pdf .pdfsync .pre .run.xml .snm .sta .synctex .synctex.gz .toc .vrb .xdv
 LATEX_COMPILER_SILENT   = -interaction=batchmode 1>/dev/null 2>/dev/null
-MAKEGLOSSARIES_SILENT   = -q
 BIBTEX_SILENT           = 1>/dev/null 2>/dev/null
+MAKEGLOSSARIES_SILENT   = -q
 
 #=============================================================================
-# Automatic variables
-TO_DELETE               = $(foreach ext,$(TO_DELETE_EXT),$(DOCUMENT_NAME)$(ext))
+# Functions
+define check_package
+	$(DISPLAY) "\033[0m\033[1;34m[··]\033[0m package $(1)"
+	($(KPSEWHICH_CMD) $(1).sty 1>/dev/null 2>/dev/null && \
+	$(DISPLAY) "\r\033[1C\033[1;32mOK\033[0m\n") || \
+	($(DISPLAY) "\r\033[1C\033[1;31mXX\033[0m\n" && return 1 \
+	)
+
+endef
+
+define launch_latex_compiler
+	@$(DISPLAY) "\033[0m\033[1;34m>\033[0m Executing $(LATEX_COMPILER_CMD)\n"
+	$(LATEX_COMPILER_CMD) $(1) $(if $(SILENT), $(LATEX_COMPILER_SILENT))
+
+endef
+
+define launch_bibtex
+	@$(DISPLAY) "\033[0m\033[1;34m>\033[0m Executing $(BIBTEX_CMD)\n"
+	$(BIBTEX_CMD) $(1) $(if $(SILENT), $(BIBTEX_SILENT))
+
+endef
+
+define launch_makeglossaries
+	@$(DISPLAY) "\033[0m\033[1;34m>\033[0m Executing $(MAKEGLOSSARIES_CMD)\n"
+	$(MAKEGLOSSARIES_CMD) $(if $(SILENT), $(MAKEGLOSSARIES_SILENT)) $(1)
+
+endef
+
+define remove_file
+	$(if $(wildcard $(1)), \
+		@$(DISPLAY) "\033[0m\033[1;34m>\033[0m Removing file $(1)\n", \
+	)
+	@$(RM) $(1)
+
+endef
+
+define clean_document
+	@$(DISPLAY) "\nClean of \033[0;33m$(1)\033[0m:\n"
+	$(foreach ext, $(TO_DELETE_EXT), \
+		$(call remove_file,$(1)$(ext)) \
+	) \
+
+endef
 
 #=============================================================================
 # Rules
@@ -27,35 +75,44 @@ TO_DELETE               = $(foreach ext,$(TO_DELETE_EXT),$(DOCUMENT_NAME)$(ext))
 silent:
 	@make --silent all SILENT=true
 
+.PHONY: pdf
+pdf: $(foreach doc,$(DOCUMENTS_NAMES),$(doc).pdf)
+
 .PHONY: all
 all: pdf
-	@$(DISPLAY) "\n\n"
 
-.PHONY: pdf
-pdf:
-	@$(DISPLAY) $(if $(SILENT), "\n\033[0m\033[1;34m[··]\033[0m Executing \033[0;33m$(LATEX_COMPILER_CMD)\033[0m...   ", "\n\033[0m\033[1;34m->\033[0m Executing \033[0;33m$(LATEX_COMPILER_CMD)\033[0m...\n")
-	$(LATEX_COMPILER_CMD) $(DOCUMENT_NAME) $(if $(SILENT), $(LATEX_COMPILER_SILENT))
-	@$(DISPLAY) $(if $(SILENT), "\r\033[1C\033[1;32mOK\033[0m","")
+%.pdf: %.tex FORCE
+	$(eval DOCUMENT_NAME:=$(patsubst %.pdf,%,$@))
+	@$(DISPLAY) "\nBuilding \033[0;33m$(DOCUMENT_NAME)\033[0m:\n"
 
-	@$(DISPLAY) $(if $(SILENT), "\n\033[0m\033[1;34m[··]\033[0m Executing \033[0;33m$(BIBTEX_CMD)\033[0m...   ", "\n\033[0m\033[1;34m->\033[0m Executing \033[0;33m$(BIBTEX_CMD)\033[0m...\n")
-	$(BIBTEX_CMD) $(DOCUMENT_NAME) $(if $(SILENT), $(BIBTEX_SILENT))
-	@$(DISPLAY) $(if $(SILENT), "\r\033[1C\033[1;32mOK\033[0m","")
+	$(foreach package, $(PACKAGES_REQUIRED[$(DOCUMENT_NAME)]), \
+		$(call check_package,$(package))\
+	)
 
-	@$(DISPLAY) $(if $(SILENT), "\n\033[0m\033[1;34m[··]\033[0m Executing \033[0;33m$(MAKEGLOSSARIES_CMD)\033[0m...   ", "\n\033[0m\033[1;34m->\033[0m Executing \033[0;33m$(MAKEGLOSSARIES_CMD)\033[0m...\n")
-	$(MAKEGLOSSARIES_CMD) $(if $(SILENT), $(MAKEGLOSSARIES_SILENT)) $(DOCUMENT_NAME)
-	@$(DISPLAY) $(if $(SILENT), "\r\033[1C\033[1;32mOK\033[0m","")
+	$(call launch_latex_compiler, $(DOCUMENT_NAME))
 
-	@$(DISPLAY) $(if $(SILENT), "\n\033[0m\033[1;34m[··]\033[0m Executing \033[0;33m$(LATEX_COMPILER_CMD)\033[0m...   ", "\n\033[0m\033[1;34m->\033[0m Executing \033[0;33m$(LATEX_COMPILER_CMD)\033[0m...\n")
-	$(LATEX_COMPILER_CMD) $(DOCUMENT_NAME) $(if $(SILENT), $(LATEX_COMPILER_SILENT))
-	@$(DISPLAY) $(if $(SILENT), "\r\033[1C\033[1;32mOK\033[0m","")
+	$(if $(findstring $(DOCUMENT_NAME), $(NEEDS_BIBTEX)), \
+		$(call launch_bibtex, $(DOCUMENT_NAME)) \
+	)
 
-	@$(DISPLAY) $(if $(SILENT), "\n\033[0m\033[1;34m[··]\033[0m Executing \033[0;33m$(LATEX_COMPILER_CMD)\033[0m...   ", "\n\033[0m\033[1;34m->\033[0m Executing \033[0;33m$(LATEX_COMPILER_CMD)\033[0m...\n")
-	$(LATEX_COMPILER_CMD) $(DOCUMENT_NAME) $(if $(SILENT), $(LATEX_COMPILER_SILENT))
-	@$(DISPLAY) $(if $(SILENT), "\r\033[1C\033[1;32mOK\033[0m","")
+	$(if $(findstring $(DOCUMENT_NAME), $(NEEDS_MAKEGLOSSARIES)), \
+		$(call launch_makeglossaries, $(DOCUMENT_NAME)) \
+	)
+
+	$(call launch_latex_compiler, $(DOCUMENT_NAME))
+
+	$(call launch_latex_compiler, $(DOCUMENT_NAME))
+
+	@$(DISPLAY) "\n"
+
 
 .PHONY: clean
 clean:
-	@$(DISPLAY) "\n\033[1;32m->\033[0m Cleaning files...\n"
-	@$(DISPLAY) " $(foreach file,$(TO_DELETE),$(if $(wildcard $(file)),\033[1;32m-\033[0m Removing file \033[0;33m$(file)\033[0m\n,\b))"
-	@$(RM) $(TO_DELETE)
+	$(foreach document_name, $(DOCUMENTS_NAMES), \
+		$(call clean_document,$(document_name)) \
+	)
+
 	@$(DISPLAY) "\n"
+
+
+FORCE:
