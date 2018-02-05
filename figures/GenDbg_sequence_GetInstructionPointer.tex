@@ -1,0 +1,141 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\pgfmathsetmacro\zoneheight{190}%
+	\pgfmathsetmacro\stubwidth{140}%
+	\pgfmathsetmacro\stubsep{50}%
+	\pgfmathsetmacro\frameworkwidth{100}%
+	\pgfmathsetmacro\asmmodulewidth{140}%
+	\pgfmathsetmacro\frameworkdoublexshift{20}%
+	\pgfmathsetmacro\stubdoublexshift{30}%
+	\pgfmathsetmacro\bendvalue{22.5}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
+		\tikzstyle{zone}=[
+			draw,
+			rectangle,
+			fill=white,
+			minimum height=\zoneheight,
+			anchor=north west
+		]
+		\tikzstyle{info}=[
+			draw,
+			rectangle,
+			font=\tt,
+			fill=color2
+		]
+		\tikzstyle{info2}=[
+			draw,
+			rectangle,
+			font=\tt,
+			fill=white
+		]
+		\tikzstyle{infobox}=[
+			draw,
+			diamond,
+			inner sep=0,
+			minimum width=15,
+			minimum height=15,
+			fill=color3
+		]
+		\tikzstyle{label}=[
+			font=\footnotesize
+		]
+
+		%---------------------------------
+		% Stub
+		\node[
+			zone,
+			minimum width=\stubwidth,
+			fill=color1!30
+		] (stub) at (0,0) {};
+		\node[anchor=south] (stubtxt) at (stub.north) {Stub};
+
+		%---------------------------------
+		% Framework
+		\node[
+			zone,
+			minimum width=\frameworkwidth,
+			fill=bg_color
+		] (framework) at (\stubwidth+\stubsep,0) {};
+		\node[anchor=south] (frameworktxt) at (framework.north) {Framework};
+
+		%---------------------------------
+		% Module ASM
+		\node[
+			zone,
+			minimum width=\asmmodulewidth,
+			fill=color1!30
+		] (asmmodule) at (\stubwidth+\stubsep+\frameworkwidth,0) {};
+		\node[anchor=south] (asmmoduletxt) at (asmmodule.north) {Module ASM};
+
+		%---------------------------------
+		% Start
+		\node[
+			circle,
+			minimum size=5,
+			inner sep=0,
+			fill=black,
+			yshift=-30
+		] (start) at (framework.north) {};
+
+		\pgfmathsetmacro\yshift{-50}%
+		\node[info,yshift=\yshift] (i1) at (asmmodule.north) {\$PC};
+		\draw[->] (start) to [bend left=\bendvalue]
+			node[label,above] {GetInstructionPointer()}
+		(i1);
+
+		\pgfmathsetmacro\yshift{\yshift-10}
+		\node[info,yshift=\yshift,xshift=\frameworkdoublexshift] (i2) at (framework.north) {?};
+		\draw[->] (i1) to [bend left=\bendvalue]
+			node[label,above] {ReadRegister()}
+		(i2);
+
+		\node[infobox,yshift=\yshift,xshift=-\frameworkdoublexshift] (ib1) at (framework.north) {};
+		\draw[->] (i2) to (ib1);
+
+		\pgfmathsetmacro\yshift{\yshift-10}
+		\node[infobox,yshift=\yshift,xshift=\stubdoublexshift] (ib2) at (stub.north) {};
+		\draw[->,dashed] (ib1) to [bend right=\bendvalue]
+			node[label,above] {Requète ReadRegister}
+		(ib2);
+
+		\node[info,yshift=\yshift,xshift=-\stubdoublexshift] (i3) at (stub.north) {\$PC};
+		\draw[->] (ib2) to (i3);
+
+		\pgfmathsetmacro\yshift{\yshift-30}
+		\node[info,yshift=\yshift,xshift=-\stubdoublexshift] (i4) at (stub.north) {5B8};
+		\draw[->] (i3) to (i4);
+
+		\node[infobox,yshift=\yshift,xshift=\stubdoublexshift] (ib3) at (stub.north) {};
+		\draw[->] (i4) to (ib3);
+
+		\pgfmathsetmacro\yshift{\yshift-10}
+		\node[infobox,yshift=\yshift,xshift=-\frameworkdoublexshift] (ib4) at (framework.north) {};
+		\draw[->,dashed] (ib3) to [bend right=\bendvalue]
+			node[label,below] {Réponse ReadRegister}
+		(ib4);
+
+		\node[info,yshift=\yshift,xshift=\frameworkdoublexshift] (i5) at (framework.north) {?};
+		\draw[->] (ib4) to (i5);
+
+		\pgfmathsetmacro\yshift{\yshift-10}
+		\node[info,yshift=\yshift] (i6) at (asmmodule.north) {5B8};
+		\draw[->] (i5) to [bend left=\bendvalue]
+			node[label,above] {Valeur du registre}
+		(i6);
+
+		\pgfmathsetmacro\yshift{\yshift-30}
+		\node[info,yshift=\yshift] (i7) at (asmmodule.north) {0X000005B8};
+		\draw[->] (i6) to (i7);
+
+		\pgfmathsetmacro\yshift{\yshift-10}
+		\node[info,yshift=\yshift] (i8) at (framework.north) {?};
+		\draw[->] (i7) to [bend left=\bendvalue]
+			node[label,below] {Addresse de l'instruction courrante}
+		(i8);
+	\end{tikzpicture}
+\end{document}
