@@ -552,6 +552,27 @@
 					Prenons l'exemple de la fonction \jcode{GetInstructionPointer}, comme illustré sur la figure \ref{fig:GenDbg_sequence_GetInstructionPointer}, cette dernière permet au framework de récupérer l'adresse de l'instruction courante au format MIPS, inconnu du framework, en restant générique, sans avoir eu à manipuler les structures spécifiques à l'architecture déboguée.
 				\paragraph*{}
 					Le module utilise la fonction \jfunc{ReadRegister} exposé par le framework pour demander aux stubs de lire la valeur du registre \reg{PC}, le framework lui se contente de réaliser la communication entre le module et le stub par le protocole GenDbg (protocole utilisé pour communiquer avec les stubs). Le stub, connaissant les structures MIPS, lit le registre demandé par le module ASM, puis retourne la valeur au module par l'intermédiaire du framework, finalement le module ASM converti la valeur en adresse MIPS.
+			\subsection{Conversion des données}
+				\paragraph*{}
+					Les fonctions de conversion des données sont celles qui permettent de convertir l'information du format spécifique à l'architecture (opaque au framework) vers une représentation textuelle pour l'affichage utilisateur et l'opération inverse lorsque l'utilisateur rentre de l'information (en paramètre d'une fonction dans la console par exemple). Ces fonctions vont donc souvent par deux, par exemple \jfunc{AddressToTxt} et \jfunc{TxtToAddress}.
+				\begin{figure}[H]
+					\centering
+					\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_sequence_AddressToTxt.tex}}\\
+					\vspace{5pt}
+					\resizebox{0.85\textwidth}{!}{\import{figures/}{GenDbg_sequence_legend.tex}}
+					\caption{GenDbg: séquence d'appels pour la conversion d'adresse en texte}
+					\label{fig:GenDbg_sequence_AddressToTxt}
+				\end{figure}
+				% \begin{figure}[H]
+				% 	\centering
+				% 	\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_sequence_TxtToAddress.tex}}\\
+				% 	\vspace{5pt}
+				% 	\resizebox{0.85\textwidth}{!}{\import{figures/}{GenDbg_sequence_legend.tex}}
+				% 	\caption{GenDbg: séquence d'appels pour la conversion de texte en adresse}
+				% 	\label{fig:GenDbg_sequence_TxtToAddress}
+				% \end{figure}
+				\paragraph*{}
+					Elles permettent de convertir une adresse MIPS vers sa représentation textuelle et inversement, cela permet d'afficher les adresses dans le \gls{GUI} comme visible dans l'\annexe{guiqtgendbgvuecode}.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
