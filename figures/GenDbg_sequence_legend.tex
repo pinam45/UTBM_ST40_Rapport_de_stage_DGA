@@ -1,0 +1,38 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
+		\tikzstyle{info}=[
+			draw,
+			rectangle,
+			font=\tt,
+			fill=color2
+		]
+		\tikzstyle{info2}=[
+			draw,
+			rectangle,
+			font=\tt,
+			fill=white
+		]
+		\tikzstyle{infobox}=[
+			draw,
+			diamond,
+			inner sep=0,
+			minimum width=15,
+			minimum height=15,
+			fill=color3
+		]
+
+		\node[info2,anchor=west] (a1) at (0,0) {\phantom{?}};
+		\node[anchor=west] (a2) at (a1.east) {Données lisibles};
+
+		\node[info,anchor=west,xshift=12] (b1) at (a2.east) {\phantom{?}};
+		\node[anchor=west] (b2) at (b1.east) {Données au format MIPS};
+
+		\node[infobox,anchor=west,xshift=12] (c1) at (b2.east) {};
+		\node[anchor=west] (c2) at (c1.east) {Message au format GenDbg};
+	\end{tikzpicture}
+\end{document}
