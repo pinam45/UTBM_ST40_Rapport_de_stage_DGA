@@ -1,0 +1,80 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\pgfmathsetmacro\addrhexsep{0}%
+	\pgfmathsetmacro\hexcodesep{150}%
+	\pgfmathsetmacro\capstoneyshift{-25}%
+	\pgfmathsetmacro\keystoneyshift{-65}%
+	\pgfmathsetmacro\iconsheight{15}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
+		\def\addra{805728B0:}
+		\def\addrb{805728B4:}
+		\def\addrc{805728B8:}
+		\def\addrd{805728BC:}
+		\def\addre{805728C0:}
+		\def\hexa{25 08 00 04}
+		\def\hexb{15 09 FF FE}
+		\def\hexc{AD 00 00 00}
+		\def\hexd{3C 01 80 70}
+		\def\hexe{AC 24 B2 50}
+		\def\codea{addiu \$t0, \$t0, 4}
+		\def\codeb{bne\ \ \ \$t0, \$t1, 805728B0}
+		\def\codec{sw\ \ \ \ \$zero, (\$t0)}
+		\def\coded{lui\ \ \ \$at, 8070}
+		\def\codee{sw\ \ \ \ \$a0, -4DB4(\$at)}
+		\tikzset{addr/.style={
+			anchor=north west,
+			minimum height=15,
+			font=\color{gray}\footnotesize\tt
+		}}
+		\tikzset{hex/.style={
+			anchor=north west,
+			minimum height=15,
+			font=\footnotesize\tt
+		}}
+		\tikzset{code/.style={
+			anchor=north west,
+			minimum height=15,
+			font=\footnotesize\tt
+		}}
+
+		%---------------------------------
+		% data
+		\node[addr] (addra) at (0,0) {\addra};
+		\coordinate (addrpos) at (addra.south west);
+		\node[hex] (hexa) at ($(addra.north east)+(\addrhexsep,0)$) {\hexa};
+		\coordinate (hexpos) at (hexa.south west);
+		\node[code] (codea) at ($(hexa.north east)+(\hexcodesep,0)$) {\codea};
+		\coordinate (codepos) at (codea.south west);
+		\foreach \i in {b,c,d,e} {
+			\node[addr] (addr\i) at (addrpos) {\csname addr\i \endcsname};
+			\coordinate (addrpos) at (addr\i.south west);
+			\node[hex] (hex\i) at (hexpos) {\csname hex\i \endcsname};
+			\coordinate (hexpos) at (hex\i.south west);
+			\node[code] (code\i) at (codepos) {\csname code\i \endcsname};
+			\coordinate (codepos) at (code\i.south west);
+		};
+
+		%---------------------------------
+		% rectangles
+		\draw (hexpos) rectangle (hexa.north east);
+		\draw (codepos) rectangle ($(codea.north east)+(33,0)$);
+
+		%---------------------------------
+		% Capstone Keystone
+		\draw[->,thick]
+			($(hexa.north east)+(0,\capstoneyshift)$) --
+				node[above=-3pt] (capstonelogo) {\includegraphics[height=\iconsheight pt]{logos/capstone.png}\phantom{ Capstone}}
+			($(codea.north west)+(0,\capstoneyshift)$);
+		\node[anchor=east] at (capstonelogo.east) {Capstone};
+		\draw[<-, thick]
+			($(hexa.north east)+(0,\keystoneyshift)$) --
+				node[above=-3pt] (keystonelogo) {\includegraphics[height=\iconsheight pt]{logos/keystone.png}\phantom{ Keystone}}
+			($(codea.north west)+(0,\keystoneyshift)$);
+		\node[anchor=east] at (keystonelogo.east) {Keystone};
+	\end{tikzpicture}
+\end{document}
