@@ -279,4 +279,44 @@
 				\frametitle{Informations détaillées}
 				\centering\hspace{-50pt}\resizebox{0.55\textwidth}{!}{\lstinputlisting[language={[gendbg]C}, style=magic_style]{code/cs_detail.c}}
 			\end{frame}
+			\begin{frame}
+				\frametitle{Informations détaillées}
+				\framesubtitle{Correspondance des registres}
+				\begin{columns}[t]
+					\begin{column}{0.5\textwidth}
+						\textbf{Capstone}
+						\begin{itemize}
+							\item enum \code{mips\_reg}
+							\item registres uniques pour 32/64 bits
+								\begin{itemize}
+									\item MIPS\_REG\_PC
+									\invisible{\item MIPS\_REG\_PC}
+								\end{itemize}
+							\item<2-> registres coprocesseurs spécifiques
+							\item<3-> FPU:
+								\begin{itemize}
+									\item<3-> SPR incomplets
+									\item<3-> SPR: un registre par bit
+								\end{itemize}
+						\end{itemize}
+					\end{column}
+					\begin{column}{0.5\textwidth}
+						\textbf{GenDbg}
+						\begin{itemize}
+							\item enum \code{MIPS\_RegisterId\_T}
+							\item registres différenciés pour 32/64 bits
+								\begin{itemize}
+									\item MIPS32\_PC
+									\item MIPS64\_PC
+								\end{itemize}
+							\item<2-> registres coprocesseurs génériques
+							\item<3-> FPU:
+								\begin{itemize}
+									\item<3-> SPR complets
+									\item<3-> SPR: un registre unique
+								\end{itemize}
+						\end{itemize}
+					\end{column}
+				\end{columns}
+			\end{frame}
 \end{document}
