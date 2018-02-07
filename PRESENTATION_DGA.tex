@@ -319,4 +319,33 @@
 					\end{column}
 				\end{columns}
 			\end{frame}
+			\begin{frame}
+				\begin{columns}
+					\begin{column}{0.4\textwidth}
+						\centering\includegraphics[height=230pt]{MIPS_FPU_32bit_registers}
+					\end{column}
+					\begin{column}{0.6\textwidth}
+						\uncover<2->{
+							\begin{itemize}
+								\item FIR: Floating Point Implementation Register
+								\item FCCR: Floating Point Condition Codes Register
+								\item FEXR: Floating Point Exceptions Register
+								\item FENR: Floating Point Enables Register
+								\item FCSR: Floating Point Control and Status Register
+							\end{itemize}
+						}
+					\end{column}
+				\end{columns}
+				\uncover<2->{
+					\begin{tikzpicture}[overlay,x=1pt,y=1pt]
+						\coordinate (A1) at (142,47.5);
+						\coordinate (A2) at (142,14);
+						\coordinate (B1) at (182,150);
+						\coordinate (B2) at (182,76);
+						\draw[thick,green] (A1) -- (A2);
+						\draw[thick,green] (B1) -- (B2);
+						\draw[thick,green] ($(A1)!0.5!(A2)$) -- ($(B1)!0.5!(B2)$);
+					\end{tikzpicture}
+				}
+			\end{frame}
 \end{document}
