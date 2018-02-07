@@ -573,6 +573,31 @@
 				% \end{figure}
 				\paragraph*{}
 					Elles permettent de convertir une adresse MIPS vers sa représentation textuelle et inversement, cela permet d'afficher les adresses dans le \gls{GUI} comme visible dans l'\annexe{guiqtgendbgvuecode}.
+			\subsection{Utilisation de Capstone et Keystone}
+				\paragraph*{}
+					Les fonctions d'assemblage et de désassemblage font partie des fonctions de conversion des données mais celles-ci sont les plus complexes à implémenter et représentent la majeure différence avec l'ancien module MIPS de par l'utilisation de Capstone et Keystone.
+				\p{Information basiques}
+					Capstone, dans son utilisation la plus simple prend en entrées une ou plusieurs instructions au format binaire et retourne ces instructions au format textuel. Keystone quant à lui réalise l'inverse, il prend en entrées une ou plusieurs instructions au format textuel et retourne ces instructions au format binaire. Cet usage de Capstone et Keystone est fait pour les fonctions \jfunc{UnassembleBloc} et \jfunc{AssembleSingle}.
+				\begin{figure}[H]
+					\centering
+					\resizebox{\textwidth}{!}{\import{figures/}{Capstone_Keystone_utilisation_basique.tex}}
+					\caption{Utilisation basique de Capstone et Keystone}
+					\label{fig:Capstone_Keystone_utilisation_basique}
+				\end{figure}
+				\paragraph*{}
+					\jfunc{AssembleSingle} sert pour certains appels des consoles utilisateur classique et Python qui peuvent permettre d'assembler du code et d'aller écrire le code assemblé dans la mémoire du programme débogué.
+				\begin{figure}[H]
+					\centering
+					\resizebox{\textwidth}{!}{\import{figures/}{GenDbg_sequence_UnassembleBloc.tex}}\\
+					\vspace{5pt}
+					\resizebox{0.85\textwidth}{!}{\import{figures/}{GenDbg_sequence_legend.tex}}
+					\caption{GenDbg: séquence d'appels pour le désassemblage d'instructions}
+					\label{fig:GenDbg_sequence_UnassembleBloc}
+				\end{figure}
+				\paragraph*{}
+					\jfunc{UnassembleBloc} est utilisée pour afficher les instructions dans la vue code du GUI (visible dans l'\annexe{guiqtgendbgvuecode}), cette fonction est donc souvent appelée et a un grand impacte sur les performances. Capstone est très optimisé cela profite donc au module qui pourra aussi profiter des prochaines améliorations de Capstone sans avoir à changer son code.
+				\paragraph*{}
+					Ces informations basiques de Capstone et Keystone peuvent être traitées sans différenciation en fonction de l'architecture, toutes les informations sont contenues dans la structure \jclass{cs\_insn} (voir \annexe{structurescapstone}), c'est-à-dire que l'on peut appliquer un traitement des informations identique pour toutes les architectures. Cela permettrait donc un traitement unique qui pourrait être utilisé pour tous les modules ASM.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
