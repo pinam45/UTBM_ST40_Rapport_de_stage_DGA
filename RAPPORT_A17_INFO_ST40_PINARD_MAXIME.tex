@@ -361,13 +361,13 @@
 					\end{figure}
 				\end{landscape}
 				\paragraph*{}
-					Comme visible sur la figure \ref{fig:Planning}, j'ai commencé par le travail sur GenDbg avec le développement du module \acrshort{MIPS}, j'ai ensuite testé le module tout en effectuant les modifications et corrections nécessaires. Par la suite, à partir de mi Octobre, j'ai commencé à travailler sur YaCo en commençant par le Repository et en continuant sur les Hooks.
+					Comme visible sur la figure \ref{fig:Planning}, j'ai commencé par le travail sur GenDbg avec le développement du module \acrshort{MIPS} et de ces tests, j'ai ensuite testé le module sur une utilisation réelle tout en effectuant les modifications et corrections nécessaires. Par la suite, à partir de mi Octobre, j'ai commencé à travailler sur YaCo en commençant par le Repository et en continuant sur les Hooks.
 				\paragraph*{}
 					Lors de mon travail plusieurs code review\footnote{revues de code} ont été réalisées par mon maître de stage, ce dernier m'indiquant des corrections et améliorations a réalisé dans mon code. Je suis donc parfois retourné travailler sur le travail précédant afin d'appliquer les modification demandées dans la revue de code.
 				\paragraph*{}
-					Enfin, le travail sur YaCo a donné lieu a deux pull request\cite{GithubYaCoPR24,GithubYaCoPR30} sur le repo publique du projet sur GitHub\cite{SSTICYaCo}.
+					Enfin, le travail sur YaCo a donné lieu a deux pull request\cite{GithubYaCoPR24,GithubYaCoPR30} sur le dépôt publique du projet sur GitHub\cite{GithubYaCo}.
 				\paragraph*{}
-					Après avoir terminé le travail sur GenDbg et YaCo, j'ai préparé une présentation orale interne a la \gls{DGA MI} sur le contenu de mon stage qui a eu lieu le 23 Janvier 2018. En parallèle à cela, j'ai commencé la rédaction du rapport de stage que j'ai continué sur les 3 jours restants après la présentation.
+					Après avoir terminé le travail sur GenDbg et YaCo, j'ai préparé une présentation orale interne à la \gls{DGA MI} sur le contenu de mon stage qui a eu lieu le 23 Janvier 2018 et a duré une quarantaine de minutes. Les 3 jours restants après la présentation, j'ai travaillé sur des améliorations mineures sur YaCo.
 	\chapter{GenDbg}\label{ch:gendbg}
 		\section{L'architecture MIPS}
 			\subsection{Présentation}
@@ -536,7 +536,7 @@
 				\paragraph*{}
 					Les fonctions du module ont alors en leur possession tous les éléments nécessaires à la réalisation de leur tache: Capstone et Keystone pour l'assemblage et le dé-assemblage, et les fonctions de rappel du framework pour accéder aux informations du programme débogué.
 				\paragraph*{}
-					À la fin de l’exécution de GenDbg, le framework appelle la fonction \jcode{Uninit} qui se charge de libérer la mémoire utilisée par le module et de supprimer son contexte.
+					À la fin de l'exécution de GenDbg, le framework appelle la fonction \jcode{Uninit} qui se charge de libérer la mémoire utilisée par le module et de supprimer son contexte.
 			\subsection{Manipulation des données}
 				\paragraph*{}
 					Les fonctions de manipulation des données existent principalement dans le but de garder le framework générique, pour cela le framework ne peut pas réaliser de traitement spécifique à une architecture. La manipulation des données spécifiques à une architecture telles que les registres et les adresses mémoires est donc réalisée par l'intermédiaire du module ASM qui lui, tout comme le stub, est spécifique à l'architecture.
