@@ -83,7 +83,7 @@ all: pdf
 
 %.pdf: %.tex FORCE
 	$(eval DOCUMENT_NAME:=$(patsubst %.pdf,%,$@))
-	@$(DISPLAY) "\nBuilding \033[0;33m$(DOCUMENT_NAME)\033[0m:\n"
+	@$(DISPLAY) "\nBuilding \033[0;33m$@\033[0m:\n"
 
 	$(foreach package, $(PACKAGES_REQUIRED[$(DOCUMENT_NAME)]), \
 		$(call check_package,$(package))\
