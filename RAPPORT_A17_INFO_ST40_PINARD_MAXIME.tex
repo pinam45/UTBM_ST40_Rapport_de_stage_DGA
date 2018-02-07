@@ -598,6 +598,35 @@
 					\jfunc{UnassembleBloc} est utilisée pour afficher les instructions dans la vue code du GUI (visible dans l'\annexe{guiqtgendbgvuecode}), cette fonction est donc souvent appelée et a un grand impacte sur les performances. Capstone est très optimisé cela profite donc au module qui pourra aussi profiter des prochaines améliorations de Capstone sans avoir à changer son code.
 				\paragraph*{}
 					Ces informations basiques de Capstone et Keystone peuvent être traitées sans différenciation en fonction de l'architecture, toutes les informations sont contenues dans la structure \jclass{cs\_insn} (voir \annexe{structurescapstone}), c'est-à-dire que l'on peut appliquer un traitement des informations identique pour toutes les architectures. Cela permettrait donc un traitement unique qui pourrait être utilisé pour tous les modules ASM.
+				\p{Informations détaillées}
+					Pour Keystone on se limitera aux informations basiques, Capstone quant à lui peut être utilisé pour récupérer de nombreuses informations détaillées sur l'instruction désassemblée. Dans le module ASM, c'est la fonction \jfunc{GetInstructionInfo} qui utilise Capstone pour fournir des informations sur l'instruction au framework.
+				\paragraph*{}
+					Certaines de ces informations telle que la taille de l'instruction ne seront pas utiles (les instructions sont toujours sur 32 bits en MIPS) mais d'autres permettront d'afficher des informations supplémentaires sur les instructions à l'utilisateur, par exemple dans le \gls{GUI} Qt:
+					\begin{itemize}
+						\item les instructions de saut non conditionnel sont affichées en rouge (figure \ref{fig:GenDbg_GUI_Qt_Vue_code_Instruction_saut_non_conditionnel})
+						\item les instructions de saut (conditionnel ou non) ont en commentaire une flèche qui indique la direction du saut (figures \ref{fig:GenDbg_GUI_Qt_Vue_code_Instruction_saut_non_conditionnel} et \ref{fig:GenDbg_GUI_Qt_Vue_code_Instruction_saut_conditionnel})
+						\item les instructions avec des références mémoire ont en commentaire l'adresse mémoire référencée et la valeur stockée à cette adresse (figure \ref{fig:GenDbg_GUI_Qt_Vue_code_Instruction_ecriture_memoire})
+					\end{itemize}
+				\begin{figure}[H]
+					\centering%
+					\fbox{\includegraphics[width=1\textwidth]{GenDbg_GUI_Qt_Vue_code_Instruction_saut_non_conditionnel}}
+					\caption{GUI Qt de Gendbg: vue code, instruction de saut non conditionnel}%
+					\label{fig:GenDbg_GUI_Qt_Vue_code_Instruction_saut_non_conditionnel}%
+				\end{figure}
+				\begin{figure}[H]
+					\centering%
+					\fbox{\includegraphics[width=1\textwidth]{GenDbg_GUI_Qt_Vue_code_Instruction_saut_conditionnel}}
+					\caption{GUI Qt de Gendbg: vue code, instruction de saut conditionnel}%
+					\label{fig:GenDbg_GUI_Qt_Vue_code_Instruction_saut_conditionnel}%
+				\end{figure}
+				\begin{figure}[H]
+					\centering%
+					\fbox{\includegraphics[width=1\textwidth]{GenDbg_GUI_Qt_Vue_code_Instruction_ecriture_memoire}}
+					\caption{GUI Qt de Gendbg: vue code, instruction d'écriture mémoire}%
+					\label{fig:GenDbg_GUI_Qt_Vue_code_Instruction_ecriture_memoire}%
+				\end{figure}
+				\paragraph*{}
+					Le problème de l'utilisation des informations détaillées de Capstone est que le format de ces informations est spécifique à l'architecture. Elles sont contenues dans la structure \jclass{cs\_detail} (voir \annexe{structurescapstone}) qui est différenciée pour chaque architecture a l'aide d'une union. Les informations relatives à l'architecture MIPS se trouvent donc dans la structure \jclass{cs\_mips} (voir \annexe{structurescapstone}). Cela empêche un traitement unifié des informations détaillées pour plusieurs architectures.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
