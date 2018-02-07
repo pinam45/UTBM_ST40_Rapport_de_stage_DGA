@@ -1,0 +1,130 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\pgfmathsetmacro\xstartmodules{25}%
+	\pgfmathsetmacro\ystartmodules{-10}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
+		\tikzset{module/.style={
+			draw,
+			rectangle,
+			anchor=north west,
+			minimum height=17,
+			fill=color2,
+			outer sep=0pt,
+		}}
+
+		%---------------------------------
+		% QEMU
+		\node[
+			draw,
+			rectangle,
+			fill=color1,
+			minimum width=100,
+			minimum height=100,
+		] (qemu) at (0,-10) {};
+		\node[
+			anchor=north
+		] (qemutxt) at (qemu.north) {QEMU};
+
+		\node[
+			draw,
+			rectangle,
+			fill=color1!30!blue,
+			minimum width=90,
+			anchor=north,
+		] (gdbserver) at ($(qemu.north)-(0,20)$) {Serveur GDB};
+
+		\node[
+			draw,
+			rectangle,
+			fill=color4,
+			minimum width=90,
+			minimum height=50,
+			anchor=north,
+		] (debian) at ($(qemu.north)-(0,40)$) {Debian MIPS};
+
+		%---------------------------------
+		% Stub
+		\node[
+			draw,
+			diamond,
+			aspect=2.5,
+			fill=color1,
+			text opacity=1,
+			inner sep=2,
+			font=\footnotesize,
+		] (stub) at (150,0) {GdbWrapperStub};
+
+		%---------------------------------
+		% QEMU <-> Stub
+		\draw[
+			<->,
+			dotted,
+			thick,
+			label=above
+		] (gdbserver.east) to[bend left] node[above,pos=0.5] {HTTP} (stub.145);
+
+		%---------------------------------
+		% Framework
+		\node[
+			draw,
+			diamond,
+			aspect=2.5,
+			fill=color1,
+			text opacity=1
+		] (framework) at (280,0) {Framework};
+
+		%---------------------------------
+		% GenDbg <-> Stub
+		\draw[
+			<->,
+			dotted,
+			thick,
+			label=above
+		] (framework) to[bend right] node[above,pos=0.5] {COM} (stub);
+
+		%---------------------------------
+		% GUI
+		\node[
+			module,
+			anchor=south west,
+			xshift=\xstartmodules,
+			yshift=-\ystartmodules,
+		] (gui) at (framework.north east) {GUI};
+
+		\node[
+			draw,
+			rectangle,
+			fill=color3,
+			anchor=west
+		] (guiqt) at ($(gui.east)+(65,0)$) {GenDbgGui.dll};
+
+		\draw[->] (gui) -- (guiqt);
+
+		%---------------------------------
+		% AsmModule
+		\node[
+			module,
+			xshift=\xstartmodules,
+			yshift=\ystartmodules,
+		] (asmmodule) at (framework.south east) {AsmModule};
+
+		\node[
+			draw,
+			rectangle,
+			fill=color3,
+			anchor=west
+		] (asmmodulemips) at ($(asmmodule.east)+(30,0)$) {AsmModuleMIPS.dll};
+
+		\draw[->] (asmmodule) -- (asmmodulemips);
+
+		%---------------------------------
+		% GenDbg -> modules
+		\draw[-Square] (framework.north east) |- (gui);
+		\draw[-Square] (framework.south east) |- (asmmodule);
+	\end{tikzpicture}
+\end{document}
