@@ -627,6 +627,19 @@
 				\end{figure}
 				\paragraph*{}
 					Le problème de l'utilisation des informations détaillées de Capstone est que le format de ces informations est spécifique à l'architecture. Elles sont contenues dans la structure \jclass{cs\_detail} (voir \annexe{structurescapstone}) qui est différenciée pour chaque architecture a l'aide d'une union. Les informations relatives à l'architecture MIPS se trouvent donc dans la structure \jclass{cs\_mips} (voir \annexe{structurescapstone}). Cela empêche un traitement unifié des informations détaillées pour plusieurs architectures.
+			\subsection{Tests unitaires}
+				\paragraph*{}
+					Les tests unitaires du module ont été développés en parallèle de ce dernier afin de tester les fonctionnalités au fur et à mesure de leur implémentation, cela m'a permis de trouver très tôt de nombreux bugs potentiels du module et des comportements anormaux de Capstone et Keystone.
+				\paragraph*{}
+					Les tests ont été réalisés avec \gls{GTest} qui ne nécessite pas de modifier le code du programme testé, permettant de garder les tests séparés du module. Les tests se déroulent dans une ``fixture'', c'est un environnement qui permet d'exécuter des tests, de réaliser des actions avant chaque test.
+				\paragraph*{}
+					J'ai donc conçu une fixture qui reproduit le comportement du framework et fournit au module ASM un contexte et des fonctions de rappel qui simulent le framework afin de réaliser un exécutable de test indépendant, ne nécessitant pas de lancer un stub et le framework comme pour une utilisation classique de GenDbg.
+				\paragraph*{}
+					De plus j'ai conçut les tests de façon à garder les données des tests séparées du traitement des tests. Pour cela toutes les données à tester sont placées dans des tableaux de données de test. Ces tableaux permettent d'étendre simplement un test en ajoutant des lignes au tableau des données de test sans avoir à modifier le fonctionnement du test en lui-même.
+				\paragraph*{}
+					Cette conception m'a permis de tester les fonctions pour de très nombreuses valeurs, en particulier les fonctions d'assemblage et de désassemblage avec des instructions au format binaire et textuel généré à la main à partir de la documentation. Tester ces fonctions revient à tester Capstone et Keystone, j'ai donc trouvé quelques bugs sur ces derniers mais il a suffi de remplacer les versions actuelles utilisées par GenDbg par les dernières versions pour corriger la majorité de ces bugs.
+				\paragraph*{}
+					Les tests étant externes au module j'ai aussi pu appliquer ces derniers sur l'ancien module, ce dernier échoue à plusieurs tests, notamment l'assemblage, le désassemblage et les tests avec des valeurs erronées et pointeur nuls qui ne sont pas vérifiés par le module.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
