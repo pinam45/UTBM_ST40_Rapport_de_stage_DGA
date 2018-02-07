@@ -260,4 +260,19 @@
 					\centering\fbox{\includegraphics[width=0.8\textwidth]{GenDbg_GUI_Qt_Vue_code_Instruction_ecriture_memoire}}
 				}
 			\end{frame}
+			\begin{frame}
+				\frametitle{Informations détaillées}
+				\begin{center}
+					\begin{minipage}{0.9\textwidth}
+						\lstinputlisting[language={[gendbg]C}, style=magic_style, escapechar=!]{code/tikz_cs_insn.c}
+					\end{minipage}
+				\end{center}
+				\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+					\draw[<-,>=Latex,ultra thick,green] (cs_insn_mnemonic) -- ++(30,0);
+					\draw[<-,>=Latex,ultra thick,green] (cs_insn_op_str) -- ++(30,0);
+					\uncover<2->{
+						\draw[<-,>=Latex,ultra thick,red] (cs_insn_detail) -- ++(30,0);
+					}
+				\end{tikzpicture}
+			\end{frame}
 \end{document}
