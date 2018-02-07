@@ -640,6 +640,18 @@
 					Cette conception m'a permis de tester les fonctions pour de très nombreuses valeurs, en particulier les fonctions d'assemblage et de désassemblage avec des instructions au format binaire et textuel généré à la main à partir de la documentation. Tester ces fonctions revient à tester Capstone et Keystone, j'ai donc trouvé quelques bugs sur ces derniers mais il a suffi de remplacer les versions actuelles utilisées par GenDbg par les dernières versions pour corriger la majorité de ces bugs.
 				\paragraph*{}
 					Les tests étant externes au module j'ai aussi pu appliquer ces derniers sur l'ancien module, ce dernier échoue à plusieurs tests, notamment l'assemblage, le désassemblage et les tests avec des valeurs erronées et pointeur nuls qui ne sont pas vérifiés par le module.
+		\section{Tests d'utilisation}
+			\subsection{Montage}
+				\paragraph*{}
+					Afin de tester le module dans un cas d'utilisation réel sans avoir en ma possession une machine équipé d'un processeur MIPS, j'ai utilisé l'émulateur QEMU avec lequel j'ai fait fonctionner le système d'exploitation Debian pour l'architecture MIPS. QEMU n'est pas le seul émulateur capable d'exécuter des programmes et systèmes d'exploitation pour de nombreuses architectures dont MIPS mais il a l'avantage de pouvoir exposer un serveur gdb permettant de déboguer le programme exécuté via \acrshort{HTTP} avec le protocole de gdb.
+				\begin{figure}[H]
+					\centering
+					\resizebox{1.05\textwidth}{!}{\import{figures/}{GenDbg_montage_test_manuels.tex}}
+					\caption{GenDbg: Montage utilisé pour les tests manuels}
+					\label{fig:GenDbg_montage_test_manuels}
+				\end{figure}
+				\paragraph*{}
+					Ainsi, comme représenté sur la figure \ref{fig:GenDbg_montage_test_manuels}, en utilisant le stub GdbWrapperStub qui permet de se connecter à un serveur gdb et le framework avec le \gls{GUI} Qt et le module ASM \gls{MIPS} j'ai été en mesure de tester en conditions réelles le module entièrement en local sur ma machine.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
