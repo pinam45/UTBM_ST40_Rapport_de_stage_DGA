@@ -485,7 +485,7 @@
 				\paragraph*{}
 					GTest est un framework de tests unitaires pour le C++, basé sur une architecture xUnit\footnote{désigne les frameworks de tests qui ont une structure semblable à SUnit, conçut par Kent Beck en 1998}, \gls{GTest} est open-source et multi plateforme. Il permet de réaliser des tests unitaires sans modification des sources du projet, son utilisation est très répandue pour les projets C et C++.
 				\paragraph*{}
-					Les test du module utilisent \gls{GTest}, j'ai donc téléchargé les sources de \gls{GTest}\cite{GithubGTest} et les ai ajouté aux dépendances. Les dépendances de GenDbg sont toutes placées dans le répertoire \folder{deps}, chacune dans un dossier nommé \file{<nom de la dépendance>-<version>}.
+					Les tests du module utilisent \gls{GTest}, j'ai donc téléchargé les sources de \gls{GTest}\cite{GithubGTest} et les ai ajouté aux dépendances. Les dépendances de GenDbg sont toutes placées dans le répertoire \folder{deps}, chacune dans un dossier nommé \file{<nom de la dépendance>-<version>}.
 				\paragraph*{}
 					YaCo a lui aussi pour dépendance \gls{GTest}, pour ce qui est de la compilation je n'ai donc eu qu'à isoler et reprendre la partie du script CMake de YaCo qui gère la compilation de \gls{GTest} et l'adapter pour GenDbg. J'ai ensuite ajouté \gls{GTest} en dépendance du module \acrshort{MIPS} pour qu'il lui soit lié à la compilation.
 				\paragraph*{}
