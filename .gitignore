@@ -40,6 +40,12 @@
 *.ind
 *.ist
 
+## beamer
+*.nav
+*.pre
+*.snm
+*.vrb
+
 ## glossaries
 *.acn
 *.acr
