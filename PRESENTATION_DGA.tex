@@ -358,4 +358,44 @@
 					\includegraphics[width=0.9\textwidth]{MIPS_FCCR_register_format}
 				}
 			\end{frame}
+			\begin{frame}
+				\frametitle{Informations détaillées}
+				\framesubtitle{Correspondance des registres}
+				\begin{columns}[t]
+					\begin{column}{0.5\textwidth}
+						\textbf{Capstone}
+						\begin{center}
+							\begin{minipage}{0.85\textwidth}
+								\lstinputlisting[language={[gendbg]C}, style=magic_style, escapechar=!]{code/tikz_MIPS_Capstone_FPU_SPR.c}
+							\end{minipage}
+						\end{center}
+					\end{column}
+					\begin{column}{0.5\textwidth}
+						\textbf{GenDbg}
+						\begin{center}
+							\begin{minipage}{0.85\textwidth}
+								\lstinputlisting[language={[gendbg]C}, style=magic_style, escapechar=!]{code/tikz_MIPS_GenDbg_FPU_SPR.c}
+							\end{minipage}
+						\end{center}
+					\end{column}
+				\end{columns}
+				\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+					\uncover<2->{
+						\draw[dashed,thick,orange] (mips_reg_FCC0) -- (MIPS_RegisterId_T_FCCR);
+						\draw[dashed,thick,orange] (mips_reg_FCC1) -- (MIPS_RegisterId_T_FCCR);
+						\draw[dashed,thick,orange] (mips_reg_FCC2) -- (MIPS_RegisterId_T_FCCR);
+						\draw[dashed,thick,orange] (mips_reg_FCC3) -- (MIPS_RegisterId_T_FCCR);
+						\draw[dashed,thick,orange] (mips_reg_FCC4) -- (MIPS_RegisterId_T_FCCR);
+						\draw[dashed,thick,orange] (mips_reg_FCC5) -- (MIPS_RegisterId_T_FCCR);
+						\draw[dashed,thick,orange] (mips_reg_FCC6) -- (MIPS_RegisterId_T_FCCR);
+						\draw[dashed,thick,orange] (mips_reg_FCC7) -- (MIPS_RegisterId_T_FCCR);
+					}
+					\uncover<3->{
+						\draw[dashed,thick,red] (mips_reg_INVALID) -- (MIPS_RegisterId_T_FIR);
+						\draw[dashed,thick,red] (mips_reg_INVALID) -- (MIPS_RegisterId_T_FEXR);
+						\draw[dashed,thick,red] (mips_reg_INVALID) -- (MIPS_RegisterId_T_FENR);
+						\draw[dashed,thick,red] (mips_reg_INVALID) -- (MIPS_RegisterId_T_FCSR);
+					}
+				\end{tikzpicture}
+			\end{frame}
 \end{document}
