@@ -652,6 +652,15 @@
 				\end{figure}
 				\paragraph*{}
 					Ainsi, comme représenté sur la figure \ref{fig:GenDbg_montage_test_manuels}, en utilisant le stub GdbWrapperStub qui permet de se connecter à un serveur gdb et le framework avec le \gls{GUI} Qt et le module ASM \gls{MIPS} j'ai été en mesure de tester en conditions réelles le module entièrement en local sur ma machine.
+			\subsection{Résultats}
+				\paragraph*{}
+					J'ai aussi réalisé le montage de test mais en utilisant l'ancien module \gls{MIPS} ce qui a permis de le comparer avec le nouveau module réalisé durant le stage. On remarque alors  que la plupart des informations détaillées (exemple: figures \ref{fig:GenDbg_GUI_Qt_Vue_code_Instruction_saut_non_conditionnel}, \ref{fig:GenDbg_GUI_Qt_Vue_code_Instruction_saut_conditionnel} et \ref{fig:GenDbg_GUI_Qt_Vue_code_Instruction_ecriture_memoire}) sont absentes ou erronées avec l'ancien module et que ce dernier suppose les instructions correctes.
+				\paragraph*{}
+					Le problème de supposer les instructions correctes apparait lorsqu'il y a des données présentes dans le code qui ne correspondent à aucune instruction, l'ancien module \gls{MIPS} retourne alors une instruction erronée. Par exemple pour la valeur ``\jcode{00 00 04 20}'', l'ancien module retourne ``\jcode{move \reg{zero}, \reg{zero}}'', ce qui est faux tandis que le nouveau module retourne ``\jcode{.byte 00, 00, 04, 20}'' car cela ne correspond à aucune instruction.
+				\paragraph*{}
+					J'ai aussi remarqué que l'ancien module MIPS ne permettait pas de réaliser l'assemblage de code, pour changer une instruction du programme débogué il était donc nécessaire de passer par un programme externe à GenDbg pour assembler l'instruction avant d'ensuite retourner sur GenDbg pour écrire la valeur de cette dernière dans le programme débogué.
+				\paragraph*{}
+					Finalement j'ai aussi testé le module pour les versions de \gls{MIPS} Little endian et Big Endian, mais aborder l'endianness nécessiterait une présentation beaucoup plus complète de l'architecture \gls{MIPS} qui présente des particularités sur ce point. De plus le traitement de l'endianness n'étant pas complètement normé dans GenDbg, le module a pour but principal le support MIPS qui est la version Big Endian. La version Little endian est elle nommée \acrshort{MIPSel} pour \acrlong{MIPSel} et est supportée par le module dans le cas où un swap des valeurs des registres est effectué par le stub a la lecture.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
