@@ -661,6 +661,23 @@
 					J'ai aussi remarqué que l'ancien module MIPS ne permettait pas de réaliser l'assemblage de code, pour changer une instruction du programme débogué il était donc nécessaire de passer par un programme externe à GenDbg pour assembler l'instruction avant d'ensuite retourner sur GenDbg pour écrire la valeur de cette dernière dans le programme débogué.
 				\paragraph*{}
 					Finalement j'ai aussi testé le module pour les versions de \gls{MIPS} Little endian et Big Endian, mais aborder l'endianness nécessiterait une présentation beaucoup plus complète de l'architecture \gls{MIPS} qui présente des particularités sur ce point. De plus le traitement de l'endianness n'étant pas complètement normé dans GenDbg, le module a pour but principal le support MIPS qui est la version Big Endian. La version Little endian est elle nommée \acrshort{MIPSel} pour \acrlong{MIPSel} et est supportée par le module dans le cas où un swap des valeurs des registres est effectué par le stub a la lecture.
+		\section{Difficultés}
+			\paragraph*{}
+				Les difficultés rencontrées ont été purement techniques, je vais en détailler uniquement une à titre d'exemple du type de problème rencontrés lors du développement du module.
+			\paragraph*{}
+				Capstone, tout comme GenDgb, utilise une enum pour identifier les différents registres, l'une des premières choses à faire a été de réaliser la correspondance entre les registres de Capstone et ceux de GenDbg. Pour cela j'ai réalisé des tableaux de correspondance et des fonctions de conversion dédiées afin de mettre a part, cette correspondance pour que lors d'une possible évolution des identifiants de Capstone ou GenDbg, le minimum de modifications soit nécessaire.
+			\paragraph*{}
+				La correspondance n'est pas toujours évidente a réaliser, prenons l'exemple du \gls{FCCR}. Le \gls{FCCR} (voir figure \ref{fig:MIPS_FCCR_register_format}) contient les 8 \gls{FCC} du \gls{FPU}, la valeur de ces \gls{FCC} est stockée sur les 8 bits de poids faible, un bit par \gls{FCC}, il est possible d'accéder aux \gls{FCC} individuellement avec \reg{fcc0/1/\ldots/7} ou à la totalité du registre avec \reg{25} (dans une instruction \gls{FPU}).
+			\begin{figure}[H]
+				\centering%
+				\includegraphics[width=1\textwidth]{MIPS_FCCR_register_format}
+				\caption{\acrshort{MIPS}: Format du registre \acrshort{FCCR}}%
+				\label{fig:MIPS_FCCR_register_format}%
+			\end{figure}
+			\paragraph*{}
+				Capstone définit un registre par bit (\jcode{MIPS\_REG\_FCC0/1/\ldots/7}) tandis que GenDbg ne définit qu'un registre (\jcode{MIPS\_FCCR}). Les représentations de Capstone et GenDbg sont donc toutes les deux valables. Ces dernières étant non modifiables, la correspondance que j'ai réalisée (tous les \gls{FCCR} de Capstone vers l'unique \gls{FCCR} de GenBdg) pourra mener à la perte d'information dans la représentation textuelle de certaines instructions \gls{FPU}.
+			\paragraph*{}
+				Le support des coprocesseurs (tel que le \gls{FPU}) n'étant pas un objectif du module pour le moment cela n'est pas un problème majeur. Le plus important pour le module étant les \gls{GPR} et les \gls{SPR} qui avaient une bonne correspondance entre Capstone et GenDbg.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
