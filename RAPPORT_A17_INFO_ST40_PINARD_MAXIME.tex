@@ -678,6 +678,21 @@
 				Capstone définit un registre par bit (\jcode{MIPS\_REG\_FCC0/1/\ldots/7}) tandis que GenDbg ne définit qu'un registre (\jcode{MIPS\_FCCR}). Les représentations de Capstone et GenDbg sont donc toutes les deux valables. Ces dernières étant non modifiables, la correspondance que j'ai réalisée (tous les \gls{FCCR} de Capstone vers l'unique \gls{FCCR} de GenBdg) pourra mener à la perte d'information dans la représentation textuelle de certaines instructions \gls{FPU}.
 			\paragraph*{}
 				Le support des coprocesseurs (tel que le \gls{FPU}) n'étant pas un objectif du module pour le moment cela n'est pas un problème majeur. Le plus important pour le module étant les \gls{GPR} et les \gls{SPR} qui avaient une bonne correspondance entre Capstone et GenDbg.
+		\section{Résultats}
+			\paragraph*{}
+				Comme vu avec les tests manuels, le nouveau module corrige les problèmes d'instructions erronées de l'ancien module et ajoute les informations détaillées qui manquaient. Une autre amélioration est l'ajout de l'assemblage des instructions avec Keystone, cette fonctionnalité étant totalement absente de l'ancien module, mais l'amélioration la plus importante est bien l'utilisation de Capstone qui vient réaliser le désassemblage MIPS qui était entièrement codé dans l'ancien module.
+			\begin{figure}[H]
+				\centering%
+				\resizebox{0.7\textwidth}{!}{\import{figures/}{Lignes_code_module_MIPS.tex}}%
+				\caption{Lignes de code: ancien module MIPS, nouveau module MIPS, tests et dépendances}%
+				\label{fig:Lignes_code_module_MIPS}%
+			\end{figure}
+			\paragraph*{}
+				Comme le montre la figure \ref{fig:Lignes_code_module_MIPS}, la quantité de code du nouveau module est beaucoup plus faible, ce qui simplifie drastiquement la maintenance du module. Cette diminution de la quantité de code vient majoritairement de l'utilisation de Capstone et Keystone qui comportent eux énormément de code mais ces derniers permettent une meilleure gestion des erreurs et surtout ne nécessitent pas d'être maintenu.
+			\paragraph*{}
+				Un autre avantage de l'utilisation de Capstone et Keystone est que le module profitera des améliorations apportées à ces derniers dans leurs futurs mise à jours, que ce soit des améliorations de performance ou le support des futures versions de l'\gls{ISA} \gls{MIPS}.
+			\paragraph*{}
+				Enfin, l'ajout de tests permet de fiabiliser le module mais aussi simplifie son maintien et son évolution, par exemple en s'assurant que les futures modifications ajoutées au module, que ce soit pour l'ajout de fonctionnalités ou les mises à jour de Capstone et Keystone, ne viennent pas introduire des comportements non voulus.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
