@@ -331,7 +331,20 @@
 					Le stage a commencé par la réalisation du module pour l'architecture \acrshort{MIPS} (détaillé au chapitre \ref{ch:gendbg}). À la fin de la réalisation de ce dernier cependant il fut décidé qu'il serait plus intéressant de ne pas réaliser le module pour l'architecture \acrshort{PPC}, pour à la place travailler sur le projet YaCo. %(présenté dans la section suivante et détaillé au chapitre \ref{ch:yaco}).
 		\section{YaCo}
 			\subsection{Présentation}
-				TODO
+				\p{IDA}
+					IDA\footnote{pour Interactive disassembler (désassembleur interactif)} Pro est un désassembleur commercial très utilisé en rétro-ingénierie. Il prend en charge de nombreux formats exécutables pour différents processeurs et systèmes d'exploitation. Il peut également être utilisé comme débogueur pour les exécutables \acrshort{Windows PE}, Mac OS X Mach-O et Linux \acrshort{ELF}. Pour un coût supplémentaire, un plugin de décompilation pour les programmes compilés avec un compilateur C/C++ est disponible.
+				\paragraph*{}
+					IDA effectue une analyse automatique du code, en utilisant des références croisées entre les sections de code, la connaissance des paramètres des appels d'\gls{API} et d'autres informations. Cependant, la nature du désassemblage empêche une précision totale et une intervention humaine importante est nécessaire. Un utilisateur IDA classique commencera par une base de code générée automatiquement, puis convertira les sections du code en données et vice versa, renommera, annotera et ajoutera d'autres informations à la base, jusqu'à ce que le comportement du programme devienne clair. (Le GUI d'IDA en vue texte et en vue graphe est visible dans l'\annexe{ida7gui}.)
+				\paragraph*{}
+					IDA permet donc de comprendre le fonctionnement d'un programme en analysant manuellement un binaire après une première analyse automatique. Un problème apparait lorsque l'ont veut réaliser cela sur des grosses bases de code, cela devient compliqué, voire impossible, de réaliser une analyse seul en un temps raisonnable, or IDA ne permet pas de travailler à plusieurs sur la même base de code.
+				\begin{figure}[H]
+					\centering
+					\resizebox{\textwidth}{!}{\import{figures/}{YaCo_principe.tex}}
+					\caption{Principe de YaCo}
+					\label{fig:YaCo_principe}
+				\end{figure}
+				\p{YaCo}
+					YaCo\footnote{pour Yet another collaborative tool} est un plugin pour IDA développé en interne a la \gls{DGA MI}, puis rendu publique au \gls{SSTIC} de 2017\cite{SSTICYaCo} et publié sur GitHub\cite{GithubYaCo}, il a pour but de résoudre ce problème en permettant un travail collaboratif sur la même base de code en utilisant le gestionnaire de version Git (voir figure \ref{fig:YaCo_principe}).
 			\subsection{Fonctionnement}
 				TODO
 			\subsection{Gestion du projet}
