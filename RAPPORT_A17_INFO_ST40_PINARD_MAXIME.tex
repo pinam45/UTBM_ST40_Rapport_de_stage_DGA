@@ -358,6 +358,34 @@
 				\end{figure}
 				\paragraph*{}
 					La solution choisit pour résoudre ce problème (représenté sur la figure \ref{fig:YaCo_fonctionnement}) est de gérer un dépôt Git en parallèle de l'\gls{IDB} utilisé par l'instance d'IDA, qui contiendrait l'\gls{IDB} original (après la première analyse d'IDA mais avant que l'utilisateur n'ait commencé à utiliser la base) ainsi que les modifications faites par l'utilisateur par rapport à cet \gls{IDB} original dans un format \gls{XML}, donc textuel et facilement utilisable avec Git.
+				\begin{figure}[H]
+					\centering
+					\resizebox{0.7\textwidth}{!}{\import{figures/}{YaCo_git_usage.tex}}
+					\caption{YaCo: utilisation de Git}
+					\label{fig:YaCo_git_usage}
+				\end{figure}
+				\paragraph*{}
+					Ainsi, comme représenté sur la figure \ref{fig:YaCo_git_usage}, le premier commit ajoute l'\gls{IDB} original et les commits suivants ajoutent et modifient eux les fichiers \gls{XML} des modifications incrémentales par rapport à l'\gls{IDB} original. Le fait de garder les modifications séparées dans un format textuel permet à YaCo de gérer les conflits Git entre les modifications de plusieurs utilisateurs qui modifient en parallèle la base.
+				\paragraph*{}
+					YaCo était initialement implémenté en Python mais, pour des raisons de maintenabilité et de performances, une conversion vers le C++ a été initiée. Afin que les parties déjà portées en C++ soient utilisables depuis le Python le logiciel \gls{SWIG} est utilisé.
+				\paragraph*{}
+					\gls{SWIG} est un outil logiciel open source, permettant de connecter des logiciels ou bibliothèques logicielles écrites en C/C++ avec des langages de script tel que le Python en créant des bindings pour ce dernier.
+				\paragraph*{}
+					Pour faire un plugin IDA, il suffit de placer un fichier Python contenant une fonction \jcode{PLUGIN\_ENTRY} dans le dossier \folder{plugins} de l'installation IDA. Cette fonction doit retourner une classe qui implémente \jcode{plugin\_t}, les fonctions de cette classe permettant d'initialiser, lancer et arrêter le plugin.
+				\paragraph*{}
+					Outre ce fichier (\file{yaco\_plugin.py}), YaCo est composé de plusieurs éléments principaux implémentés en 2 langages.\\
+					En Python:
+					\begin{itemize}
+						\item le plugin: lancement, arrêt, ajout des menus au \gls{GUI} de IDA
+						\item la gestion des évènements IDA
+						\item la gestion du dépôt Git
+					\end{itemize}
+					En C++:
+					\begin{itemize}
+						\item l'import / export entre IDA et les fichiers de modification \gls{XML}
+					\end{itemize}
+				\paragraph*{}
+					Chacun de ces éléments utilise l'\gls{API} de IDA, disponible en C++ et en Python, ainsi que les bindings \gls{SWIG} pour réaliser sa tâche.
 			\subsection{Gestion du projet}
 				TODO
 			\subsection{Travail a réaliser}
