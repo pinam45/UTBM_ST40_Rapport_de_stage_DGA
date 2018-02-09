@@ -346,7 +346,18 @@
 				\p{YaCo}
 					YaCo\footnote{pour Yet another collaborative tool} est un plugin pour IDA développé en interne a la \gls{DGA MI}, puis rendu publique au \gls{SSTIC} de 2017\cite{SSTICYaCo} et publié sur GitHub\cite{GithubYaCo}, il a pour but de résoudre ce problème en permettant un travail collaboratif sur la même base de code en utilisant le gestionnaire de version Git (voir figure \ref{fig:YaCo_principe}).
 			\subsection{Fonctionnement}
-				TODO
+				\paragraph*{}
+					IDA, à partir du binaire à analyser, génère une base de code sur laquelle il réalise une première analyse automatique avant que l'utilisateur ne travaille dessus. Cette base de code est contenue dans un fichier \gls{IDB} dans un format propriétaire, YaCo ne peut donc pas utiliser ou modifier l'\gls{IDB} sans passer par IDA, pour cette raison YaCo est implémenté comme un plugin et non un logiciel externe.
+				\paragraph*{}
+					Les \gls{IDB} ne sont pas dans un format textuel et donc une simple utilisation de Git sur l'\gls{IDB} génèrerait un dépôt Git très lourd et ne permettrait pas de gérer les merges lorsque 2 personnes modifient en parallèle la base, or le but premier de YaCo est de permettre de travailler à plusieurs sur une même base.
+				\begin{figure}[H]
+					\centering
+					\resizebox{\textwidth}{!}{\import{figures/}{YaCo_fonctionnement.tex}}
+					\caption{YaCo: fonctionnement}
+					\label{fig:YaCo_fonctionnement}
+				\end{figure}
+				\paragraph*{}
+					La solution choisit pour résoudre ce problème (représenté sur la figure \ref{fig:YaCo_fonctionnement}) est de gérer un dépôt Git en parallèle de l'\gls{IDB} utilisé par l'instance d'IDA, qui contiendrait l'\gls{IDB} original (après la première analyse d'IDA mais avant que l'utilisateur n'ait commencé à utiliser la base) ainsi que les modifications faites par l'utilisateur par rapport à cet \gls{IDB} original dans un format \gls{XML}, donc textuel et facilement utilisable avec Git.
 			\subsection{Gestion du projet}
 				TODO
 			\subsection{Travail a réaliser}
