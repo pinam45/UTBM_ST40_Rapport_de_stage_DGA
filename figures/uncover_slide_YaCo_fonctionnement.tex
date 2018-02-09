@@ -1,0 +1,160 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\pgfmathsetmacro\gitserverysep{50}%
+	\pgfmathsetmacro\instancewidth{200}%
+	\pgfmathsetmacro\instanceheight{180}%
+	\pgfmathsetmacro\instancesep{120}%
+	\pgfmathsetmacro\instanceinnersep{10}%
+	\pgfmathsetmacro\idayshift{30}%
+	\pgfmathsetmacro\idawidth{60}%
+	\pgfmathsetmacro\idaheight{80}%
+	\pgfmathsetmacro\idatxtyshift{20}%
+	\pgfmathsetmacro\yacoidasep{5}%
+	\pgfmathsetmacro\gitrepoysep{5}%
+	\pgfmathsetmacro\localidbyshift{30}%
+	\pgfmathsetmacro\bendvalue{30}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
+		\tikzset{
+			database/.style={
+				draw,
+				cylinder,
+				fill=color3,
+				shape border rotate=90,
+				aspect=0.25,
+				text width=60,
+				minimum width=50,
+				minimum height=40,
+				text centered
+			},
+			girserver/.style={
+				database,
+				fill=color4,
+				minimum width=70,
+				minimum height=50
+			},
+			gitrepo/.style={
+				draw,
+				rectangle,
+				minimum width=90,
+				minimum height=90,
+				fill=color2
+			},
+			instance/.style={
+				draw,
+				rectangle,
+				minimum width=\instancewidth,
+				minimum height=\instanceheight,
+				fill=bg_color
+			},
+			ida/.style={
+				draw,
+				rectangle,
+				minimum width=\idawidth,
+				minimum height=\idaheight,
+				fill=color1
+			},
+			yaco/.style={
+				draw,
+				rectangle,
+				minimum width=\idawidth-2*\yacoidasep,
+				minimum height=20,
+				fill=color1!30!blue
+			},
+			modif/.style={
+				draw,
+				trapezium,
+				fill=color3!80!red,
+				text centered,
+				font=\footnotesize
+			},
+			link/.style={
+				ultra thick,
+				dashed,
+				green
+			},
+		}
+
+		%---------------------------------
+		% Instance 1
+		\node[instance] (instance1) at (0,0) {};
+		\node[anchor=south] (instance1txt) at (instance1.north) {Instance 1};
+
+		%---------------------------------
+		% IDA & YaCo 1
+		\node[ida,anchor=east,yshift=\idayshift] (ida1) at ($(instance1.east)-(\instanceinnersep,0)$) {};
+		\node[anchor=north] (ida1txt) at ($(ida1.north)-(0,\idatxtyshift)$) {IDA};
+		\node[yaco,anchor=south] (yaco1) at ($(ida1.south)+(0,\yacoidasep)$) {YaCo};
+
+		%---------------------------------
+		% IDB local 1 & --
+		\node[database,anchor=north] (localidb1) at ($(ida1.south)-(0,\localidbyshift)$) {IDB local};
+		\draw[Square-] (localidb1) -- (ida1);
+
+		%---------------------------------
+		% git repo 1
+		\uncover<2->{
+			\node[gitrepo,anchor=west] (gitrepo1) at ($(instance1.west)+(\instanceinnersep,0)$) {};
+			\node[anchor=north] (gitrepo1txt) at (gitrepo1.north) {Dépot git};
+			\draw[Square-] (gitrepo1.east |- yaco1) -- (yaco1);
+		}
+		\uncover<3->{
+			\node[database,anchor=south] (originalidb1) at ($(gitrepo1.south)+(0,\gitrepoysep)$) {IDB original};
+		}
+		\uncover<4->{
+			\node[modif,anchor=south] (modif1) at ($(originalidb1.north)+(0,\gitrepoysep)$) {\footnotesize Modifications};
+		}
+
+		%---------------------------------
+		% Instance 2
+		\node[instance] (instance2) at ($(\instancewidth+\instancesep,0)$) {};
+		\node[anchor=south] (instance2txt) at (instance2.north) {Instance 2};
+
+		%---------------------------------
+		% IDA & YaCo 2
+		\node[ida,anchor=west,yshift=\idayshift] (ida2) at ($(instance2.west)+(\instanceinnersep,0)$) {};
+		\node[anchor=north] (ida2txt) at ($(ida2.north)-(0,\idatxtyshift)$) {IDA};
+		\node[yaco,anchor=south] (yaco2) at ($(ida2.south)+(0,\yacoidasep)$) {YaCo};
+
+		%---------------------------------
+		% IDB local 2 & --
+		\node[database,anchor=north] (localidb2) at ($(ida2.south)-(0,\localidbyshift)$) {IDB local};
+		\draw[Square-] (localidb2) -- (ida2);
+
+		%---------------------------------
+		% git repo 2
+		\uncover<2->{
+			\node[gitrepo,anchor=east] (gitrepo2) at ($(instance2.east)-(\instanceinnersep,0)$) {};
+			\node[anchor=north] (gitrepo2txt) at (gitrepo2.north) {Dépot git};
+			\draw[Square-] (gitrepo2.west |- yaco2) -- (yaco2);
+		}
+		\uncover<3->{
+			\node[database,anchor=south] (originalidb2) at ($(gitrepo2.south)+(0,\gitrepoysep)$) {IDB original};
+		}
+		\uncover<4->{
+			\node[modif,anchor=south] (modif2) at ($(originalidb2.north)+(0,\gitrepoysep)$) {\footnotesize Modifications};
+		}
+
+		%---------------------------------
+		% Git server & --
+		\node[girserver] (gitserver) at ($(instance2.north)!0.5!(instance1.north)+(0,\gitserverysep)$) {Serveur git};
+		\draw[->] (yaco1.east) -| (gitserver.225);
+		\draw[->] (yaco2.west) -| (gitserver.315);
+
+		%---------------------------------
+		% <->
+		\uncover<4->{
+			\draw[<->,link] (localidb1.west) to [bend left=\bendvalue] (gitrepo1.south);
+			\draw[<->,link] (localidb2.east) to [bend right=\bendvalue] (gitrepo2.south);
+		}
+
+		\uncover<5->{
+			\draw[<->,link] (gitrepo1.north) to [bend left=\bendvalue] (gitserver.west);
+			\draw[<->,link] (gitrepo2.north) to [bend right=\bendvalue] (gitserver.east);
+		}
+	\end{tikzpicture}
+\end{document}
