@@ -1,0 +1,114 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\pgfmathsetmacro\gitserverysep{50}%
+	\pgfmathsetmacro\instancewidth{180}%
+	\pgfmathsetmacro\instanceheight{120}%
+	\pgfmathsetmacro\instancesep{120}%
+	\pgfmathsetmacro\instanceinnersep{10}%
+	\pgfmathsetmacro\codebaseyshift{10}%
+	\pgfmathsetmacro\idayshift{0}%
+	\pgfmathsetmacro\idawidth{60}%
+	\pgfmathsetmacro\idaheight{80}%
+	\pgfmathsetmacro\idatxtyshift{20}%
+	\pgfmathsetmacro\yacoidasep{5}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
+		\tikzset{
+			database/.style={
+				draw,
+				cylinder,
+				%cylinder uses custom fill,
+				%cylinder body fill=color3,
+				%cylinder end fill=color3,
+				fill=color3,
+				shape border rotate=90,
+				aspect=0.25,
+				text width=50,
+				minimum width=50,
+				minimum height=40,
+				text centered
+			},
+			girserver/.style={
+				database,
+				fill=color4,
+				minimum width=70,
+				minimum height=50
+			},
+			instance/.style={
+				draw,
+				rectangle,
+				minimum width=\instancewidth,
+				minimum height=\instanceheight,
+				fill=bg_color
+			},
+			ida/.style={
+				draw,
+				rectangle,
+				minimum width=\idawidth,
+				minimum height=\idaheight,
+				fill=color1
+			},
+			yaco/.style={
+				draw,
+				rectangle,
+				minimum width=\idawidth-2*\yacoidasep,
+				minimum height=20,
+				fill=color1!30!blue
+			}
+		}
+
+		%---------------------------------
+		% Instance 1
+		\node[instance] (instance1) at (0,0) {};
+		\node[anchor=south] (instance1txt) at (instance1.north) {Instance 1};
+
+		%---------------------------------
+		% IDA & YaCo 1
+		\node[ida,anchor=east,yshift=-\idayshift] (ida1) at ($(instance1.east)-(\instanceinnersep,0)$) {};
+		\node[anchor=north] (ida1txt) at ($(ida1.north)-(0,\idatxtyshift)$) {IDA};
+		\uncover<2->{
+			\node[yaco,anchor=south] (yaco1) at ($(ida1.south)+(0,\yacoidasep)$) {YaCo};
+		}
+
+		%---------------------------------
+		% Database 1 & --
+		\node[database,anchor=west,yshift=\codebaseyshift] (codebase1) at ($(instance1.west)+(\instanceinnersep,0)$) {base de code};
+		\draw[Square-] (codebase1) -- (codebase1 -| ida1.west);
+		\uncover<2->{
+			\draw[->] (yaco1.west) -| (codebase1.south);
+		}
+
+		%---------------------------------
+		% Instance 2
+		\node[instance] (instance2) at ($(\instancewidth+\instancesep,0)$) {};
+		\node[anchor=south] (instance2txt) at (instance2.north) {Instance 2};
+
+		%---------------------------------
+		% IDA & YaCo 2
+		\node[ida,anchor=west,yshift=-\idayshift] (ida2) at ($(instance2.west)+(\instanceinnersep,0)$) {};
+		\node[anchor=north] (ida2txt) at ($(ida2.north)-(0,\idatxtyshift)$) {IDA};
+		\uncover<2->{
+			\node[yaco,anchor=south] (yaco2) at ($(ida2.south)+(0,\yacoidasep)$) {YaCo};
+		}
+
+		%---------------------------------
+		% Database 2 & --
+		\node[database,anchor=east,yshift=\codebaseyshift] (codebase2) at ($(instance2.east)-(\instanceinnersep,0)$) {base de code};
+		\draw[Square-] (codebase2) -- (codebase2 -| ida2.east);
+		\uncover<2->{
+			\draw[->] (yaco2.east) -| (codebase2.south);
+		}
+
+		%---------------------------------
+		% Git server & --
+		\uncover<2->{
+			\node[girserver] (gitserver) at ($(instance2.north)!0.5!(instance1.north)+(0,\gitserverysep)$) {Serveur git};
+			\draw[->] (yaco1.east) -| (gitserver.225);
+			\draw[->] (yaco2.west) -| (gitserver.315);
+		}
+	\end{tikzpicture}
+\end{document}
