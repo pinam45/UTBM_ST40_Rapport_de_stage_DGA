@@ -387,7 +387,14 @@
 				\paragraph*{}
 					Chacun de ces éléments utilise l'\gls{API} de IDA, disponible en C++ et en Python, ainsi que les bindings \gls{SWIG} pour réaliser sa tâche.
 			\subsection{Gestion du projet}
-				TODO
+				\paragraph*{}
+					Le projet, tout comme GenDbg, n'est pas une mission de la division mais un outil qu'ils développent pour être utilisé dans le cadre de leurs missions. Ce dernier, comme GenDbg, est public puisque présenté au \gls{SSTIC}\cite{SSTICYaCo} mais est aussi utilisable par tous et open-source puisque publié sur GitHub\cite{GithubYaCo}.
+				\paragraph*{}
+					Cela implique une gestion plus stricte du projet puisque la version en ligne doit, si possible, toujours compiler et fonctionner pour la dernière version d'IDA et qu'il a été décidé de ne pas modifier l'historique Git, rendant chaque commit du dépôt GitHub définitif.
+				\paragraph*{}
+					Cependant, cela apporte l'avantage d'avoir des retours utilisateurs et des rapports de bugs (issues sur GitHub) afin d'améliorer et maintenir YaCo. Un autre avantage est que tout le monde peut proposer des correctifs et améliorations, permettant au projet d'être développé par des personnes extérieures à la \gls{DGA}.
+				\paragraph*{}
+					De la même façon que pour GenDbg, la compilation est gérée avec CMake. De nombreux tests sont présents sur le projet, à la fois des tests unitaires sur certaines parties mais aussi des tests d'intégration afin de tester le comportement global de YaCo.
 			\subsection{Travail a réaliser}
 				TODO
 		\section{Déroulement du stage}
