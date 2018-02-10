@@ -1,0 +1,225 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\pgfmathsetmacro\gitserverysep{50}%
+
+	\pgfmathsetmacro\instancewidth{280}%
+	\pgfmathsetmacro\instanceheight{100}%
+	\pgfmathsetmacro\instanceinnersep{10}%
+
+	\pgfmathsetmacro\instancehddsep{10}%
+	\pgfmathsetmacro\hddwidth{280}%
+	\pgfmathsetmacro\hddheight{100}%
+
+	\pgfmathsetmacro\idawidth{260}%
+	\pgfmathsetmacro\idaheight{80}%
+	\pgfmathsetmacro\idatxtyshift{10}%
+
+	\pgfmathsetmacro\yacowidth{120}%
+	\pgfmathsetmacro\yacotxtyshift{0}%
+	\pgfmathsetmacro\yacoelementsep{5}%
+	\pgfmathsetmacro\yacoidasep{5}%
+
+	\pgfmathsetmacro\gitrepoyshift{30}%
+	\pgfmathsetmacro\gitrepoysep{5}%
+
+	\pgfmathsetmacro\localidbxshift{(\idawidth-\yacowidth-\yacoidasep)/2}%
+	\pgfmathsetmacro\localidbyshift{40}%
+
+	\pgfmathsetmacro\idatxtxshift{(\idawidth-\yacowidth-\yacoidasep)/2}%
+
+	\pgfmathsetmacro\idamemoryxshift{(\idawidth-\yacowidth-\yacoidasep)/2}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
+		\tikzset{
+			database/.style={
+				draw,
+				cylinder,
+				fill=color3,
+				shape border rotate=90,
+				aspect=0.25,
+				text width=60,
+				minimum width=50,
+				minimum height=40,
+				text centered
+			},
+			girserver/.style={
+				database,
+				fill=color4,
+				minimum width=70,
+				minimum height=50
+			},
+			gitrepo/.style={
+				draw,
+				rectangle,
+				minimum width=90,
+				minimum height=90,
+				fill=color2
+			},
+			instance/.style={
+				draw,
+				rectangle,
+				minimum width=\instancewidth,
+				minimum height=\instanceheight,
+				fill=bg_color
+			},
+			ida/.style={
+				draw,
+				rectangle,
+				minimum width=\idawidth,
+				minimum height=\idaheight,
+				fill=color1
+			},
+			yaco/.style={
+				draw,
+				rectangle,
+				minimum width=\yacowidth,
+				minimum height=\idaheight-2*\yacoidasep,
+				fill=color1!30!blue
+			},
+			modif/.style={
+				draw,
+				trapezium,
+				fill=color3!80!red,
+				text centered,
+				font=\footnotesize
+			},
+			yacoelement/.style={
+				draw,
+				rectangle,
+				fill=color1!70!blue,
+				minimum height=17,
+				font=\small
+			},
+			arrow/.style={
+				thick,
+				red
+			},
+		}
+
+		%---------------------------------
+		% Instance
+		\node[instance,anchor=north west] (instance) at (0,0) {};
+		\node[rotate=90,anchor=south] (instancetxt) at (instance.west) {Mémoire};
+
+		%---------------------------------
+		% HDD
+		\node[instance,anchor=north west] (hdd) at (0,-\instanceheight-\instancehddsep) {};
+		\node[rotate=90,anchor=south] (hddtxt) at (hdd.west) {Disque dur};
+
+		%---------------------------------
+		% IDA
+		\node[ida,anchor=north west] (ida) at ($(instance.north west)+(\instanceinnersep,-\instanceinnersep)$) {};
+		\node[anchor=north] (idatxt) at ($(ida.north west)+(\idatxtxshift,-\idatxtyshift)$) {IDA};
+
+		%---------------------------------
+		% YaCo
+		\node[yaco,anchor=east] (yaco) at ($(ida.east)-(\yacoidasep,0)$) {};
+		\node[anchor=north] (yacotxt) at ($(yaco.north)-(0,\yacotxtyshift)$) {YaCo};
+
+		%---------------------------------
+		% Database & --
+		\node[database,anchor=north] (localidb) at ($(ida.south west)+(\localidbxshift,-\localidbyshift)$) {IDB local};
+		\draw[Square-] (localidb) -- (localidb |- ida.south);
+
+		%---------------------------------
+		% git repo
+		\node[gitrepo,anchor=north] (gitrepo) at ($(yaco.south)-(0,\gitrepoyshift)$) {};
+		\node[anchor=north] (gitrepotxt) at (gitrepo.north) {Dépot git};
+		\node[database,anchor=south] (originalidb) at ($(gitrepo.south)+(0,\gitrepoysep)$) {IDB original};
+		\node[modif,anchor=south] (modif) at ($(originalidb.north)+(0,\gitrepoysep)$) {\footnotesize Modifications};
+		\draw[Square-] (gitrepo) -- (gitrepo |- yaco.south);
+
+		%---------------------------------
+		% ?
+		\node[
+			draw,
+			rectangle,
+			fill=color1!60,
+			minimum width=80,
+			minimum height=40,
+			text centered
+		] (idamemory) at ($(ida.north west)+(50,-50)$) {\texttt{?}};
+
+		%---------------------------------
+		% Hooks
+		\node[
+			yacoelement,
+			anchor=north west,
+			minimum width=\yacowidth-2*\yacoelementsep,
+		] (hooks) at ($(yaco.north west)+(\yacoelementsep,-20)$) {Hooks};
+
+		\coordinate (tmp) at ($(idamemory.north east)-(0,3)$);
+		\draw[-Square,dashed] (tmp) -- (tmp -| hooks.west);
+
+		%---------------------------------
+		% Event
+		\node[
+			starburst,
+			fill=yellow,
+			inner sep=2pt,
+			starburst point height=4pt
+		] (event) at ($(ida.north west)+(65,-48)$) {};
+
+		%---------------------------------
+		% Hooks 2
+		\node[
+			yacoelement,
+			anchor=north west,
+			minimum width=\yacowidth-2*\yacoelementsep,
+			text width=\yacowidth-2*\yacoelementsep-10pt,
+			align=right,
+		] (hooks) at ($(yaco.north west)+(\yacoelementsep,-20)$) {Hooks};
+
+		%---------------------------------
+		% Event ->
+		\draw[arrow,->] ($(event)+(5,2)$) to [bend left=15] node[above,text=black,font=\tiny] {save base} (hooks.175);
+
+		%---------------------------------
+		% Addresses
+		\node[
+			draw,
+			trapezium,
+			trapezium left angle=90,
+			font=\tiny,
+			anchor=west,
+			fill=color4
+		] (addresses) at ($(hooks.west)+(2,0)$) {adresses};
+
+		%---------------------------------
+		% Model
+		\node[
+			yacoelement,
+			anchor=south west,
+			minimum width=40pt,
+			text width=30,
+			text centered,
+		] (model) at ($(yaco.south west)+(\yacoelementsep,\yacoelementsep)$) {Model};
+
+		\draw[-Square] (model.west) -- (model.west -| idamemory.east);
+		\draw[-Square] (model.north) -- (model.north |- addresses.south);
+
+		%---------------------------------
+		% Exporter
+		\node[
+			yacoelement,
+			anchor=south east,
+			minimum width=55pt,
+			text width=45,
+			text centered,
+		] (exporter) at ($(yaco.south east)+(-\yacoelementsep,\yacoelementsep)$) {Exporter};
+
+		\draw[-Square] (exporter) -- (model);
+
+		%---------------------------------
+		% Modifications
+		\draw[arrow,->] (exporter.290) to[bend left=30] (modif.15);
+		\draw[arrow,->] (ida.220) to[bend left=30] (localidb.70);
+
+		\node[modif,anchor=south,fill=red] (modif) at ($(originalidb.north)+(0,\gitrepoysep)$) {\footnotesize Modifications};
+		\node[database,anchor=north,fill=red] (localidb) at ($(ida.south west)+(\localidbxshift,-\localidbyshift)$) {IDB local};
+	\end{tikzpicture}
+\end{document}
