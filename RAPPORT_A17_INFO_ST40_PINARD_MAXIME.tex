@@ -786,7 +786,7 @@
 					\label{fig:YaCo_hooks2}%
 				\end{figure}
 				\paragraph*{}
-					Lorsque l'utilisateur sauvegarde, IDA applique les modifications a son \gls{IDB} et envoie un événement aux hooks enregistrés. YaCo utilise alors les adresses stockées pour récupérer toutes les informations sur les zones modifiées dans un modèle qui est ensuite exporté en fichiers \gls{XML} avec un exporter \gls{XML}.
+					Lorsque l'utilisateur sauvegarde, IDA applique les modifications a son \gls{IDB} et envoie un événement aux hooks enregistrés. YaCo utilise alors les adresses stockées pour récupérer toutes les informations sur les zones modifiées dans un modèle qui est ensuite exporté en fichiers \gls{XML} avec un exporteur \gls{XML}.
 			\subsection{Implémentation}
 				\paragraph*{}
 					Dans YaCo, les hooks sont gérés par la classe \jclass{Hooks}, cette dernière enregistre les hooks auprès d'IDA puis, à chaque évènement de modification de la base, enregistre les adresses des modifications. Pour enregistrer un hook avec l'\gls{API} IDA il faut utiliser la fonction \jfunc{hook\_to\_notification\_point} (voir \annexe{idaapi}) qui prend en paramètre une fonction de type \jfunc{hook\_cb\_t}:\\
