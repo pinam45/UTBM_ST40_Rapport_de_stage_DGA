@@ -767,6 +767,26 @@
 				Le processus de compilation commence par exécuter \gls{SWIG} avec ses fichiers de configuration qui spécifient les headers qui contiennent les fonctions et classes pour lesquelles il faut générer des bindings. \gls{SWIG} génère alors un fichier C++ et les bindings Python qui lui sont associés. Le fichier C++ généré par \gls{SWIG} sera ensuite compilé avec la partie C++ de YaCo pour générer une \gls{DLL}.
 			\paragraph*{}
 				YaCo est donc constitué une fois compilé du fichier plugin Python \file{yaco\_plugin.py} et d'un dossier qui contient toute l'implémentation Python ainsi que la librairie C++ et ses bindings Python. Un script permet de déployer YaCo dans l'installation de IDA en créant des liens symboliques vers les éléments de YaCo dans le dossier \folder{plugin} de IDA.
+		\section{Les événements IDA}
+			\subsection{Fonctionnement}
+				\paragraph*{}
+					La gestion interne de la base de code par IDA n'est pas connue, mais l'on peut interagir avec cette dernière par son \gls{API} afin d'obtenir des informations ou bien de la modifier. Mais ce qui nous intéresse ce sont les modifications faites par l'utilisateur, pour cela l'\gls{API} IDA permet d'enregistrer des ``hooks'' afin d’être prévenu de ces modifications.
+				\begin{figure}[H]
+					\centering%
+					\resizebox{0.8\textwidth}{!}{\import{figures/}{YaCo_hooks1.tex}}%
+					\caption{YaCo: fonctionnement des hooks}%
+					\label{fig:YaCo_hooks1}%
+				\end{figure}
+				\paragraph*{}
+					Dans YaCo, et comme représenté sur la figure \ref{fig:YaCo_hooks1}, les hooks sont gérés par la classe \jcode{Hooks} qui s'enregistre avec l'\gls{API} IDA pour recevoir les évènements des modifications de la base de code tel que la suppression d'une structure ou le renommage d'une fonction. À chaque évènement, l'adresse de la modification (ou l'id dans le cas des \textit{enum} et \textit{structs}) est enregistrée dans les hooks.
+				\begin{figure}[H]
+					\centering%
+					\resizebox{0.8\textwidth}{!}{\import{figures/}{YaCo_hooks2.tex}}%
+					\caption{YaCo: hooks, sauvegarde de la base}%
+					\label{fig:YaCo_hooks2}%
+				\end{figure}
+				\paragraph*{}
+					Lorsque l'utilisateur sauvegarde, IDA applique les modifications a son \gls{IDB} et envoie un événement aux hooks enregistrés. YaCo utilise alors les adresses stockées pour récupérer toutes les informations sur les zones modifiées dans un modèle qui est ensuite exporté en fichiers \gls{XML} avec un exporter \gls{XML}.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
