@@ -396,7 +396,14 @@
 				\paragraph*{}
 					De la même façon que pour GenDbg, la compilation est gérée avec CMake. De nombreux tests sont présents sur le projet, à la fois des tests unitaires sur certaines parties mais aussi des tests d'intégration afin de tester le comportement global de YaCo.
 			\subsection{Travail a réaliser}
-				TODO
+				\paragraph*{}
+					Mon travail sur Yaco a été de continuer le portage en C++ du plugin tout en améliorant le code pour les parties toujours en Python, les principales étant la gestion les évènements IDA et du dépôt Git. En effet le plugin est le résultat d'un développement incrémental selon les besoins du moment, de nombreuses améliorations du code sont possibles.
+				\paragraph*{}
+					Ce portage en C++ va donc permettre de repenser le code dans sa globalité alors que lors du développement initial incrémental le but était plutôt d'ajouter la fonctionnalité nécessaire le plus vite possible en modifiant le moins de code possible, générant des redondances de code ainsi que la présence de code qui n'est plus utilisé.
+				\paragraph*{}
+					Les \gls{API} C++ et Python de GenDbg étant différentes sur de nombreux points, il ne sera pas possible de se baser sur l'utilisation de cette dernière faite dans le Python et il sera nécessaire d'étudier l'\gls{API} C++.
+				\paragraph*{}
+					Enfin, durant mon portage en C++, Hex-Rays a sorti la version 7 de IDA dans laquelle ils ont modifié l'\gls{API} aussi bien Python que C++, le portage a donc aussi été l’occasion de porter YaCo sur IDA 7.
 		\section{Déroulement du stage}
 			\subsection{Conditions de travail}
 				\p{Horaires}
