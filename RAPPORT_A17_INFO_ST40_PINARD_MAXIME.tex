@@ -787,6 +787,18 @@
 				\end{figure}
 				\paragraph*{}
 					Lorsque l'utilisateur sauvegarde, IDA applique les modifications a son \gls{IDB} et envoie un événement aux hooks enregistrés. YaCo utilise alors les adresses stockées pour récupérer toutes les informations sur les zones modifiées dans un modèle qui est ensuite exporté en fichiers \gls{XML} avec un exporter \gls{XML}.
+			\subsection{Implémentation}
+				\paragraph*{}
+					Dans YaCo, les hooks sont gérés par la classe \jclass{Hooks}, cette dernière enregistre les hooks auprès d'IDA puis, à chaque évènement de modification de la base, enregistre les adresses des modifications. Pour enregistrer un hook avec l'\gls{API} IDA il faut utiliser la fonction \jfunc{hook\_to\_notification\_point} (voir \annexe{idaapi}) qui prend en paramètre une fonction de type \jfunc{hook\_cb\_t}:\\
+					\lstinputlisting[language={[yaco]C}, style=magic_style, numbers=none]{code/hook_cb_t.c}
+				\paragraph*{}
+					Le premier paramètre (\jcode{user\_data}) est utilisé pour passer la classe \jclass{Hooks} à la fonction afin d'y ajouter l'adresse de la modification, le second paramètre (\jcode{notification\_code}) correspond a l'enum des évènements possibles pour le type d'évènements hooké (voir \annexe{idaapi}) et le dernier paramètre (\jcode{va}) contient les arguments de l'évènement (spécifiés dans la documentation).
+				\paragraph*{}
+					IDA permet d'écouter différents types d'évènements (voir l'enum \jclass{hook\_type\_t} dans l'\annexe{idaapi}), parmi ces évènements, les évènements IDP (module processeur) sont les plus généraux et regroupent souvent de nombreuses modifications dans un seul évènement, mais ils permettent de suivre certaines des modifications de la base de code. Tandis que les évènements IDB sont eux plus précis et permettent de suivre presque l'intégralité des modifications.
+				\paragraph*{}
+					Alors que la version Python des hooks utilisait certains évènements IDP car les évènements IDB était incomplets dans l'\gls{API} Python, la version C++ n'utilise elle que les évènements IDB car ces derniers sont beaucoup plus complets dans l'\gls{API} C++. Cela a permis le support de nouveaux évènements ainsi qu'une grande simplification du code.
+				\paragraph*{}
+					Pour ce qui est de l'export des modifications, lorsque la base est sauvegardée, YaCo utilise un système de modèles et exporteurs qui utilise un design pattern visiteur bien pensé, mais qui ne sera pas détaillé ici, cette parie étant déjà en C++. Ainsi à la réception de l'évènement de sauvegarde, les hooks, par ce système, exportent les informations sur les zones modifiées au format \gls{XML}, ces fichiers sont par la suite synchronisés par le repository.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
