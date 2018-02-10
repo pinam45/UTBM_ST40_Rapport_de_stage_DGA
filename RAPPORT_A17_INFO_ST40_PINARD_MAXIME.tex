@@ -759,6 +759,14 @@
 				Un autre avantage de l'utilisation de Capstone et Keystone est que le module profitera des améliorations apportées à ces derniers dans leurs futurs mise à jours, que ce soit des améliorations de performance ou le support des futures versions de l'\gls{ISA} \gls{MIPS}.
 			\paragraph*{}
 				Enfin, l'ajout de tests permet de fiabiliser le module mais aussi simplifie son maintien et son évolution, par exemple en s'assurant que les futures modifications ajoutées au module, que ce soit pour l'ajout de fonctionnalités ou les mises à jour de Capstone et Keystone, ne viennent pas introduire des comportements non voulus.
+	\chapter{YaCo}\label{ch:yaco}
+		\section{Compilation}
+			\paragraph*{}
+				Tout comme GenDbg, la compilation est gérée avec CMake et inclut toutes ces dépendances afin de ne pas dépendre d'une plateforme, d'un compilateur ou de librairies que l'utilisateur devrait au préalable installer. Une exception étant les tests d'intégration qui nécessitent d'avoir Python installé.
+			\paragraph*{}
+				Le processus de compilation commence par exécuter \gls{SWIG} avec ses fichiers de configuration qui spécifient les headers qui contiennent les fonctions et classes pour lesquelles il faut générer des bindings. \gls{SWIG} génère alors un fichier C++ et les bindings Python qui lui sont associés. Le fichier C++ généré par \gls{SWIG} sera ensuite compilé avec la partie C++ de YaCo pour générer une \gls{DLL}.
+			\paragraph*{}
+				YaCo est donc constitué une fois compilé du fichier plugin Python \file{yaco\_plugin.py} et d'un dossier qui contient toute l'implémentation Python ainsi que la librairie C++ et ses bindings Python. Un script permet de déployer YaCo dans l'installation de IDA en créant des liens symboliques vers les éléments de YaCo dans le dossier \folder{plugin} de IDA.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
