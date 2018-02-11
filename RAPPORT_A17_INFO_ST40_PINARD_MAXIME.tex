@@ -883,6 +883,15 @@
 					L'implémentation C++ du repository diffère peu de la version Python, le repository est géré par la classe \jclass{Repository}, cette dernière utilise la classe \jclass{GitRepo} de YaGitLib, une librairie de YaCo. YaGitLib est un wrap C++ de la librairie libgit2 qui est une implémentation C portable très utilisée des méthodes de base de Git.
 				\paragraph*{}
 					Le repository construit le message de commit au fur et à mesure des modifications de l'utilisateur, à chaque évènement reçut par les hooks, ces derniers préviennent le repository de la modification qui a eu lieu et ce dernier ajoute une ligne au message de commit avec l'adresse de la modification et des informations sur cette dernière.
+			\subsection{Améliorations}
+				\paragraph*{}
+					Le portage en C++ n'apporte que peu d'améliorations, principalement la clarification et la simplification du code. Il a aussi permis de supprimer le besoin de \gls{SWIG} comme intermédiaire entre le repository et YaGitLib.
+				\paragraph*{}
+					La principale amélioration dont le repository aurait besoin est de changer la manière de générer les messages de commit ainsi que la syntaxe de ces derniers. En effet, avec le système actuel, si par exemple une structure est modifiée puis supprimée, le message de commit contiendra une ligne pour la modification puis une pour la suppression alors que seule celle de la suppression est pertinente.
+				\paragraph*{}
+					De plus les indications sur les modifications restent assez vagues, les hooks avant le portage se contentant d'enregistrer l'adresse sans identifier précisément la modification. Or comme abordé précédemment, lors du portage des hooks en C++, ont été ajoutés des logs complets de tout les évènements avec une identification précise des modifications, ces informations pourrait donc aussi être utilisées pour le message de commit.
+				\paragraph*{}
+					Une idée de nouvelle syntaxe pour les messages de commit plus standardisée et permettant de connaitre les modifications exactes effectuées m'a été exposée, cette syntaxe pouvant aussi servir pour les logs des évènements. J'ai commencé à réfléchir à un moyen de réaliser cette dernière mais n'ai pas eu le temps de l'implémenter avant la fin du stage.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
