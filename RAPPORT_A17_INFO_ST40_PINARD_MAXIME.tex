@@ -878,6 +878,11 @@
 				\end{figure}
 				\paragraph*{}
 					Pour resynchroniser la base, et comme représenté sur la figure \ref{fig:YaCo_repository_discard_and_pull}, le repository réinitialise la branche master locale dans l'état de la branche distante, ce qui a pour effet de supprimer les fichiers \gls{XML} des modifications et changer l'\gls{IDB} original. L'\gls{IDB} local utilisé par IDA est alors remplacé par l'\gls{IDB} original du dépôt et IDA doit être redémarré. Après le redémarrage, YaCo est de nouveau synchronisé entre tous les utilisateurs.
+			\subsection{Implémentation}
+				\paragraph*{}
+					L'implémentation C++ du repository diffère peu de la version Python, le repository est géré par la classe \jclass{Repository}, cette dernière utilise la classe \jclass{GitRepo} de YaGitLib, une librairie de YaCo. YaGitLib est un wrap C++ de la librairie libgit2 qui est une implémentation C portable très utilisée des méthodes de base de Git.
+				\paragraph*{}
+					Le repository construit le message de commit au fur et à mesure des modifications de l'utilisateur, à chaque évènement reçut par les hooks, ces derniers préviennent le repository de la modification qui a eu lieu et ce dernier ajoute une ligne au message de commit avec l'adresse de la modification et des informations sur cette dernière.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
