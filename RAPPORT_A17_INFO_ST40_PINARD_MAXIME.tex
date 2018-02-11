@@ -799,6 +799,19 @@
 					Alors que la version Python des hooks utilisait certains évènements IDP car les évènements IDB était incomplets dans l'\gls{API} Python, la version C++ n'utilise elle que les évènements IDB car ces derniers sont beaucoup plus complets dans l'\gls{API} C++. Cela a permis le support de nouveaux évènements ainsi qu'une grande simplification du code.
 				\paragraph*{}
 					Pour ce qui est de l'export des modifications, lorsque la base est sauvegardée, YaCo utilise un système de modèles et exporteurs qui utilise un design pattern visiteur bien pensé, mais qui ne sera pas détaillé ici, cette parie étant déjà en C++. Ainsi à la réception de l'évènement de sauvegarde, les hooks, par ce système, exportent les informations sur les zones modifiées au format \gls{XML}, ces fichiers sont par la suite synchronisés par le repository.
+			\subsection{Résultats}
+				\p{Améliorations}
+					Le fait de passer de l'\gls{API} Python a l'\gls{API} C++ plus complète a permis le support de nouveaux évènements, les plus notables étant tous ceux en rapport avec les segments tels que le changement de position, de taille, de nom, de flags ou même de couleur.
+				\paragraph*{}
+					Une amélioration très attendue de YaCo était la gestion du renommage des registres, or lors de la mise a jour de IDA vers sa version 7, des améliorations ont été apportées à l'\gls{API} dont l'ajout d'évènements pour le renommage des registres. Le portage a donc aussi été l'occasion d'ajouter le support de ces évènements à YaCo.
+				\paragraph*{}
+					Afin de permettre une évolutivité simple des hooks, j'ai ajouté à ces derniers l'analyse et le log de tous les évènements IDB de IDA afin que l'ajout du support de nouveaux évènements soit le plus simple possible.
+				\paragraph*{}
+					Le log des évènements permet de comprendre plus simplement ce qui s'est passé en cas de crash ou comportement anormal de YaCo mais permet aussi, lorsqu'une modification n'est pas prise en compte par YaCo, d'identifier facilement si un évènement IDA lui est associé et si cela est le cas, lequel.
+				\p{Limitations}
+					Certains évènements manquent toujours même avec l'\gls{API} C++ d'IDA, par exemple ceux relatifs à la modification des bookmarks, empêchant YaCo de gérer ces derniers pour le moment.
+				\paragraph*{}
+					On peut aussi noter les évènements aux comportements anormaux tels que celui du flag \textit{noret}, qui indique si une fonction retourne quelque chose ou non, dont la modification donne lieu à un évènement uniquement la première fois.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
