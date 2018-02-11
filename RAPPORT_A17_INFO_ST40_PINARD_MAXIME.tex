@@ -892,6 +892,25 @@
 					De plus les indications sur les modifications restent assez vagues, les hooks avant le portage se contentant d'enregistrer l'adresse sans identifier précisément la modification. Or comme abordé précédemment, lors du portage des hooks en C++, ont été ajoutés des logs complets de tout les évènements avec une identification précise des modifications, ces informations pourrait donc aussi être utilisées pour le message de commit.
 				\paragraph*{}
 					Une idée de nouvelle syntaxe pour les messages de commit plus standardisée et permettant de connaitre les modifications exactes effectuées m'a été exposée, cette syntaxe pouvant aussi servir pour les logs des évènements. J'ai commencé à réfléchir à un moyen de réaliser cette dernière mais n'ai pas eu le temps de l'implémenter avant la fin du stage.
+		\section{Résultats}
+			\paragraph*{}
+				Le portage de YaCo en C++ est presque complet, toutes les parties importantes ont été portées en C++, ne reste en Python plus que le fichier \file{yaco\_plugin.py} qui sert à lancer le plugin, et les tests. Ces derniers vont sans doute rester en Python, yaco\_plugin ne servant qu'a ajouter YaCo comme plugin a IDA et les tests ne servant que pour le développement.
+			\p{Avantages}
+				Le plus visible est un énorme gain de performances mais cela vient presque exclusivement des modèles / exporteurs déjà portés en C++ avant mon arrivée. Le portage des hooks et du repository ont eu surtout pour avantage d'avoir accès a une \gls{API} IDA beaucoup plus complète, ce qui a permis d'ajouter le support de nouvelles modifications mais aussi permettra, dans le futur, un meilleur système de logs et messages de commits.
+			\paragraph*{}
+				Le portage a aussi pour avantage de passer d'un langage interprété à un langage compilé, simplifiant énormément le suivi des changements d'\gls{API} IDA, puisque au lieu de découvrir les modifications à l’exécution, ces dernières sont directement détectés à la compilation. Par exemple au passage à IDA 7, certaines fonctions ont vu l'ordre de leurs paramètres changer, pour la partie C++ une simple compilation a permis de détecter cette modification puis de s'assurer d'avoir corrigé toutes les utilisations de ces fonctions.
+			\paragraph*{}
+				En Python la modification est invisible, le plugin fonctionne toujours et une erreur ne sera reportée que lors de l'utilisation de la fonction qui a changée. Il faut aller chercher les utilisations de cette dernière à la main, quand la modification est bien précisée dans le changelog d'IDA, ce qui n'est pas toujours le cas.
+			\paragraph*{}
+				Le C++ apporte aussi un débogage plus simple, permettant de suivre le programme à son exécution et d'utiliser une version Debug, tandis que en Python ce dernier est exécuté par IDA en Release empêchant le débogue. De plus, le débogue C++ est beaucoup plus puissant que celui du Python de par le fait que le langage soit explicitement fortement typé mais aussi que les outils disponibles sont beaucoup plus développés (par exemple de débogueur de Visual Studio).
+			\paragraph*{}
+				Finalement, le portage a permis de repenser le code de façon globale afin de le simplifier, ajouter de nouvelles fonctionnalités, supprimer ce qui ne servait plus, et de simplifier les évolutions futures.
+			\p{Inconvénients}
+				Les principaux utilisateurs de YaCo ne sont pas des développeurs à plein temps, leur principale occupation est le reverse engineering, c'est pour cela qu'ils utilisent IDA et donc YaCo. Ces derniers se servent donc plus souvent de langages de script tels que le Python (IDA est équipé d'une console Python) que de langages tels que le C++. Le portage rend donc le développement de YaCo moins accessible à ses principaux utilisateurs.
+			\paragraph*{}
+				On peut aussi noter que le C++ nécessite plus de code par rapport au Python pour réaliser une tâche équivalente, de ce fait bien que le code ait été simplifié avec le portage, ce dernier a augmenté la quantité de code de YaCo.
+			\paragraph*{}
+				De mon point de vue, les avantages de ce portage surpassent largement les inconvénients qui l'accompagnent, notamment pour l'évolution du plugin qui sera beaucoup plus simple avec une compilation et un débogue facile à réaliser.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
