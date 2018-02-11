@@ -868,6 +868,16 @@
 				\end{figure}
 				\paragraph*{}
 					Pour cela et comme représenté sur la figure \ref{fig:YaCo_repository_sync_and_push}, le repository supprime l'ensemble des fichiers \gls{XML} ainsi que l'\gls{IDB} original du dépôt qu'il remplace par l'\gls{IDB} local d'IDA, rétablissant la synchronisation. Le dépôt git est ensuite force push, c'est-à-dire que la branche master locale vas remplacer la branche distante.
+				\p{Force pull}
+					Lorsqu'un utilisateur réalise un force push, les autres utilisateurs doivent eux réaliser un force pull afin de resynchroniser leur dépôt. Cette action est possible depuis le menu graphique de YaCo.
+				\begin{figure}[H]
+					\centering%
+					\resizebox{0.6\textwidth}{!}{\import{figures/}{YaCo_repository_discard_and_pull.tex}}%
+					\caption{YaCo: force pull}%
+					\label{fig:YaCo_repository_discard_and_pull}%
+				\end{figure}
+				\paragraph*{}
+					Pour resynchroniser la base, et comme représenté sur la figure \ref{fig:YaCo_repository_discard_and_pull}, le repository réinitialise la branche master locale dans l'état de la branche distante, ce qui a pour effet de supprimer les fichiers \gls{XML} des modifications et changer l'\gls{IDB} original. L'\gls{IDB} local utilisé par IDA est alors remplacé par l'\gls{IDB} original du dépôt et IDA doit être redémarré. Après le redémarrage, YaCo est de nouveau synchronisé entre tous les utilisateurs.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
