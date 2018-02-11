@@ -1,0 +1,166 @@
+%!TEX program = xelatex
+\documentclass[11pt,class=book]{standalone}
+\input{figures_packages}
+\input{figures_common}
+
+\begin{document}
+	\pgfmathsetmacro\gitserverysep{50}%
+	\pgfmathsetmacro\instancewidth{200}%
+	\pgfmathsetmacro\instanceheight{180}%
+	\pgfmathsetmacro\instancesep{120}%
+	\pgfmathsetmacro\instanceinnersep{10}%
+	\pgfmathsetmacro\idayshift{30}%
+	\pgfmathsetmacro\idawidth{60}%
+	\pgfmathsetmacro\idaheight{80}%
+	\pgfmathsetmacro\idatxtyshift{20}%
+	\pgfmathsetmacro\yacoidasep{5}%
+	\pgfmathsetmacro\gitrepoysep{5}%
+	\pgfmathsetmacro\localidbyshift{30}%
+	\pgfmathsetmacro\commitsep{20}%
+
+	\begin{tikzpicture}[x=1pt,y=1pt,>=Latex]
+		\tikzset{
+			database/.style={
+				draw,
+				cylinder,
+				fill=color3,
+				shape border rotate=90,
+				aspect=0.25,
+				text width=60,
+				minimum width=50,
+				minimum height=40,
+				text centered
+			},
+			girserver/.style={
+				database,
+				fill=color4,
+				minimum width=70,
+				minimum height=50
+			},
+			gitrepo/.style={
+				draw,
+				rectangle,
+				minimum width=90,
+				minimum height=90,
+				fill=color2
+			},
+			instance/.style={
+				draw,
+				rectangle,
+				minimum width=\instancewidth,
+				minimum height=\instanceheight,
+				fill=bg_color
+			},
+			ida/.style={
+				draw,
+				rectangle,
+				minimum width=\idawidth,
+				minimum height=\idaheight,
+				fill=color1
+			},
+			yaco/.style={
+				draw,
+				rectangle,
+				minimum width=\idawidth-2*\yacoidasep,
+				minimum height=20,
+				fill=color1!30!blue
+			},
+			modif/.style={
+				draw,
+				trapezium,
+				fill=color3!80!red,
+				text centered,
+				font=\footnotesize
+			},
+			commit/.style={
+				draw,
+				circle,
+				fill=white,
+				inner sep=0pt,
+				minimum size=12pt
+			},
+			commitname/.style={
+				font=\small\tt
+			},
+			committxt/.style={
+				font=\small\tt,
+				anchor=west
+			},
+			arrow/.style={
+				thick,
+				red
+			},
+			every path/.style={
+				draw
+			}
+		}
+
+		%---------------------------------
+		% Instance
+		\node[instance,anchor=north west] (instance) at (0,0) {};
+
+		%---------------------------------
+		% IDA & YaCo
+		\node[ida,anchor=west,yshift=\idayshift] (ida) at ($(instance.west)+(\instanceinnersep,0)$) {};
+		\node[anchor=north] (idatxt) at ($(ida.north)-(0,\idatxtyshift)$) {IDA};
+		\node[yaco,anchor=south] (yaco) at ($(ida.south)+(0,\yacoidasep)$) {YaCo};
+
+		%---------------------------------
+		% Database & --
+		\node[database,anchor=north] (codebase) at ($(ida.south)-(0,\localidbyshift)$) {IDB local};
+		\draw[Square-] (codebase) -- (ida);
+
+		%---------------------------------
+		% git repo
+		\node[gitrepo,anchor=east] (gitrepo) at ($(instance.east)-(\instanceinnersep,0)$) {};
+		\node[anchor=north] (gitrepotxt) at (gitrepo.north) {Dépot git};
+		\node[database,anchor=south] (originalidb) at ($(gitrepo.south)+(0,\gitrepoysep)$) {IDB original};
+		\node[modif,anchor=south] (modif) at ($(originalidb.north)+(0,\gitrepoysep)$) {\footnotesize Modifications};
+		\draw[Square-] (gitrepo.west |- yaco) -- (yaco);
+
+		%---------------------------------
+		% Git server & --
+		% \node[girserver] (gitserver) at (-20,50) {Serveur git};
+		% \draw[->] (yaco.west) -| (gitserver.south);
+
+		%---------------------------------
+		% Git tree
+		\node[commit,green,fill=green] (c1) at (250,-160) {};
+		\node[commitname] (c1txt) at (c1) {A};
+
+		\node[commit,green,fill=green] (c2) at ($(c1)+(0,\commitsep)$) {};
+		\node[commitname] (c2txt) at (c2) {B};
+		\path[green] (c1) to[out=90,in=-90] (c2);
+
+		\node[commit,green,fill=green] (c3) at ($(c2)+(0,\commitsep)$) {};
+		\node[commitname] (c3txt) at (c3) {C};
+		\path[green] (c2) to[out=90,in=-90] (c3);
+
+		\node[commit,green,fill=green] (c4) at ($(c3)+(0,\commitsep)$) {};
+		\node[commitname] (c4txt) at (c4) {D};
+		\path[green] (c3) to[out=90,in=-90] (c4);
+
+		\node[commit,red,fill=red] (c5) at ($(c4)+(0,\commitsep)$) {};
+		\node[commitname] (c5txt) at (c5) {M};
+		\path[green] (c4) to[out=90,in=-90] (c5);
+
+		\node[
+			font=\small\tt,
+			gray,
+			above,
+			anchor=south
+		] (master) at (c5.north) {master};
+
+		%---------------------------------
+		% Modifications
+		\node[database,anchor=north,fill=red] (codebase) at ($(ida.south)-(0,\localidbyshift)$) {IDB local};
+		\node[database,anchor=south,fill=red] (originalidb) at ($(gitrepo.south)+(0,\gitrepoysep)$) {IDB original};
+
+		\draw[thick,red] ($(modif.west)+(0,10)$) -- ($(modif.east)-(0,10)$);
+		\draw[thick,red] ($(modif.west)-(0,10)$) -- ($(modif.east)+(0,10)$);
+
+		\draw[arrow,->] (codebase.east) to [bend right=35] (originalidb.south);
+		\draw[arrow,->]  (modif.5) to [bend left=30] (c5.170);
+		\draw[arrow,->]  (originalidb.15) to [bend left=30] (c5.190);
+	\end{tikzpicture}
+\end{document}
