@@ -858,6 +858,16 @@
 					Une fois le rebase opéré, dans notre exemple et comme visible sur la figure \ref{fig:YaCo_repository3}, un commit \texttt{M'} a été créé avec le renommage de la fonction \texttt{test\_function} en \texttt{new\_name\_3}. Les modifications sont ensuite push sur le dépôt distant.
 				\paragraph*{}
 					Après la synchronisation effectuée, les modifications des fichiers \gls{XML} sont chargées et appliquées à IDA afin que ce derniers prenne en compte les modifications issues du dépôt distant et donc des autres utilisateurs travaillant sur la base de code.
+				\p{Force push}
+					Il arrive que le dépôt Git, bien que maintenu par YaCo, se désynchronise avec l'\gls{IDB} local d'IDA, ça a par exemple été le cas lors de la mise à jour d'IDA vers sa version 7 qui a effectué une nouvelle analyse de mon \gls{IDB} de test sans lancer les plugins, dans ce cas-là, le menu graphique de YaCo permet de resynchroniser et push sa base.
+				\begin{figure}[H]
+					\centering%
+					\resizebox{0.6\textwidth}{!}{\import{figures/}{YaCo_repository_sync_and_push.tex}}%
+					\caption{YaCo: force push}%
+					\label{fig:YaCo_repository_sync_and_push}%
+				\end{figure}
+				\paragraph*{}
+					Pour cela et comme représenté sur la figure \ref{fig:YaCo_repository_sync_and_push}, le repository supprime l'ensemble des fichiers \gls{XML} ainsi que l'\gls{IDB} original du dépôt qu'il remplace par l'\gls{IDB} local d'IDA, rétablissant la synchronisation. Le dépôt git est ensuite force push, c'est-à-dire que la branche master locale vas remplacer la branche distante.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
