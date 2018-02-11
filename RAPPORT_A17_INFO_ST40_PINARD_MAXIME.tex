@@ -812,6 +812,52 @@
 					Certains évènements manquent toujours même avec l'\gls{API} C++ d'IDA, par exemple ceux relatifs à la modification des bookmarks, empêchant YaCo de gérer ces derniers pour le moment.
 				\paragraph*{}
 					On peut aussi noter les évènements aux comportements anormaux tels que celui du flag \textit{noret}, qui indique si une fonction retourne quelque chose ou non, dont la modification donne lieu à un évènement uniquement la première fois.
+		\section{Le dépôt Git}
+			\subsection{Fonctionnement}
+				\p{Git}
+					Git est un système de contrôle de versions distribuée, gratuit, et open-source conçu pour gérer le code source des petits aux très grands projets rapidement et efficacement. Il est très utilisé pour la gestion de tous type de projet informatique et sur des sites d'hébergement de code tel que GitHub, pour plus d'informations se référer au site git-scm\cite{GitSCM}. Un schéma représentant les déplacements de données des commandes essentielles est disponible en \annexe{gitcommands}.
+				\p{Synchronisation}
+					Après les modifications apportées aux fichiers \gls{XML} du dépôt Git, la classe \jclass{Repository}, qui gère le dépôt, prend la main pour synchroniser le dépôt local avec celui distant, dans le cas où ce dernier a été configuré. Prenons l'exemple ou la fonction \texttt{test\_function} a été renommée \texttt{new\_name\_1}.
+				\begin{figure}[H]
+					\centering%
+					\resizebox{0.6\textwidth}{!}{\import{figures/}{YaCo_repository1.tex}}%
+					\caption{YaCo: commit des modifications}%
+					\label{fig:YaCo_repository1}%
+				\end{figure}
+				\paragraph*{}
+					En reprenant les notations de la figure \ref{fig:YaCo_repository1}, le repository commence par créer un commit \texttt{M} sur la branche locale \texttt{master} qui contient les modifications apportées aux fichiers \gls{XML} des modifications. Commence ensuite la synchronisation avec le dépôt distant, pour cela, la branche master de ce dernier est fetch.
+				\begin{figure}[H]
+					\centering%
+					\resizebox{0.9\textwidth}{!}{\import{figures/}{YaCo_repository2.tex}}%
+					\caption{YaCo: fetch de la branche distante}%
+					\label{fig:YaCo_repository2}%
+				\end{figure}
+				\paragraph*{}
+					Une fois la branche master distante fetch (voir figure \ref{fig:YaCo_repository2}), on rebase les modifications locales (commit \texttt{M}) à la suite des modifications distantes (commit \texttt{E}), plusieurs cas sont alors possibles:
+					\begin{itemize}
+						\item Pas de modification distantes: rien ne se passe
+						\item Des modifications sur des lignes différentes des lignes modifiées en local: git merge les modifications
+						\item Des modifications d'éléments différents sur la même ligne ou des lignes proches (échec du merge automatique de git): utilisation du SmartMerger de YaCo qui va gérer le conflit
+						\item Modification du même élément: on demande à l'utilisateur de choisir la version à garder
+					\end{itemize}
+				\begin{figure}[H]
+					\centering
+					\includegraphics[width=0.7\textwidth]{YaCo_conflict_view}
+					\caption{YaCo: fenêtre de dialogue pour la résolution des conflits}
+					\label{fig:YaCo_conflict_view}
+				\end{figure}
+				\paragraph*{}
+					Toujours dans notre exemple, sur la branche distante la fonction \texttt{test\_function} a été renommée \texttt{new\_name\_2}, nous sommes donc dans le dernier cas, la fenêtre de dialogue visible sur la figure \ref{fig:YaCo_conflict_view} permet alors à l'utilisateur de choisir le nom de fonction à garder (\texttt{new\_name\_3} dans notre cas).
+				\begin{figure}[H]
+					\centering%
+					\resizebox{0.9\textwidth}{!}{\import{figures/}{YaCo_repository3.tex}}%
+					\caption{YaCo: push de la branche locale après le rebase}%
+					\label{fig:YaCo_repository3}%
+				\end{figure}
+				\paragraph*{}
+					Une fois le rebase opéré, dans notre exemple et comme visible sur la figure \ref{fig:YaCo_repository3}, un commit \texttt{M'} a été créé avec le renommage de la fonction \texttt{test\_function} en \texttt{new\_name\_3}. Les modifications sont ensuite push sur le dépôt distant.
+				\paragraph*{}
+					Après la synchronisation effectuée, les modifications des fichiers \gls{XML} sont chargées et appliquées à IDA afin que ce derniers prenne en compte les modifications issues du dépôt distant et donc des autres utilisateurs travaillant sur la base de code.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
