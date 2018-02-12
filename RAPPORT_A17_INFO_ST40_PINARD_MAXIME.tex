@@ -911,6 +911,19 @@
 				On peut aussi noter que le C++ nécessite plus de code par rapport au Python pour réaliser une tâche équivalente, de ce fait bien que le code ait été simplifié avec le portage, ce dernier a augmenté la quantité de code de YaCo.
 			\paragraph*{}
 				De mon point de vue, les avantages de ce portage surpassent largement les inconvénients qui l'accompagnent, notamment pour l'évolution du plugin qui sera beaucoup plus simple avec une compilation et un débogue facile à réaliser.
+	\chaptertoc{Conclusion}
+		\p{Entreprise}
+			La \gls{DGA} est vraiment une entreprise particulière de par son fonctionnement et l'importance du secret, ce qui a été très intéressant à découvrir et m'a donné envie de m'intéresser à la sécurité dans la suite de mes études. J'ai découvert à la \gls{DGA MI} des métiers de l'informatique qui m'étaient inconnus, notamment ceux liés au reverse engineering que je trouve très intéressants et peu enseignés, même si je garde une préférence pour le développement pur.
+		\paragraph*{}
+			La \gls{DGA MI} a l'avantage par rapport aux autres entreprises ``standard'' de ne pas avoir un but de rentabilité, cela lui permettant de regrouper des experts dans tous les domaines de l'informatique sur des sujets variés. J'avais déjà vu de la communication du Ministère des armées mais, avant ce stage, je n'avais pourtant jamais entendu parler de la \gls{DGA MI} qui semblait très fermée. Cependant cette dernière commence a s'ouvrir, cela est visible notamment par les présentations réalisées au \gls{SSTIC} mais aussi par les projets publiés publiquement dont YaCo est le premier.
+		\p{Travail produit}
+			Je suis content de ce que j'ai réalisé durant le stage, le sujet initial étant la réalisation du module MIPS, ce dernier est parfaitement fonctionnel et équipé de tests comme voulu initialement. De plus, ayant fini le module rapidement, j'ai eu l'occasion de travailler sur YaCo, le repository et les hooks que j'ai portés en C++ sont fonctionnels et apportent des améliorations par rapport à leur anciennes versions.
+		\paragraph*{}
+			Même si fonctionnels, des évolutions de ces derniers sont encore possibles, notamment le support de coprocesseurs pour le module \gls{MIPS} de GenDbg et les messages de commits et de logs de YaCo.
+		\p{Expérience}
+			Je me suis intéressé à beaucoup de sujets que j'ai trouvés passionnant pour lesquels je n'aurais peut-être pas cherché d'informations sans ce stage tels que l'architecture des microprocesseurs, le rétro-engineering et l'analyse de binaires. Le travail que j'ai réalisé ainsi que les discussions avec les membres de la division et surtout avec mon maitre de stage m’ont permis de comprendre les contraintes réelles du développement d'un logiciel. Par exemple l'importance de la conception initiale, GenDbg après plus de 10 ans reste limité par les choix d'\gls{API} fait initialement et YaCo, pour rester rétro-compatible, ne peut pas se permettre de changer la syntaxe \gls{XML} lourde choisit initialement.
+		\paragraph*{}
+			Ce stage a été l'occasion de travailler sur des projets massifs avec lesquels j'ai pu me confronter à de nombreux aspects de conception, notamment me rendre compte de l'importance de penser aux données et à leur représentation et pas uniquement à leur traitement. Dans le cas d'un projet scolaire, on a tendance à oublier ce point, ce dernier brassant peut de données cela n'a que peu d'impact sur les performances. Mais, lorsque les données commencent à se compter en gigaoctets, avoir une approche ``data oriented'' est très important, notamment au niveau des \gls{API} qui, si mal conçues, peuvent forcer une représentation des données à l'implémentation. L'approche ``object oriented'' seule étant souvent inefficace pour un projet brassant un grand nombre de données.
 	%%% Bibliographie
 	\nocite{*}
 	\bibliographystyle{ieeetr-fr}
