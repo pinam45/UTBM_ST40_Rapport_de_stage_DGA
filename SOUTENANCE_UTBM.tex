@@ -1,0 +1,94 @@
+%!TEX program = xelatex
+\PassOptionsToPackage{table,svgnames}{xcolor}
+\PassOptionsToPackage{french}{translator}
+\documentclass[aspectratio=169,11pt]{beamer}
+
+%----------------------------------------
+% Packages
+%----------------------------------------
+%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{translator}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage[justification=centering]{caption}
+\usepackage{float}
+\usepackage{standalone}
+\usepackage{import}
+% PGF-TikZ
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{pgf-umlsd}
+\usepackage{pgfgantt}
+
+%----------------------------------------
+% Theme
+%----------------------------------------
+
+\usetheme{boxes}
+\useoutertheme{infolines}
+\usecolortheme{whale}%beaver
+\usecolortheme{seagull}
+
+% remove bottom line
+\setbeamertemplate{footline}{}
+
+% remove navigation symbols.
+\beamertemplatenavigationsymbolsempty{}
+
+%\setbeamercovered{transparent}
+
+%----------------------------------------
+% Informations
+%----------------------------------------
+
+\title{Développement et fiabilisation d'un module de désassemblage interne}
+\subtitle{Direction Générale de l'Armement}
+\author{Maxime Pinard}
+\institute[UTBM]{Université de Technologie de Belfort Montbéliard}
+\date{1er mars 2018}
+
+%\keywords{}
+\subject{Développement et fiabilisation d'un module de désassemblage interne}
+%\logo{\includegraphics[width=0.12\textwidth]{logos/DGA}}
+
+%----------------------------------------
+% Configurations
+%----------------------------------------
+
+\graphicspath{{figures/}}
+
+\AtBeginSection
+{
+	\begin{frame}<beamer>
+		\vfill{}
+		\centering
+		\begin{beamercolorbox}[sep=8pt,center]{title}
+			\Huge\insertsectionhead\par%
+		\end{beamercolorbox}
+		\vfill{}
+	\end{frame}
+}
+
+%----------------------------------------
+% Figures configuration
+%----------------------------------------
+
+\input{figures/figures_common}
+
+%----------------------------------------
+% Document
+%----------------------------------------
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+\end{document}

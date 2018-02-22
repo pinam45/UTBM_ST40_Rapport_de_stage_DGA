@@ -1,5 +1,5 @@
 @echo off
-set DOCUMENTS_NAMES=RAPPORT_A17_INFO_ST40_PINARD_MAXIME PRESENTATION_DGA
+set DOCUMENTS_NAMES=RAPPORT_A17_INFO_ST40_PINARD_MAXIME PRESENTATION_DGA SOUTENANCE_UTBM
 set TO_DELETE_EXT=-blx.aux -blx.bib .acn .acr .alg .aux .bbl .bcf .blg .cb .cb2 .dvi .fdb_latexmk .fls .fmt .fot .glg .glo .gls .glsdefs .idx .ilg .ind .ist .lof .log .lol .lot .nav .out .pdf .pdfsync .pre .run.xml .snm .sta .synctex .synctex.gz .toc .vrb .xdv
 echo.
 for %%D in  (%DOCUMENTS_NAMES%) do (

@@ -1,13 +1,14 @@
 @echo off
 rem =============================================================================
 rem Project related variables
-set DOCUMENTS_NAMES=RAPPORT_A17_INFO_ST40_PINARD_MAXIME PRESENTATION_DGA
+set DOCUMENTS_NAMES=RAPPORT_A17_INFO_ST40_PINARD_MAXIME PRESENTATION_DGA SOUTENANCE_UTBM
 
 set NEEDS_BIBTEX=RAPPORT_A17_INFO_ST40_PINARD_MAXIME
 set NEEDS_MAKEGLOSSARIES=RAPPORT_A17_INFO_ST40_PINARD_MAXIME
 
 set PACKAGES_REQUIRED[RAPPORT_A17_INFO_ST40_PINARD_MAXIME]=amsmath amssymb array caption chngcntr fancyvrb float fontenc footmisc glossaries hyperref import listings lmodern mathrsfs multirow pdflscape pgf pgf-umlsd pgfgantt scalerel stackengine standalone tabularx tikz tocbibind translator upmethodology-document utbmcovers xcolor packages/MagicListings packages/StandardLibraryCDefinition
 set PACKAGES_REQUIRED[PRESENTATION_DGA]=amsmath amssymb array caption float fontenc hyperref import listings lmodern mathrsfs multirow pgf pgf-umlsd pgfgantt standalone tabularx tikz translator xcolor packages/MagicListings packages/StandardLibraryCDefinition
+set PACKAGES_REQUIRED[SOUTENANCE_UTBM]=amsmath amssymb array caption float fontenc hyperref import listings lmodern mathrsfs multirow pgf pgf-umlsd pgfgantt standalone tabularx tikz translator xcolor
 
 rem =============================================================================
 rem Commands variables
