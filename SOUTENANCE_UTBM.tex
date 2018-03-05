@@ -273,4 +273,36 @@
 				\frametitle{Manipulation d'informations}
 				\centering\resizebox{\textwidth}{!}{\import{figures/}{uncover_slide_GenDbg_sequence_GetInstructionPointer.tex}}
 			\end{frame}
+		\subsection*{YaCo}
+			\begin{frame}\label{presentationida}
+				\frametitle{Présentation d'IDA}
+				\centering\includegraphics[width=\textwidth]{IDA7_Vue_texte}
+			\end{frame}
+			\begin{frame}
+				\frametitle{Présentation d'IDA}
+				\centering\includegraphics[width=\textwidth]{IDA7_Vue_graphe}
+			\end{frame}
+			\begin{frame}\label{concept}
+				\frametitle{Concept}
+				\centering\resizebox{\textwidth}{!}{\import{figures/}{uncover_YaCo_principe.tex}}
+			\end{frame}
+			\begin{frame}\label{fonctionnement}
+				\frametitle{Fonctionnement}
+				\centering\resizebox{\textwidth}{!}{\import{figures/}{uncover_slide_YaCo_fonctionnement.tex}}
+			\end{frame}
+			\begin{frame}\label{butstage}
+				\frametitle{But du stage}
+				Principaux éléments de YaCo:
+				\begin{center}
+					\begin{tabularx}{\textwidth}{Xp{120pt}}
+						$\blacktriangleright$ Hooks             & Python \uncover<2->{\color{green}$\longrightarrow$ C++}\\
+						$\blacktriangleright$ Model / Exporteur & C++\\
+						$\blacktriangleright$ Repository        & Python \uncover<2->{\color{green}$\longrightarrow$ C++}\\
+						$\blacktriangleright$ Yaco (glue)       & Python \uncover<2->{\color{green}$\longrightarrow$ C++}\\
+					\end{tabularx}
+				\end{center}
+			\end{frame}
+			\begin{frame}[plain]
+				\utbmclosingframe{}
+			\end{frame}
 \end{document}
