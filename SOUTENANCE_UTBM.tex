@@ -1,7 +1,8 @@
 %!TEX program = xelatex
 \PassOptionsToPackage{table,svgnames}{xcolor}
 \PassOptionsToPackage{french}{translator}
-\documentclass[aspectratio=169,11pt]{beamer}
+%\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass[11pt]{beamer}
 
 %----------------------------------------
 % Packages
@@ -28,6 +29,9 @@
 \usepackage{tikz}
 \usepackage{pgf-umlsd}
 \usepackage{pgfgantt}
+% Personnal packages
+\usepackage{packages/MagicListings}
+\usepackage{packages/StandardLibraryCDefinition}
 
 %----------------------------------------
 % Theme
@@ -51,7 +55,7 @@
 %----------------------------------------
 
 \title{Développement et fiabilisation d'un module de désassemblage interne}
-\subtitle{Direction Générale de l'Armement}
+%\subtitle{Direction Générale de l'Armement}
 \author{Maxime Pinard}
 \institute[UTBM]{Université de Technologie de Belfort Montbéliard}
 \date{1er mars 2018}
@@ -77,6 +81,12 @@
 		\vfill{}
 	\end{frame}
 }
+
+%----------------------------------------
+% Listings configuration
+%----------------------------------------
+
+\input{GenDbgCDefinition}
 
 %----------------------------------------
 % Figures configuration
