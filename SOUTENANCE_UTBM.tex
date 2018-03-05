@@ -37,18 +37,7 @@
 % Theme
 %----------------------------------------
 
-\usetheme{boxes}
-\useoutertheme{infolines}
-\usecolortheme{whale}%beaver
-\usecolortheme{seagull}
-
-% remove bottom line
-\setbeamertemplate{footline}{}
-
-% remove navigation symbols.
-\beamertemplatenavigationsymbolsempty{}
-
-%\setbeamercovered{transparent}
+\usetheme[illustration=cover2]{utbm}
 
 %----------------------------------------
 % Informations
@@ -72,13 +61,8 @@
 
 \AtBeginSection
 {
-	\begin{frame}<beamer>
-		\vfill{}
-		\centering
-		\begin{beamercolorbox}[sep=8pt,center]{title}
-			\Huge\insertsectionhead\par%
-		\end{beamercolorbox}
-		\vfill{}
+	\begin{frame}[plain]
+		\utbmtitle{\insertsectionhead}
 	\end{frame}
 }
 
