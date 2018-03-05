@@ -226,4 +226,51 @@
 				\hspace*{-10pt}%
 				\centering\resizebox{0.9\paperwidth}{!}{\import{figures/}{Planning.tex}}
 			\end{frame}
+		\subsection*{GenDbg}
+			\begin{frame}\label{architecturemips}
+				\frametitle{L'architecture MIPS}
+				\centering\includegraphics[width=0.7\textwidth]{MIPS_Architecture_Evolution}
+				% 1985: MIPS I
+				% 1999: MIPS32/64
+				% 2012: R5
+				% 2014: R6
+			\end{frame}
+			\begin{frame}
+				\frametitle{MIPS32/64 Release 6}
+				\centering\fbox{\includegraphics[width=\textwidth]{MIPS_LWC2}}\\
+				\centering\fbox{\includegraphics[width=\textwidth]{MIPS_R6_BC}}
+			\end{frame}
+			\begin{frame}\label{moduleapi}
+				\frametitle{API du module}
+				\lstinputlisting[language={[gendbg]C}, style=magic_style, numbers=none]{code/GetAsmModuleInfo.c}
+				\begin{itemize}
+					\item version du module (2)
+					\item architecture (MIPS)
+					\item taille de cellule (8 bits)
+					\item taille max d'une instruction (32 bits)
+					\item type de données utilisées (byte, halfword, word, doubleword)
+					\item groupes de registres (GPR32, GPR64, SPR32, \ldots)
+					\item \ldots
+					\item liste des callbacks du module
+				\end{itemize}
+			\end{frame}
+			\begin{frame}
+				\hspace{30pt}\resizebox{!}{110pt}{\lstinputlisting[language={[gendbg]C}, style=magic_style]{code/AsmModuleFnIdx_T.c}}
+			\end{frame}
+			\begin{frame}
+				\frametitle{API du module}
+				Différent types de fonctions:
+				\begin{itemize}
+					\item Init / Uninit
+					\item Manipulation des informations au format spécifique
+					\item Conversion du format spécifique à l'architecture vers texte et inversement
+					\begin{itemize}
+						\item Utilisation de Capstone et Keystone
+					\end{itemize}
+				\end{itemize}
+			\end{frame}
+			\begin{frame}\label{manipulationinformation}
+				\frametitle{Manipulation d'informations}
+				\centering\resizebox{\textwidth}{!}{\import{figures/}{uncover_slide_GenDbg_sequence_GetInstructionPointer.tex}}
+			\end{frame}
 \end{document}
