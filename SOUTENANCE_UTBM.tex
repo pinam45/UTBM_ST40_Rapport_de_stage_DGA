@@ -82,7 +82,52 @@
 % Document
 %----------------------------------------
 \begin{document}
-	\begin{frame}
+	\begin{frame}[plain,noframenumbering]
 		\titlepage
 	\end{frame}
+	\begin{frame}{Sommaire}
+		\tableofcontents
+	\end{frame}
+	\section{Présentation de l'entreprise}
+		\begin{frame}
+			\frametitle{Du Ministère des Armées à la DGA MI}
+			\centering\resizebox{\textwidth}{!}{\import{figures/}{uncover_slide_Ministere_Defense_a_DGA_MI.tex}}
+			%----------
+			% MinArm: 265 000 personnes
+			% DGA: 9 700 personnes
+			%----------
+			% Missions DGA:
+			% - Équiper les forces armées
+			% - Préparer l’avenir
+			% - Promouvoir les exportations d’armement
+		\end{frame}
+		\begin{frame}
+			\frametitle{La DGA MI}
+			\centering\resizebox{\textwidth}{!}{\import{figures/}{Hierarchie_DGA_MI_a_VIM.tex}}
+			% Ancien CELAR
+			% Conception, expertise, essais, évaluation: systemes d'informations, informatique, communications, spacial
+		\end{frame}
+		\begin{frame}
+			\frametitle{VIM/VSE}
+			\begin{block}{Analyse dynamique}
+				\begin{itemize}
+					\item Gendbg
+						\begin{itemize}
+							\invisible{\item Développement et fiabilisation du module de désassemblage MIPS}
+						\end{itemize}
+				\end{itemize}
+			\end{block}
+			\pause
+			\begin{block}{Analyse statique}
+				\begin{itemize}
+					\item IDA
+						\begin{itemize}
+							\item YaCo
+								\begin{itemize}
+									\invisible{\item Portage en C++ et amélioration de la gestion des évènements IDA et du dépôt Git}
+								\end{itemize}
+						\end{itemize}
+				\end{itemize}
+			\end{block}
+		\end{frame}
 \end{document}
